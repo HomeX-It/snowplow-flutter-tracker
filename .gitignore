@@ -5,6 +5,7 @@
 .pub/
 
 build/
+coverage/
 
 # IntelliJ related
 *.iml

@@ -1,8 +1,7 @@
 name: snowplow_flutter_tracker
-description: Snowplow event tracker for Flutter. Add analytics to your Flutter apps and games http:&#x2F;&#x2F;snowplowanalytics.com
-version: 0.0.1
-author: Patrik Szabó <patricktailor@icloud.com>
+description: Snowplow event tracker for Flutter. Add analytics to your Flutter apps and games
 homepage: https://github.com/patricktailor/snowplow-flutter-tracker
+version: 0.0.1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

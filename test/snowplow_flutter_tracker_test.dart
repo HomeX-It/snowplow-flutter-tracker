@@ -12,6 +12,12 @@ void main() {
     });
   });
 
+  group('SnowplowFlutterTracker', () {
+    test('Test', () {
+      expect(true, true);
+    });
+  });
+
   tearDown(() {
     channel.setMockMethodCallHandler(null);
   });

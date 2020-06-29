@@ -14,8 +14,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    final Emitter emitter = EmitterBuilder('your-collector-endpoint-url').build();
-    final Tracker tracker = TrackerBuilder(emitter, 'your-namespace', 'your-appId').build();
+    final emitter = EmitterBuilder('your-collector-endpoint-url').build();
+    final tracker = TrackerBuilder(emitter, 'your-namespace', 'your-appId').build();
     _tracker = SnowplowFlutterTracker();
     _tracker.initialize(tracker);
 
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               RaisedButton(
                 onPressed: () {
-                  final selfDescribingJson = SelfDescribingJsonBuilder().setSchema('iglu:com.acme/event/jsonschema/1-0-0').setPayload({"message": "hello world"}).build();
+                  final selfDescribingJson = SelfDescribingJsonBuilder().setSchema('iglu:com.acme/event/jsonschema/1-0-0').setPayload(<String, Object>{'message': 'hello world'}).build();
                   final selfDescribing = SelfDescribingBuilder().setEventData(selfDescribingJson).build();
                   _tracker.track(selfDescribing);
                 },
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
               SizedBox(height: 24.0),
               RaisedButton(
                 onPressed: () {
-                  final screenView = ScreenViewBuilder().setName("home").setType("full").setTransitionType("none").setPreviousName('').setPreviousType('').build();
+                  final screenView = ScreenViewBuilder().setName('home').setType('full').setTransitionType('none').setPreviousName('').setPreviousType('').build();
                   _tracker.track(screenView);
                 },
                 child: Text('Send Screen View Event'),
