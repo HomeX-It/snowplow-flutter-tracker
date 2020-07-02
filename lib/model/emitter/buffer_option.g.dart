@@ -30,35 +30,4 @@ final BuiltSet<BufferOption> _$values =
   _$heavyGroup,
 ]);
 
-Serializer<BufferOption> _$bufferOptionSerializer =
-    new _$BufferOptionSerializer();
-
-class _$BufferOptionSerializer implements PrimitiveSerializer<BufferOption> {
-  static const Map<String, Object> _toWire = const <String, Object>{
-    'Single': 1,
-    'DefaultGroup': 10,
-    'HeavyGroup': 25,
-  };
-  static const Map<Object, String> _fromWire = const <Object, String>{
-    1: 'Single',
-    10: 'DefaultGroup',
-    25: 'HeavyGroup',
-  };
-
-  @override
-  final Iterable<Type> types = const <Type>[BufferOption];
-  @override
-  final String wireName = 'BufferOption';
-
-  @override
-  Object serialize(Serializers serializers, BufferOption object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
-
-  @override
-  BufferOption deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      BufferOption.valueOf(_fromWire[serialized] ?? serialized as String);
-}
-
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

@@ -1,19 +1,35 @@
 import 'package:snowplow_flutter_tracker/model/events/abstract_event.dart';
 import 'package:snowplow_flutter_tracker/model/events/ecommerce_transaction_item.dart';
 
-class EcommerceTransaction extends AbstractEvent {
+/// [EcommerceTransaction] event.
+class EcommerceTransaction implements AbstractEvent {
+	/// [orderId] ID of the eCommerce transaction.
 	final String orderId;
+	/// [totalValue] Total transaction value.
 	final double totalValue;
+	/// [affiliation] Transaction affiliation.
 	final String affiliation;
+	/// [taxValue] Transaction tax value.
 	final double taxValue;
+	/// [shipping] Delivery cost charged.
 	final double shipping;
+	/// [city] Delivery address city.
 	final String city;
+	/// [state] Delivery address state.
 	final String state;
+	/// [country] Delivery address country.
 	final String country;
+	/// [currency] Transaction currency.
 	final String currency;
+	/// [items] An array of items in the transaction.
 	final List<EcommerceTransactionItem> items;
 
 	EcommerceTransaction._builder(EcommerceTransactionBuilder builder) :
+			assert(builder._orderId != null && builder._orderId.isNotEmpty, 'orderId cannot be null or empty'),
+			assert(builder._totalValue != null, 'totalValue cannot be null'),
+			assert(builder._taxValue != null, 'taxValue cannot be null'),
+			assert(builder._shipping != null, 'shipping cannot be null'),
+			assert(builder._items != null && builder._items.isNotEmpty, 'items cannot be null or empty'),
 			orderId = builder._orderId,
 			totalValue = builder._totalValue,
 			affiliation = builder._affiliation,
@@ -44,6 +60,7 @@ class EcommerceTransaction extends AbstractEvent {
   }
 }
 
+/// The protocol for building ecommerce transaction events.
 class EcommerceTransactionBuilder {
 	String _orderId;
 	double _totalValue;
@@ -56,56 +73,67 @@ class EcommerceTransactionBuilder {
 	String _currency;
 	List<EcommerceTransactionItem> _items;
 
+	/// Set the order ID.
 	EcommerceTransactionBuilder setOrderId(String orderId) {
 		_orderId = orderId;
 		return this;
 	}
 
+	/// Set the total value.
 	EcommerceTransactionBuilder setTotalValue(double totalValue) {
 		_totalValue = totalValue;
 		return this;
 	}
 
+	/// Set the affiliation.
 	EcommerceTransactionBuilder setAffiliation(String affiliation) {
 		_affiliation = affiliation;
 		return this;
 	}
 
+	/// Set the tax value.
 	EcommerceTransactionBuilder setTaxValue(double taxValue) {
 		_taxValue = taxValue;
 		return this;
 	}
 
+	/// Set the shipping.
 	EcommerceTransactionBuilder setShipping(double shipping) {
 		_shipping = shipping;
 		return this;
 	}
 
+	/// Set the city.
 	EcommerceTransactionBuilder setCity(String city) {
 		_city = city;
 		return this;
 	}
 
+	/// Set the state.
 	EcommerceTransactionBuilder setState(String state) {
 		_state = state;
 		return this;
 	}
 
+	/// Set the country.
 	EcommerceTransactionBuilder setCountry(String country) {
 		_country = country;
 		return this;
 	}
 
+	/// Set the currency.
 	EcommerceTransactionBuilder setCurrency(String currency) {
 		_currency = currency;
 		return this;
 	}
 
+	/// Set the items.
 	EcommerceTransactionBuilder setItems(List<EcommerceTransactionItem> items) {
 		_items = items;
 		return this;
 	}
 
+	/// Creates an ecommerce event.
 	EcommerceTransaction build() {
 		return EcommerceTransaction._builder(this);
 	}

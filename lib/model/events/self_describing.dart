@@ -1,12 +1,10 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:snowplow_flutter_tracker/model/events/abstract_event.dart';
 import 'package:snowplow_flutter_tracker/model/events/self_describing_json.dart';
 
-class SelfDescribing extends AbstractEvent {
+/// [SelfDescribing] event
+class SelfDescribing implements AbstractEvent {
+	/// [eventData] A self-describing JSON of a self describing event.
 	final SelfDescribingJson eventData;
-
-  const SelfDescribing({@required this.eventData});
 
 	SelfDescribing._builder(SelfDescribingBuilder builder) : eventData = builder._eventData;
 
@@ -18,14 +16,17 @@ class SelfDescribing extends AbstractEvent {
   }
 }
 
+/// [SelfDescribingBuilder] The protocol for building self describing events.
 class SelfDescribingBuilder {
 	SelfDescribingJson _eventData;
 
+	/// Set the data field of the self describing event.
 	SelfDescribingBuilder setEventData(SelfDescribingJson eventData) {
 		_eventData = eventData;
 		return this;
 	}
 
+	/// A self describing.
 	SelfDescribing build() {
 		return SelfDescribing._builder(this);
 	}

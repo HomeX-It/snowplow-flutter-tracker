@@ -50,46 +50,4 @@ final BuiltSet<DevicePlatforms> _$values =
   _$iot,
 ]);
 
-Serializer<DevicePlatforms> _$devicePlatformsSerializer =
-    new _$DevicePlatformsSerializer();
-
-class _$DevicePlatformsSerializer
-    implements PrimitiveSerializer<DevicePlatforms> {
-  static const Map<String, Object> _toWire = const <String, Object>{
-    'Web': 'web',
-    'Mobile': 'mob',
-    'Desktop': 'pc',
-    'ServerSideApp': 'srv',
-    'General': 'app',
-    'ConnectedTV': 'tv',
-    'GameConsole': 'cnsl',
-    'InternetOfThings': 'iot',
-  };
-  static const Map<Object, String> _fromWire = const <Object, String>{
-    'web': 'Web',
-    'mob': 'Mobile',
-    'pc': 'Desktop',
-    'srv': 'ServerSideApp',
-    'app': 'General',
-    'tv': 'ConnectedTV',
-    'cnsl': 'GameConsole',
-    'iot': 'InternetOfThings',
-  };
-
-  @override
-  final Iterable<Type> types = const <Type>[DevicePlatforms];
-  @override
-  final String wireName = 'DevicePlatforms';
-
-  @override
-  Object serialize(Serializers serializers, DevicePlatforms object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
-
-  @override
-  DevicePlatforms deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      DevicePlatforms.valueOf(_fromWire[serialized] ?? serialized as String);
-}
-
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

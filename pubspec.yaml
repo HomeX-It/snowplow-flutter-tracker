@@ -23,5 +23,9 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.patricktailor.snowplow_flutter_tracker
-    pluginClass: SnowplowFlutterTrackerPlugin
+    platforms:
+      android:
+        package: com.patricktailor.snowplow_flutter_tracker
+        pluginClass: SnowplowFlutterTrackerPlugin
+      ios:
+        pluginClass: SnowplowFlutterTrackerPlugin
