@@ -1,4 +1,4 @@
-import 'package:snowplow_flutter_tracker/model/events/abstract_event.dart';
+import 'abstract_event.dart';
 
 /// [ScreenView] event
 class ScreenView implements AbstractEvent {

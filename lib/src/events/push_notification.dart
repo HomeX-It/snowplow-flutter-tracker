@@ -1,5 +1,5 @@
-import 'package:snowplow_flutter_tracker/model/events/abstract_event.dart';
-import 'package:snowplow_flutter_tracker/model/events/notification_content.dart';
+import 'abstract_event.dart';
+import 'notification_content.dart';
 
 /// [PushNotification] event.
 class PushNotification implements AbstractEvent {

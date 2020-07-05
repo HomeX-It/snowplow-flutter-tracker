@@ -1,6 +1,7 @@
-import 'package:snowplow_flutter_tracker/model/emitter/emitter.dart';
-import 'package:snowplow_flutter_tracker/model/tracker/device_platforms.dart';
-import 'package:snowplow_flutter_tracker/model/tracker/log_level.dart';
+import 'device_platforms.dart';
+import 'log_level.dart';
+
+import '../emitter/emitter.dart';
 
 /// [Tracker] The tracker class.
 /// This class is used for tracking events, and delegates them to other classes responsible for sending, storage, etc.

@@ -1,6 +1,6 @@
-import 'package:snowplow_flutter_tracker/model/emitter/buffer_option.dart';
-import 'package:snowplow_flutter_tracker/model/emitter/http_method.dart';
-import 'package:snowplow_flutter_tracker/model/emitter/request_security.dart';
+import 'buffer_option.dart';
+import 'http_method.dart';
+import 'request_security.dart';
 
 /// [Emitter] This class sends events to the collector.
 class Emitter {

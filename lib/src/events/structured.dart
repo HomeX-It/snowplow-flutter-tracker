@@ -1,4 +1,4 @@
-import 'package:snowplow_flutter_tracker/model/events/abstract_event.dart';
+import 'abstract_event.dart';
 
 /// [Structured] event
 class Structured implements AbstractEvent {

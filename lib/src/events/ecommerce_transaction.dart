@@ -1,5 +1,5 @@
-import 'package:snowplow_flutter_tracker/model/events/abstract_event.dart';
-import 'package:snowplow_flutter_tracker/model/events/ecommerce_transaction_item.dart';
+import 'abstract_event.dart';
+import 'ecommerce_transaction_item.dart';
 
 /// [EcommerceTransaction] event.
 class EcommerceTransaction implements AbstractEvent {

@@ -1,11 +1,10 @@
-name: Lint, Test, Build and Release
-on: push
+name: Run analyze and tests
+on: pull_request
 jobs:
-  build:
-    name: Lint
+  analyze-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -15,3 +14,6 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test --coverage
+      - uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage/lcov.info

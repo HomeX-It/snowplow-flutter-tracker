@@ -1,5 +1,5 @@
-import 'package:snowplow_flutter_tracker/model/events/abstract_event.dart';
-import 'package:snowplow_flutter_tracker/model/events/self_describing_json.dart';
+import 'abstract_event.dart';
+import 'self_describing_json.dart';
 
 /// [SelfDescribing] event
 class SelfDescribing implements AbstractEvent {

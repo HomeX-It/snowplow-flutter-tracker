@@ -1,5 +1,5 @@
-import 'package:snowplow_flutter_tracker/model/events/abstract_event.dart';
-import 'package:snowplow_flutter_tracker/model/events/consent_document.dart';
+import 'abstract_event.dart';
+import 'consent_document.dart';
 
 /// [ConsentWithdrawn] event.
 class ConsentWithdrawn implements AbstractEvent {
