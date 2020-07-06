@@ -18,6 +18,8 @@ if [ -z "${PUB_DEV_EXPIRATION}" ]; then
   exit 1
 fi
 
+mkdir -p "$HOME/.pub-cache/"
+
 cat <<EOF > ~/.pub-cache/credentials.json
 {
   "accessToken": "${PUB_DEV_ACCESS_TOKEN}",
