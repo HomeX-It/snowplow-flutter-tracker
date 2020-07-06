@@ -26,6 +26,6 @@ cat <<EOF > ~/.pub-cache/credentials.json
   "refreshToken": "${PUB_DEV_REFRESH_TOKEN}",
   "tokenEndpoint": "${PUB_DEV_TOKEN_ENDPOINT}",
   "scopes": ["https://www.googleapis.com/auth/userinfo.email","openid"],
-  "expiration": "${PUB_DEV_EXPIRATION}",
+  "expiration": ${PUB_DEV_EXPIRATION},
 }
 EOF
