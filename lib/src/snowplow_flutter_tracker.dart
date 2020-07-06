@@ -19,8 +19,10 @@ import 'tracker/tracker.dart';
 /// [SnowplowFlutterTracker]
 /// The class which communicates with the current platform.
 class SnowplowFlutterTracker {
-  static final SnowplowFlutterTracker _singleton = SnowplowFlutterTracker._internal();
-  static final MethodChannel _channel = MethodChannel('snowplow_flutter_tracker');
+  static final SnowplowFlutterTracker _singleton =
+      SnowplowFlutterTracker._internal();
+  static final MethodChannel _channel =
+      MethodChannel('snowplow_flutter_tracker');
 
   /// Constructor which always returns the original instance of the class.
   factory SnowplowFlutterTracker() {
@@ -53,14 +55,17 @@ class SnowplowFlutterTracker {
     } else if (event is PageView) {
       return await _channel.invokeMethod('trackPageView', event.toMap());
     } else if (event is EcommerceTransaction) {
-      return await _channel.invokeMethod('trackEcommerceTransaction', event.toMap());
+      return await _channel.invokeMethod(
+          'trackEcommerceTransaction', event.toMap());
     } else if (event is ConsentGranted) {
       return await _channel.invokeMethod('trackConsentGranted', event.toMap());
     } else if (event is ConsentWithdrawn) {
-      return await _channel.invokeMethod('trackConsentWithdrawn', event.toMap());
+      return await _channel.invokeMethod(
+          'trackConsentWithdrawn', event.toMap());
     } else if (event is PushNotification) {
       if (Platform.isIOS) {
-        return await _channel.invokeMethod('trackPushNotification', event.toMap());
+        return await _channel.invokeMethod(
+            'trackPushNotification', event.toMap());
       }
     } else if (event is Timing) {
       return await _channel.invokeMethod('trackTiming', event.toMap());

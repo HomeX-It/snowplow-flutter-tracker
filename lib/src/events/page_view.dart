@@ -4,16 +4,19 @@ import 'abstract_event.dart';
 class PageView implements AbstractEvent {
   /// [pageUrl] The URL of the page.
   final String pageUrl;
+
   /// [pageTitle] The title of the page.
   final String pageTitle;
+
   /// [referrer] The page view referrer.
   final String referrer;
 
-  PageView._builder(PageViewBuilder builder) :
-      assert(builder._pageUrl != null && builder._pageUrl.isNotEmpty, 'pageUrl cannot be null or empty'),
-      pageUrl = builder._pageUrl,
-      pageTitle = builder._pageTitle,
-      referrer = builder._referrer;
+  PageView._builder(PageViewBuilder builder)
+      : assert(builder._pageUrl != null && builder._pageUrl.isNotEmpty,
+            'pageUrl cannot be null or empty'),
+        pageUrl = builder._pageUrl,
+        pageTitle = builder._pageTitle,
+        referrer = builder._referrer;
 
   @override
   Map<String, Object> toMap() {

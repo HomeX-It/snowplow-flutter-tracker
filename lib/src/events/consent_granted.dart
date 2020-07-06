@@ -5,26 +5,35 @@ import 'consent_document.dart';
 class ConsentGranted implements AbstractEvent {
   /// [expiry] The associated consent document expiry.
   final String expiry;
+
   /// [documentId] The associated consent document ID.
   final String documentId;
+
   /// [documentVersion] The associated consent document version.
   final String documentVersion;
+
   /// [documentName] The associated consent document name.
   final String documentName;
+
   /// [documentDescription] The associated consent document description.
   final String documentDescription;
+
   /// [consentDocuments] An array of associated consent documents.
   final List<ConsentDocument> consentDocuments;
 
-  ConsentGranted._builder(ConsentGrantedBuilder builder) :
-      assert(builder._documentId != null && builder._documentId.isNotEmpty, 'documentId cannot be null or empty'),
-      assert(builder._documentVersion != null && builder._documentVersion.isNotEmpty, 'documentVersion cannot be null or empty'),
-      expiry = builder._expiry,
-      documentId = builder._documentId,
-      documentVersion = builder._documentVersion,
-      documentName = builder._documentName,
-      documentDescription = builder._documentDescription,
-      consentDocuments = builder._consentDocuments;
+  ConsentGranted._builder(ConsentGrantedBuilder builder)
+      : assert(builder._documentId != null && builder._documentId.isNotEmpty,
+            'documentId cannot be null or empty'),
+        assert(
+            builder._documentVersion != null &&
+                builder._documentVersion.isNotEmpty,
+            'documentVersion cannot be null or empty'),
+        expiry = builder._expiry,
+        documentId = builder._documentId,
+        documentVersion = builder._documentVersion,
+        documentName = builder._documentName,
+        documentDescription = builder._documentDescription,
+        consentDocuments = builder._consentDocuments;
 
   @override
   Map<String, Object> toMap() {
@@ -34,7 +43,8 @@ class ConsentGranted implements AbstractEvent {
       'documentVersion': documentVersion,
       'documentName': documentName,
       'documentDescription': documentDescription,
-      'consentDocuments': consentDocuments.map((ConsentDocument consentDocument) {
+      'consentDocuments':
+          consentDocuments.map((ConsentDocument consentDocument) {
         return consentDocument.toMap();
       }).toList(),
     };
@@ -81,7 +91,8 @@ class ConsentGrantedBuilder {
   }
 
   /// Set additional associated consent documents.
-  ConsentGrantedBuilder setConsentDocuments(List<ConsentDocument> consentDocuments) {
+  ConsentGrantedBuilder setConsentDocuments(
+      List<ConsentDocument> consentDocuments) {
     _consentDocuments = consentDocuments;
     return this;
   }

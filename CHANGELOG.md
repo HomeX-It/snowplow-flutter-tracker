@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.2] - 2020-07-06
+### Added
+- **Flutter:** formatting issues fixed by `flutter format`
+
+## [0.9.1] - 2020-07-05
+### Added
+- **Flutter:** Example application credentials updated
+
 ## [0.9.0] - 2020-07-04
 ### Added
 - **Flutter:** Tracker initialization, Subject setter and event tracking

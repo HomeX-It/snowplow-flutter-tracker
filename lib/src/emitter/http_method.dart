@@ -5,19 +5,19 @@ part 'http_method.g.dart';
 
 /// [HttpMethod] An enum for HTTP method types.
 class HttpMethod extends EnumClass {
-	/// [GET] GET request.
-	@BuiltValueEnumConst(wireName: 'GET')
-	static const HttpMethod GET = _$get;
+  /// [GET] GET request.
+  @BuiltValueEnumConst(wireName: 'GET')
+  static const HttpMethod GET = _$get;
 
-	/// [POST] POST request.
-	@BuiltValueEnumConst(wireName: 'POST')
-	static const HttpMethod POST = _$post;
+  /// [POST] POST request.
+  @BuiltValueEnumConst(wireName: 'POST')
+  static const HttpMethod POST = _$post;
 
-	const HttpMethod._(String name) : super(name);
+  const HttpMethod._(String name) : super(name);
 
-	/// [values] Returns all values.
-	static BuiltSet<HttpMethod> get values => _$values;
+  /// [values] Returns all values.
+  static BuiltSet<HttpMethod> get values => _$values;
 
-	/// [valueOf] Makes [HttpMethod] from the value.
-	static HttpMethod valueOf(String name) => _$valueOf(name);
+  /// [valueOf] Makes [HttpMethod] from the value.
+  static HttpMethod valueOf(String name) => _$valueOf(name);
 }
