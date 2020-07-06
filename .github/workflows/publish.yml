@@ -20,7 +20,6 @@ jobs:
       - uses: codecov/codecov-action@v1
         with:
           file: ./coverage/lcov.info
-        shell: bash
         env:
           PUB_DEV_ACCESS_TOKEN: ${{ secrets.PUB_DEV_ACCESS_TOKEN }}
           PUB_DEV_REFRESH_TOKEN: ${{ secrets.PUB_DEV_REFRESH_TOKEN }}
