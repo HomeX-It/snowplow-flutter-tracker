@@ -28,5 +28,7 @@ jobs:
           PUB_DEV_EXPIRATION: ${{ secrets.PUB_DEV_EXPIRATION }}
         run: |
           sh ./scripts/pub_login.sh
-      - run: flutter pub publish --dry-run
-      - run: flutter pub publish -f
+      - name: Check publish warnings
+        run: pub publish --dry-run
+      - name: Publish package
+        run: pub publish -f
