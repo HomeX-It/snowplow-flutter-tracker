@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.9.3] - 2021-03-08
+## [0.10.0] - 2021-03-08
 - **Android:** Stop logging of Snowplow success/failure message in the Console IF LogLevel is set to OFF
 
 ## [0.9.2] - 2020-07-06
