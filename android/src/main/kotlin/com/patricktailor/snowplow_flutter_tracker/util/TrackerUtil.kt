@@ -12,12 +12,12 @@ import com.snowplowanalytics.snowplow.tracker.utils.LogLevel
 
 class TrackerUtil {
     companion object {
-        fun getEmitter(json: Map<String, Any>?, context: Context): Emitter {
+        fun getEmitter(json: Map<String, Any>?, logLevel: String, context: Context): Emitter {
             return Emitter.EmitterBuilder(json?.get("uri") as String, context)
                     .method(HttpMethod.valueOf(json["httpMethod"] as String))
                     .option(BufferOption.valueOf(json["bufferOption"] as String))
                     .security(RequestSecurity.valueOf(json["requestSecurity"] as String))
-                    .callback(EmitterRequestCallback())
+                    .callback(EmitterRequestCallback(LogLevel.valueOf(logLevel)))
                     .build()
         }
 
