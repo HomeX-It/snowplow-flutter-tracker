@@ -3,18 +3,30 @@ Thank you to [Patrik Szabó](https://github.com/patricktailor) for his initial w
 
 ## Overview
 A Flutter plugin that provides analysis to your Dart software with the [Snowplow](https://snowplowanalytics.com) event tracker for [Flutter](https://flutter.dev).
-<br/>
+
+
 With this tracker you can collect event data from your Flutter applications, games or frameworks.
 
 ## Versions
-[Snowplow Android Tracker](https://github.com/snowplow/snowplow-android-tracker) v1.4.0<br/>
-[Snowplow iOS Tracker](https://github.com/snowplow/snowplow-objc-tracker) v1.3.0<br/>
+[Snowplow Android Tracker](https://github.com/snowplow/snowplow-android-tracker) v1.4.0
+
+
+[Snowplow iOS Tracker](https://github.com/snowplow/snowplow-objc-tracker) v1.3.0
+
+
 
 ## Docs
-Basics on Android: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/android-tracker/<br/>
-Basics on iOS: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/objective-c-tracker/<br/>
-Android SDK: https://github.com/snowplow/snowplow-android-tracker<br/>
-iOS SDK: https://github.com/snowplow/snowplow-objc-tracker<br/>
+Basics on Android: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/android-tracker/
+
+
+Basics on iOS: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/objective-c-tracker/
+
+
+Android SDK: https://github.com/snowplow/snowplow-android-tracker
+
+
+iOS SDK: https://github.com/snowplow/snowplow-objc-tracker
+
 
 ## Getting started
 
