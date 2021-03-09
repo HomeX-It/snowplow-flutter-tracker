@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'device_platforms.dart';
 import 'log_level.dart';
 
@@ -54,23 +56,25 @@ class Tracker {
   /// [installTracking] Whether to autotrack application installs.
   final bool installTracking;
 
-  Tracker._builder(TrackerBuilder builder)
-      : emitter = builder._emitter,
-        namespace = builder._namespace,
-        appId = builder._appId,
-        base64 = builder._base64,
-        devicePlatform = builder._devicePlatform,
-        logLevel = builder._logLevel,
-        mobileContext = builder._mobileContext,
-        screenViewEvents = builder._screenViewEvents,
-        applicationContext = builder._applicationContext,
-        sessionContext = builder._sessionContext,
-        sessionCheckInterval = builder._sessionCheckInterval,
-        foregroundTimeout = builder._foregroundTimeout,
-        backgroundTimeout = builder._backgroundTimeout,
-        lifecycleEvents = builder._lifecycleEvents,
-        screenContext = builder._screenContext,
-        installTracking = builder._installTracking;
+  /// Create a tracker with default settings
+  Tracker({
+    @required this.emitter,
+    @required this.namespace,
+    @required this.appId,
+    this.base64 = false,
+    this.devicePlatform = DevicePlatforms.Mobile,
+    this.logLevel = LogLevel.OFF,
+    this.mobileContext = false,
+    this.screenViewEvents = false,
+    this.applicationContext = false,
+    this.sessionContext = false,
+    this.sessionCheckInterval = 15,
+    this.foregroundTimeout = 600,
+    this.backgroundTimeout = 300,
+    this.lifecycleEvents = false,
+    this.screenContext = false,
+    this.installTracking = false,
+  });
 
   /// [toMap] Converts the tracker object to JSON.
   Map<String, Object> toMap() {
@@ -92,129 +96,5 @@ class Tracker {
       'screenContext': screenContext,
       'installTracking': installTracking,
     };
-  }
-}
-
-/// [TrackerBuilder] The builder for [Tracker]
-/// The protocol for building tracker.
-class TrackerBuilder {
-  Emitter _emitter;
-  String _namespace;
-  String _appId;
-  bool _base64;
-  DevicePlatforms _devicePlatform;
-  LogLevel _logLevel;
-  bool _mobileContext;
-  bool _screenViewEvents;
-  bool _applicationContext;
-  bool _sessionContext;
-  int _sessionCheckInterval;
-  int _foregroundTimeout;
-  int _backgroundTimeout;
-  bool _lifecycleEvents;
-  bool _screenContext;
-  bool _installTracking;
-
-  /// Builder constructor with required parameters, [emitter], [namespace] and [appId].
-  TrackerBuilder(Emitter emitter, String namespace, String appId) {
-    _emitter = emitter;
-    _namespace = namespace;
-    _appId = appId;
-    _base64 = false;
-    _devicePlatform = DevicePlatforms.Mobile;
-    _logLevel = LogLevel.OFF;
-    _mobileContext = false;
-    _screenViewEvents = false;
-    _applicationContext = false;
-    _sessionContext = false;
-    _sessionCheckInterval = 15;
-    _foregroundTimeout = 600;
-    _backgroundTimeout = 300;
-    _lifecycleEvents = false;
-    _screenContext = false;
-    _installTracking = false;
-  }
-
-  /// [setBase64] Tracker builder method to set whether events will be sent Base64 encoded.
-  TrackerBuilder setBase64(bool base64) {
-    _base64 = base64;
-    return this;
-  }
-
-  /// [setDevicePlatform] Tracker builder method to set the device platform the tracker is running on.
-  TrackerBuilder setDevicePlatform(DevicePlatforms devicePlatform) {
-    _devicePlatform = devicePlatform;
-    return this;
-  }
-
-  /// [setLogLevel] Tracker builder method to set the logging level.
-  TrackerBuilder setLogLevel(LogLevel logLevel) {
-    _logLevel = logLevel;
-    return this;
-  }
-
-  /// [setMobileContext] Tracker builder method to set whether events will include mobile context.
-  TrackerBuilder setMobileContext(bool mobileContext) {
-    _mobileContext = mobileContext;
-    return this;
-  }
-
-  /// [setScreenViewEvents] Tracker builder method to set whether screen views will be auto-tracked.
-  TrackerBuilder setScreenViewEvents(bool screenViewEvents) {
-    _screenViewEvents = screenViewEvents;
-    return this;
-  }
-
-  /// [setApplicationContext] Tracker builder method to set whether events will include application context.
-  TrackerBuilder setApplicationContext(bool applicationContext) {
-    _applicationContext = applicationContext;
-    return this;
-  }
-
-  /// [setSessionContext] Tracker builder method to set whether events will include session context.
-  TrackerBuilder setSessionContext(bool sessionContext) {
-    _sessionContext = sessionContext;
-    return this;
-  }
-
-  /// [setSessionCheckInterval] Tracker builder method to set the interval of session checking.
-  TrackerBuilder setSessionCheckInterval(int sessionCheckInterval) {
-    _sessionCheckInterval = sessionCheckInterval;
-    return this;
-  }
-
-  /// [setForegroundTimeout] Tracker builder method to set the foreground timeout.
-  TrackerBuilder setForegroundTimeout(int foregroundTimeout) {
-    _foregroundTimeout = foregroundTimeout;
-    return this;
-  }
-
-  /// [setBackgroundTimeout] Tracker builder method to set the background timeout.
-  TrackerBuilder setBackgroundTimeout(int backgroundTimeout) {
-    _backgroundTimeout = backgroundTimeout;
-    return this;
-  }
-
-  /// [setLifecycleEvents] Tracker builder method to set whether foreground and background events are sent on app suspend and resume.
-  TrackerBuilder setLifecycleEvents(bool lifecycleEvents) {
-    _lifecycleEvents = lifecycleEvents;
-    return this;
-  }
-
-  /// [setScreenContext] Tracker builder method to set whether screen contexts will be added to all events.
-  TrackerBuilder setScreenContext(bool screenContext) {
-    _screenContext = screenContext;
-    return this;
-  }
-
-  /// [setInstallTracking] Tracker builder method to set whether application install should be autotracked.
-  TrackerBuilder setInstallTracking(bool installTracking) {
-    _installTracking = installTracking;
-    return this;
-  }
-
-  /// [build] Creates a tracker.
-  Tracker build() {
-    return Tracker._builder(this);
   }
 }
