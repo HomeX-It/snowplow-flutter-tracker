@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 import 'device_platforms.dart';
 import 'log_level.dart';
@@ -56,7 +56,7 @@ class Tracker {
   /// [installTracking] Whether to autotrack application installs.
   final bool installTracking;
 
-  /// Create a tracker with default settings
+  /// Create a [Tracker] with default settings
   Tracker({
     @required this.emitter,
     @required this.namespace,
