@@ -13,9 +13,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    final emitter = EmitterBuilder('your-collector-endpoint-url').build();
-    final tracker =
-        TrackerBuilder(emitter, 'your-namespace', 'your-appId').build();
+    final emitter = Emitter(uri: 'your-collector-endpoint-url');
+    final tracker = Tracker(
+      emitter: emitter,
+      namespace: 'your-namespace',
+      appId: 'your-appId',
+      logLevel: LogLevel.VERBOSE,
+    );
     _tracker = SnowplowFlutterTracker();
     _tracker.initialize(tracker);
 
@@ -34,7 +38,7 @@ class _MyAppState extends State<MyApp> {
           child: Center(
             child: Column(
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final selfDescribingJson = SelfDescribingJsonBuilder()
                         .setSchema('iglu:com.acme/event/jsonschema/1-0-0')
@@ -48,7 +52,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Self Describing Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final structured = StructuredBuilder()
                         .setCategory('shop')
@@ -62,7 +66,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Structured Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final screenView = ScreenViewBuilder()
                         .setName('home')
@@ -76,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Screen View Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final pageView = PageViewBuilder()
                         .setPageUrl('https://www.google.com/')
@@ -87,7 +91,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Page View Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final timing = TimingBuilder()
                         .setCategory('category')
@@ -100,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Timing Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final item = EcommerceTransactionItemBuilder()
                         .setItemId('item_id_1')
@@ -127,53 +131,53 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Ecommerce Transaction Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final consentDocuments = [
-                      ConsentDocumentBuilder()
-                          .setDocumentId('doc-id1')
-                          .setDocumentVersion('1')
-                          .setDocumentName('doc-name1')
-                          .setDocumentDescription('doc-description1')
-                          .build()
+                      ConsentDocument(
+                        documentId: 'doc-id1',
+                        documentVersion: '1',
+                        documentName: 'doc-name1',
+                        documentDescription: 'doc-description1',
+                      ),
                     ];
-                    final consentGranted = ConsentGrantedBuilder()
-                        .setExpiry('Monday, 19-Aug-05 15:52:01 UTC')
-                        .setDocumentId('1234')
-                        .setDocumentVersion('5')
-                        .setDocumentName('Consent document')
-                        .setDocumentDescription('An example description')
-                        .setConsentDocuments(consentDocuments)
-                        .build();
+                    final consentGranted = ConsentGranted(
+                      documentId: '1234',
+                      documentVersion: '5',
+                      expiry: 'Monday, 19-Aug-05 15:52:01 UTC',
+                      documentName: 'Consent document',
+                      documentDescription: 'An example description',
+                      consentDocuments: consentDocuments,
+                    );
                     _tracker.track(consentGranted);
                   },
                   child: Text('Send Consent Granted Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final consentDocuments = [
-                      ConsentDocumentBuilder()
-                          .setDocumentId('doc-id1')
-                          .setDocumentVersion('1')
-                          .setDocumentName('doc-name1')
-                          .setDocumentDescription('doc-description1')
-                          .build()
+                      ConsentDocument(
+                        documentId: 'doc-id1',
+                        documentVersion: '1',
+                        documentName: 'doc-name1',
+                        documentDescription: 'doc-description1',
+                      ),
                     ];
-                    final consentGranted = ConsentWithdrawnBuilder()
-                        .setAll(false)
-                        .setDocumentId('1234')
-                        .setDocumentVersion('5')
-                        .setDocumentName('Consent document')
-                        .setDocumentDescription('An example description')
-                        .setConsentDocuments(consentDocuments)
-                        .build();
+                    final consentGranted = ConsentWithdrawn(
+                      all: false,
+                      documentId: '1234',
+                      documentVersion: '5',
+                      documentName: 'Consent document',
+                      documentDescription: 'An example description',
+                      consentDocuments: consentDocuments,
+                    );
                     _tracker.track(consentGranted);
                   },
                   child: Text('Send Consent Withdrawn Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final notificationContent = NotificationContentBuilder()
                         .setTitle('You received a new message')

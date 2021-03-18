@@ -21,13 +21,15 @@ class ConsentWithdrawn implements AbstractEvent {
   /// [consentDocuments] An array of associated documents.
   final List<ConsentDocument> consentDocuments;
 
-  ConsentWithdrawn._builder(ConsentWithdrawnBuilder builder)
-      : all = builder._all,
-        documentId = builder._documentId,
-        documentVersion = builder._documentVersion,
-        documentName = builder._documentName,
-        documentDescription = builder._documentDescription,
-        consentDocuments = builder._consentDocuments;
+  /// Create a [ConsentWithdrawn] event
+  ConsentWithdrawn({
+    this.all,
+    this.documentId,
+    this.documentVersion,
+    this.documentName,
+    this.documentDescription,
+    this.consentDocuments,
+  });
 
   @override
   Map<String, Object> toMap() {
@@ -42,57 +44,5 @@ class ConsentWithdrawn implements AbstractEvent {
         return consentDocument.toMap();
       }).toList(),
     };
-  }
-}
-
-/// The protocol for building consent withdrawn events.
-class ConsentWithdrawnBuilder {
-  bool _all;
-  String _documentId;
-  String _documentVersion;
-  String _documentName;
-  String _documentDescription;
-  List<ConsentDocument> _consentDocuments;
-
-  /// Set whether to withdraw all consent to tracking.
-  ConsentWithdrawnBuilder setAll(bool all) {
-    _all = all;
-    return this;
-  }
-
-  /// Set the ID associated with a document for withdrawing consent.
-  ConsentWithdrawnBuilder setDocumentId(String documentId) {
-    _documentId = documentId;
-    return this;
-  }
-
-  /// Set the version of the document.
-  ConsentWithdrawnBuilder setDocumentVersion(String documentVersion) {
-    _documentVersion = documentVersion;
-    return this;
-  }
-
-  /// Set the name of the consent document.
-  ConsentWithdrawnBuilder setDocumentName(String documentName) {
-    _documentName = documentName;
-    return this;
-  }
-
-  /// Set the description of the consent document.
-  ConsentWithdrawnBuilder setDocumentDescription(String documentDescription) {
-    _documentDescription = documentDescription;
-    return this;
-  }
-
-  /// Set additional documents associated to the consent withdrawn event.
-  ConsentWithdrawnBuilder setConsentDocuments(
-      List<ConsentDocument> consentDocuments) {
-    _consentDocuments = consentDocuments;
-    return this;
-  }
-
-  /// A consent withdrawn event.
-  ConsentWithdrawn build() {
-    return ConsentWithdrawn._builder(this);
   }
 }
