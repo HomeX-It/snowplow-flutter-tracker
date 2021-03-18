@@ -180,11 +180,11 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final notificationContent = NotificationContentBuilder()
-                        .setTitle('You received a new message')
-                        .setBody('You received a new message')
-                        .setBadge(1)
-                        .build();
+                    final notificationContent = NotificationContent(
+                      title: 'You received a new message',
+                      body: 'You received a new message',
+                      badge: 1,
+                    );
                     final pushNotification = PushNotificationBuilder()
                         .setAction('Message Received')
                         .setDeliveryDate(DateTime.now().toString())
