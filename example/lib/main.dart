@@ -106,15 +106,15 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final item = EcommerceTransactionItemBuilder()
-                        .setItemId('item_id_1')
-                        .setSku('item_sku_1')
-                        .setPrice(1.00)
-                        .setQuantity(1)
-                        .setName('item_name')
-                        .setCategory('item_category')
-                        .setCurrency('currency')
-                        .build();
+                    final item = EcommerceTransactionItem(
+                      itemId: 'item_id_1',
+                      sku: 'item_sku_1',
+                      price: 1.00,
+                      quantity: 1,
+                      name: 'item_name',
+                      category: 'item_category',
+                      currency: 'currency',
+                    );
                     final ecommerceTransaction = EcommerceTransaction(
                       orderId: '6a8078be',
                       totalValue: 300.00,
