@@ -115,17 +115,18 @@ class _MyAppState extends State<MyApp> {
                         .setCategory('item_category')
                         .setCurrency('currency')
                         .build();
-                    final ecommerceTransaction = EcommerceTransactionBuilder()
-                        .setOrderId('6a8078be')
-                        .setTotalValue(300.00)
-                        .setAffiliation('my_affiliate')
-                        .setTaxValue(30.00)
-                        .setShipping(10.00)
-                        .setCity('Boston')
-                        .setState('Massachusetts')
-                        .setCountry('USA')
-                        .setCurrency('USD')
-                        .setItems([item]).build();
+                    final ecommerceTransaction = EcommerceTransaction(
+                      orderId: '6a8078be',
+                      totalValue: 300.00,
+                      affiliation: 'my_affiliate',
+                      taxValue: 30.00,
+                      shipping: 10.00,
+                      city: 'Boston',
+                      state: 'Massachusetts',
+                      country: 'USA',
+                      currency: 'USD',
+                      items: [item],
+                    );
                     _tracker.track(ecommerceTransaction);
                   },
                   child: Text('Send Ecommerce Transaction Event'),
