@@ -40,13 +40,11 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    final selfDescribingJson = SelfDescribingJsonBuilder()
-                        .setSchema('iglu:com.acme/event/jsonschema/1-0-0')
-                        .setPayload(
-                            <String, Object>{'message': 'hello world'}).build();
-                    final selfDescribing = SelfDescribingBuilder()
-                        .setEventData(selfDescribingJson)
-                        .build();
+                    final selfDescribingJson = SelfDescribingJson(
+                      schema: 'iglu:com.acme/event/jsonschema/1-0-0',
+                      payload: <String, Object>{'message': 'hello world'},
+                    );
+                    final selfDescribing = SelfDescribing(selfDescribingJson);
                     _tracker.track(selfDescribing);
                   },
                   child: Text('Send Self Describing Event'),
