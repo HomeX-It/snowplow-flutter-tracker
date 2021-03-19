@@ -185,14 +185,14 @@ class _MyAppState extends State<MyApp> {
                       body: 'You received a new message',
                       badge: 1,
                     );
-                    final pushNotification = PushNotificationBuilder()
-                        .setAction('Message Received')
-                        .setDeliveryDate(DateTime.now().toString())
-                        .setTrigger('message_received')
-                        .setCategoryIdentifier('1')
-                        .setThreadIdentifier('1')
-                        .setNotificationContent(notificationContent)
-                        .build();
+                    final pushNotification = PushNotification(
+                      action: 'Message Received',
+                      deliveryDate: DateTime.now().toString(),
+                      trigger: 'message_received',
+                      categoryIdentifier: '1',
+                      threadIdentifier: '1',
+                      notificationContent: notificationContent,
+                    );
                     _tracker.track(pushNotification);
                   },
                   child: Text('Send Push Notification Event'),
