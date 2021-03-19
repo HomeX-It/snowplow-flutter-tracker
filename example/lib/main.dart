@@ -82,10 +82,10 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final pageView = PageViewBuilder()
-                        .setPageUrl('https://www.google.com/')
-                        .setPageTitle('Google')
-                        .build();
+                    final pageView = PageViewEvent(
+                      pageUrl: 'https://www.google.com/',
+                      pageTitle: 'Google',
+                    );
                     _tracker.track(pageView);
                   },
                   child: Text('Send Page View Event'),

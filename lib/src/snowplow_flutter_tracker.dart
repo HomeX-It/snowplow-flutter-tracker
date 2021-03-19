@@ -52,7 +52,7 @@ class SnowplowFlutterTracker {
       return await _channel.invokeMethod('trackStructured', event.toMap());
     } else if (event is ScreenView) {
       return await _channel.invokeMethod('trackScreenView', event.toMap());
-    } else if (event is PageView) {
+    } else if (event is PageViewEvent) {
       return await _channel.invokeMethod('trackPageView', event.toMap());
     } else if (event is EcommerceTransaction) {
       return await _channel.invokeMethod(
