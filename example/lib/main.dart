@@ -68,13 +68,13 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final screenView = ScreenViewBuilder()
-                        .setName('home')
-                        .setType('full')
-                        .setTransitionType('none')
-                        .setPreviousName('')
-                        .setPreviousType('')
-                        .build();
+                    final screenView = ScreenView(
+                      name: 'home',
+                      type: 'full',
+                      transitionType: 'none',
+                      previousName: '',
+                      previousType: '',
+                    );
                     _tracker.track(screenView);
                   },
                   child: Text('Send Screen View Event'),
