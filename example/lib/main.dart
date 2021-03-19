@@ -52,13 +52,13 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final structured = StructuredBuilder()
-                        .setCategory('shop')
-                        .setAction('add-to-basket')
-                        .setLabel('Add To Basket')
-                        .setProperty('pcs')
-                        .setValue(2.00)
-                        .build();
+                    final structured = Structured(
+                      category: 'shop',
+                      action: 'add-to-basket',
+                      label: 'Add To Basket',
+                      property: 'pcs',
+                      value: 2.00,
+                    );
                     _tracker.track(structured);
                   },
                   child: Text('Send Structured Event'),
