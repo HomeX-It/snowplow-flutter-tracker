@@ -29,6 +29,7 @@ struct TrackerUtil {
             SPTrackerBuilder?.setScreenContext(dictionary?["screenContext"] as? Bool ?? false)
             SPTrackerBuilder?.setInstallEvent(dictionary?["installTracking"] as? Bool ?? false)
             SPTrackerBuilder?.setLogLevel(getLogLevel(rawValue: dictionary?["logLevel"] as? String))
+            SPTrackerBuilder?.setExceptionEvents(dictionary?["exceptionEvents"] as? Bool ?? false)
         }
     }
     
