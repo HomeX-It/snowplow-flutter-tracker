@@ -8,10 +8,10 @@ A Flutter plugin that provides analysis to your Dart software with the [Snowplow
 With this tracker you can collect event data from your Flutter applications, games or frameworks.
 
 ## Versions
-[Snowplow Android Tracker](https://github.com/snowplow/snowplow-android-tracker) v1.4.0
+[Snowplow Android Tracker](https://github.com/snowplow/snowplow-android-tracker) v1.7.1
 
 
-[Snowplow iOS Tracker](https://github.com/snowplow/snowplow-objc-tracker) v1.3.0
+[Snowplow iOS Tracker](https://github.com/snowplow/snowplow-objc-tracker) v1.6.2
 
 
 
