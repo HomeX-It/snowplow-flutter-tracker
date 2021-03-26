@@ -225,7 +225,7 @@ class TrackerBuilder {
     return this;
   }
 
-  /// [setExceptionEvents] Tracker builder method to set whether application install should automatically track exception events.
+  /// [setExceptionEvents] Tracker builder method to set whether exception events should get tracked automatically.
   /// On [iOS], enabling this tracks any unhandled exceptions.
   /// On [Android], this option enables crash tracking.
   TrackerBuilder setExceptionEvents(bool exceptionEvents) {
