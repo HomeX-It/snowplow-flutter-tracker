@@ -91,12 +91,12 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final timing = TimingBuilder()
-                        .setCategory('category')
-                        .setVariable('variable')
-                        .setTiming(1)
-                        .setLabel('label')
-                        .build();
+                    final timing = Timing(
+                      category: 'category',
+                      variable: 'variable',
+                      timing: 1,
+                      label: 'label',
+                    );
                     _tracker.track(timing);
                   },
                   child: Text('Send Timing Event'),
