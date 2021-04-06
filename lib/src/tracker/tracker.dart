@@ -54,6 +54,11 @@ class Tracker {
   /// [screenContext] Whether screen contexts are enabled.
   final bool screenContext;
 
+  /// [screenContext] Whether exception events are tracked.
+  /// On [iOS], setting true enables exception tracking.
+  /// On [Android], setting true enables crash tracking.
+  final bool exceptionEvents;
+
   /// [installTracking] Whether to autotrack application installs.
   final bool installTracking;
 
@@ -96,6 +101,7 @@ class Tracker {
       'lifecycleEvents': lifecycleEvents,
       'screenContext': screenContext,
       'installTracking': installTracking,
+      'exceptionEvents': exceptionEvents
     };
   }
 }

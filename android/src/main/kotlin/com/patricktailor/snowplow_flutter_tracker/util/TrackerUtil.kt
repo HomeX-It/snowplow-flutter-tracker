@@ -41,6 +41,7 @@ class TrackerUtil {
                     .lifecycleEvents(json["lifecycleEvents"] as Boolean)
                     .screenContext(json["screenContext"] as Boolean)
                     .installTracking(json["installTracking"] as Boolean)
+                    .applicationCrash(json["exceptionEvents"] as Boolean)
                     .build()
             )
         }
