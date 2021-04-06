@@ -79,6 +79,7 @@ class Tracker {
     this.backgroundTimeout = 300,
     this.lifecycleEvents = false,
     this.screenContext = false,
+    this.exceptionEvents = false,
     this.installTracking = false,
   });
 
@@ -100,8 +101,8 @@ class Tracker {
       'backgroundTimeout': backgroundTimeout,
       'lifecycleEvents': lifecycleEvents,
       'screenContext': screenContext,
+      'exceptionEvents': exceptionEvents,
       'installTracking': installTracking,
-      'exceptionEvents': exceptionEvents
     };
   }
 }
