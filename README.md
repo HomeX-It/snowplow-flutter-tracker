@@ -35,29 +35,21 @@ Initialize it then call the relevant tracking method:
 ```Dart
 import 'package:snowplow_flutter_tracker/snowplow_flutter_tracker.dart';
 
-/* Initialize it */
-SnowplowFlutterTracker _tracker;
-
-final emitter = EmitterBuilder('test-uri')
-    .setRequestSecurity(RequestSecurity.HTTPS)
-    .build();
-
-final tracker =
-    TrackerBuilder(emitter, 'eventTracker', 'test-appId')
-        .setMobileContext(true)
-        .build();
-
-_tracker = SnowplowFlutterTracker();
+// Initialize it
+final emitter = Emitter(uri: 'your-collector-endpoint-url');
+final tracker = Tracker(
+    emitter: emitter,
+    namespace: 'your-namespace',
+    appId: 'your-appId',
+);
+var _tracker = SnowplowFlutterTracker();
 _tracker.initialize(tracker);
 
-/* Usage */
-final eventJson = SelfDescribingJsonBuilder()
-  .setSchema('iglu:mobile/generic/jsonschema/1-0-0')
-  .setPayload(
-      <String, Object>{'name': 'test-name', 'parameters': 'test-parameters'}).build();
-
-final selfDescribingEvent =
-  SelfDescribingBuilder().setEventData(eventJson).build();
-
-_tracker.track(selfDescribingEvent);
+// Usage
+final selfDescribingJson = SelfDescribingJson(
+    schema: 'iglu:com.acme/event/jsonschema/1-0-0',
+    payload: <String, Object>{'message': 'hello world'},
+);
+final selfDescribing = SelfDescribing(selfDescribingJson);
+_tracker.track(selfDescribing);
 ```
