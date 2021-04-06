@@ -1,23 +1,16 @@
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/built_value.dart';
-
-part 'request_security.g.dart';
+import 'package:flutter/foundation.dart';
 
 /// [RequestSecurity] An enum for HTTP security.
-class RequestSecurity extends EnumClass {
-  /// [HTTP] Use HTTP.
-  @BuiltValueEnumConst(wireName: 'HTTP')
-  static const RequestSecurity HTTP = _$http;
+@immutable
+class RequestSecurity {
+  /// Raw string value
+  final String name;
 
-  /// [HTTPS] Use HTTP over TLS.
-  @BuiltValueEnumConst(wireName: 'HTTPS')
-  static const RequestSecurity HTTPS = _$https;
+  const RequestSecurity._(this.name);
 
-  const RequestSecurity._(String name) : super(name);
+  /// HTTP request.
+  static const http = RequestSecurity._('HTTP');
 
-  /// [values] Returns all values.
-  static BuiltSet<RequestSecurity> get values => _$values;
-
-  /// [valueOf] Makes [RequestSecurity] from the value.
-  static RequestSecurity valueOf(String name) => _$valueOf(name);
+  /// HTTPS request.
+  static const https = RequestSecurity._('HTTPS');
 }

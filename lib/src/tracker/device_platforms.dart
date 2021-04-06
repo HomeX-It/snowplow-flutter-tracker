@@ -1,47 +1,34 @@
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/built_value.dart';
-
-part 'device_platforms.g.dart';
+import 'package:flutter/foundation.dart';
 
 /// [DevicePlatforms] An enum for device platform types.
-class DevicePlatforms extends EnumClass {
-  /// [Web] Browser application.
-  @BuiltValueEnumConst(wireName: 'web')
-  static const DevicePlatforms Web = _$web;
+@immutable
+class DevicePlatforms {
+  /// Raw string value
+  final String name;
 
-  /// [Mobile] Mobile application.
-  @BuiltValueEnumConst(wireName: 'mob')
-  static const DevicePlatforms Mobile = _$mob;
+  const DevicePlatforms._(this.name);
 
-  /// [Desktop] Desktop application.
-  @BuiltValueEnumConst(wireName: 'pc')
-  static const DevicePlatforms Desktop = _$pc;
+  /// Web application
+  static const web = DevicePlatforms._('Web');
 
-  /// [ServerSideApp] Server side application.
-  @BuiltValueEnumConst(wireName: 'srv')
-  static const DevicePlatforms ServerSideApp = _$srv;
+  /// Mobile application
+  static const mobile = DevicePlatforms._('Mobile');
 
-  /// [General] General application.
-  @BuiltValueEnumConst(wireName: 'app')
-  static const DevicePlatforms General = _$app;
+  /// Desktop application
+  static const desktop = DevicePlatforms._('Desktop');
 
-  /// [ConnectedTV] TV application.
-  @BuiltValueEnumConst(wireName: 'tv')
-  static const DevicePlatforms ConnectedTV = _$tv;
+  /// Server side application
+  static const serverSideApp = DevicePlatforms._('ServerSideApp');
 
-  /// [GameConsole] Game console application.
-  @BuiltValueEnumConst(wireName: 'cnsl')
-  static const DevicePlatforms GameConsole = _$cnsl;
+  /// General application
+  static const general = DevicePlatforms._('General');
 
-  /// [InternetOfThings] Internet of things application.
-  @BuiltValueEnumConst(wireName: 'iot')
-  static const DevicePlatforms InternetOfThings = _$iot;
+  /// TV application
+  static const connectedTv = DevicePlatforms._('ConnectedTV');
 
-  const DevicePlatforms._(String name) : super(name);
+  /// Game console application
+  static const gameConsole = DevicePlatforms._('GameConsole');
 
-  /// [values] Returns all values.
-  static BuiltSet<DevicePlatforms> get values => _$values;
-
-  /// [valueOf] Makes [DevicePlatforms] from the value.
-  static DevicePlatforms valueOf(String name) => _$valueOf(name);
+  /// Internet of things application
+  static const internetOfThings = DevicePlatforms._('InternetOfThings');
 }

@@ -13,9 +13,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    final emitter = EmitterBuilder('your-collector-endpoint-url').build();
-    final tracker =
-        TrackerBuilder(emitter, 'your-namespace', 'your-appId').build();
+    final emitter = Emitter(uri: 'your-collector-endpoint-url');
+    final tracker = Tracker(
+      emitter: emitter,
+      namespace: 'your-namespace',
+      appId: 'your-appId',
+      logLevel: LogLevel.verbose,
+    );
     _tracker = SnowplowFlutterTracker();
     _tracker.initialize(tracker);
 
@@ -36,13 +40,11 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    final selfDescribingJson = SelfDescribingJsonBuilder()
-                        .setSchema('iglu:com.acme/event/jsonschema/1-0-0')
-                        .setPayload(
-                            <String, Object>{'message': 'hello world'}).build();
-                    final selfDescribing = SelfDescribingBuilder()
-                        .setEventData(selfDescribingJson)
-                        .build();
+                    final selfDescribingJson = SelfDescribingJson(
+                      schema: 'iglu:com.acme/event/jsonschema/1-0-0',
+                      payload: <String, Object>{'message': 'hello world'},
+                    );
+                    final selfDescribing = SelfDescribing(selfDescribingJson);
                     _tracker.track(selfDescribing);
                   },
                   child: Text('Send Self Describing Event'),
@@ -50,13 +52,13 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final structured = StructuredBuilder()
-                        .setCategory('shop')
-                        .setAction('add-to-basket')
-                        .setLabel('Add To Basket')
-                        .setProperty('pcs')
-                        .setValue(2.00)
-                        .build();
+                    final structured = Structured(
+                      category: 'shop',
+                      action: 'add-to-basket',
+                      label: 'Add To Basket',
+                      property: 'pcs',
+                      value: 2.00,
+                    );
                     _tracker.track(structured);
                   },
                   child: Text('Send Structured Event'),
@@ -64,13 +66,13 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final screenView = ScreenViewBuilder()
-                        .setName('home')
-                        .setType('full')
-                        .setTransitionType('none')
-                        .setPreviousName('')
-                        .setPreviousType('')
-                        .build();
+                    final screenView = ScreenView(
+                      name: 'home',
+                      type: 'full',
+                      transitionType: 'none',
+                      previousName: '',
+                      previousType: '',
+                    );
                     _tracker.track(screenView);
                   },
                   child: Text('Send Screen View Event'),
@@ -78,10 +80,10 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final pageView = PageViewBuilder()
-                        .setPageUrl('https://www.google.com/')
-                        .setPageTitle('Google')
-                        .build();
+                    final pageView = PageViewEvent(
+                      pageUrl: 'https://www.google.com/',
+                      pageTitle: 'Google',
+                    );
                     _tracker.track(pageView);
                   },
                   child: Text('Send Page View Event'),
@@ -89,12 +91,12 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final timing = TimingBuilder()
-                        .setCategory('category')
-                        .setVariable('variable')
-                        .setTiming(1)
-                        .setLabel('label')
-                        .build();
+                    final timing = Timing(
+                      category: 'category',
+                      variable: 'variable',
+                      timing: 1,
+                      label: 'label',
+                    );
                     _tracker.track(timing);
                   },
                   child: Text('Send Timing Event'),
@@ -102,26 +104,27 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final item = EcommerceTransactionItemBuilder()
-                        .setItemId('item_id_1')
-                        .setSku('item_sku_1')
-                        .setPrice(1.00)
-                        .setQuantity(1)
-                        .setName('item_name')
-                        .setCategory('item_category')
-                        .setCurrency('currency')
-                        .build();
-                    final ecommerceTransaction = EcommerceTransactionBuilder()
-                        .setOrderId('6a8078be')
-                        .setTotalValue(300.00)
-                        .setAffiliation('my_affiliate')
-                        .setTaxValue(30.00)
-                        .setShipping(10.00)
-                        .setCity('Boston')
-                        .setState('Massachusetts')
-                        .setCountry('USA')
-                        .setCurrency('USD')
-                        .setItems([item]).build();
+                    final item = EcommerceTransactionItem(
+                      itemId: 'item_id_1',
+                      sku: 'item_sku_1',
+                      price: 1.00,
+                      quantity: 1,
+                      name: 'item_name',
+                      category: 'item_category',
+                      currency: 'currency',
+                    );
+                    final ecommerceTransaction = EcommerceTransaction(
+                      orderId: '6a8078be',
+                      totalValue: 300.00,
+                      affiliation: 'my_affiliate',
+                      taxValue: 30.00,
+                      shipping: 10.00,
+                      city: 'Boston',
+                      state: 'Massachusetts',
+                      country: 'USA',
+                      currency: 'USD',
+                      items: [item],
+                    );
                     _tracker.track(ecommerceTransaction);
                   },
                   child: Text('Send Ecommerce Transaction Event'),
@@ -130,21 +133,21 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   onPressed: () {
                     final consentDocuments = [
-                      ConsentDocumentBuilder()
-                          .setDocumentId('doc-id1')
-                          .setDocumentVersion('1')
-                          .setDocumentName('doc-name1')
-                          .setDocumentDescription('doc-description1')
-                          .build()
+                      ConsentDocument(
+                        documentId: 'doc-id1',
+                        documentVersion: '1',
+                        documentName: 'doc-name1',
+                        documentDescription: 'doc-description1',
+                      ),
                     ];
-                    final consentGranted = ConsentGrantedBuilder()
-                        .setExpiry('Monday, 19-Aug-05 15:52:01 UTC')
-                        .setDocumentId('1234')
-                        .setDocumentVersion('5')
-                        .setDocumentName('Consent document')
-                        .setDocumentDescription('An example description')
-                        .setConsentDocuments(consentDocuments)
-                        .build();
+                    final consentGranted = ConsentGranted(
+                      documentId: '1234',
+                      documentVersion: '5',
+                      expiry: 'Monday, 19-Aug-05 15:52:01 UTC',
+                      documentName: 'Consent document',
+                      documentDescription: 'An example description',
+                      consentDocuments: consentDocuments,
+                    );
                     _tracker.track(consentGranted);
                   },
                   child: Text('Send Consent Granted Event'),
@@ -153,21 +156,21 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   onPressed: () {
                     final consentDocuments = [
-                      ConsentDocumentBuilder()
-                          .setDocumentId('doc-id1')
-                          .setDocumentVersion('1')
-                          .setDocumentName('doc-name1')
-                          .setDocumentDescription('doc-description1')
-                          .build()
+                      ConsentDocument(
+                        documentId: 'doc-id1',
+                        documentVersion: '1',
+                        documentName: 'doc-name1',
+                        documentDescription: 'doc-description1',
+                      ),
                     ];
-                    final consentGranted = ConsentWithdrawnBuilder()
-                        .setAll(false)
-                        .setDocumentId('1234')
-                        .setDocumentVersion('5')
-                        .setDocumentName('Consent document')
-                        .setDocumentDescription('An example description')
-                        .setConsentDocuments(consentDocuments)
-                        .build();
+                    final consentGranted = ConsentWithdrawn(
+                      all: false,
+                      documentId: '1234',
+                      documentVersion: '5',
+                      documentName: 'Consent document',
+                      documentDescription: 'An example description',
+                      consentDocuments: consentDocuments,
+                    );
                     _tracker.track(consentGranted);
                   },
                   child: Text('Send Consent Withdrawn Event'),
@@ -175,19 +178,19 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    final notificationContent = NotificationContentBuilder()
-                        .setTitle('You received a new message')
-                        .setBody('You received a new message')
-                        .setBadge(1)
-                        .build();
-                    final pushNotification = PushNotificationBuilder()
-                        .setAction('Message Received')
-                        .setDeliveryDate(DateTime.now().toString())
-                        .setTrigger('message_received')
-                        .setCategoryIdentifier('1')
-                        .setThreadIdentifier('1')
-                        .setNotificationContent(notificationContent)
-                        .build();
+                    final notificationContent = NotificationContent(
+                      title: 'You received a new message',
+                      body: 'You received a new message',
+                      badge: 1,
+                    );
+                    final pushNotification = PushNotification(
+                      action: 'Message Received',
+                      deliveryDate: DateTime.now().toString(),
+                      trigger: 'message_received',
+                      categoryIdentifier: '1',
+                      threadIdentifier: '1',
+                      notificationContent: notificationContent,
+                    );
                     _tracker.track(pushNotification);
                   },
                   child: Text('Send Push Notification Event'),

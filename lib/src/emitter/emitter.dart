@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
+
 import 'buffer_option.dart';
 import 'http_method.dart';
 import 'request_security.dart';
 
 /// [Emitter] This class sends events to the collector.
+@immutable
 class Emitter {
   /// [uri] The collector endpoint.
   final String uri;
@@ -16,11 +19,13 @@ class Emitter {
   /// [requestSecurity] Should be HTTP or HTTPS.
   final RequestSecurity requestSecurity;
 
-  Emitter._builder(EmitterBuilder builder)
-      : uri = builder._uri,
-        httpMethod = builder._httpMethod,
-        bufferOption = builder._bufferOption,
-        requestSecurity = builder._requestSecurity;
+  /// Create an [Emitter]
+  Emitter({
+    @required this.uri,
+    this.httpMethod = HttpMethod.post,
+    this.bufferOption = BufferOption.defaultGroup,
+    this.requestSecurity = RequestSecurity.http,
+  });
 
   /// Converts the emitter object to JSON.
   Map<String, Object> toMap() {
@@ -30,44 +35,5 @@ class Emitter {
       'bufferOption': bufferOption.name,
       'requestSecurity': requestSecurity.name,
     };
-  }
-}
-
-/// The protocol for building emitter.
-class EmitterBuilder {
-  String _uri;
-  HttpMethod _httpMethod;
-  BufferOption _bufferOption;
-  RequestSecurity _requestSecurity;
-
-  /// [EmitterBuilder] Constructs an EmitterBuilder with required uri value.
-  EmitterBuilder(String uri) {
-    _uri = uri;
-    _httpMethod = HttpMethod.POST;
-    _bufferOption = BufferOption.DefaultGroup;
-    _requestSecurity = RequestSecurity.HTTP;
-  }
-
-  /// Emitter builder method to set HTTP method.
-  EmitterBuilder setHttpMethod(HttpMethod httpMethod) {
-    _httpMethod = httpMethod;
-    return this;
-  }
-
-  /// Emitter builder method to set buffer option.
-  EmitterBuilder setBufferOption(BufferOption bufferOption) {
-    _bufferOption = bufferOption;
-    return this;
-  }
-
-  /// Emitter builder method to set HTTP security.
-  EmitterBuilder setRequestSecurity(RequestSecurity requestSecurity) {
-    _requestSecurity = requestSecurity;
-    return this;
-  }
-
-  /// Creates a emitter.
-  Emitter build() {
-    return Emitter._builder(this);
   }
 }

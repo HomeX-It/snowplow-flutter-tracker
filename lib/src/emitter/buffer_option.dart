@@ -1,27 +1,19 @@
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/built_value.dart';
-
-part 'buffer_option.g.dart';
+import 'package:flutter/foundation.dart';
 
 /// [BufferOption] Defines how many events we bundle in a POST.
-class BufferOption extends EnumClass {
-  /// [Single] One event of bundle in a POST.
-  @BuiltValueEnumConst(wireNumber: 1)
-  static const BufferOption Single = _$single;
+@immutable
+class BufferOption {
+  /// Raw string value
+  final String name;
 
-  /// [DefaultGroup] 10 events of bundle in a POST.
-  @BuiltValueEnumConst(wireNumber: 10)
-  static const BufferOption DefaultGroup = _$defaultGroup;
+  const BufferOption._(this.name);
 
-  /// [HeavyGroup] 25 events of bundle in a POST.
-  @BuiltValueEnumConst(wireNumber: 25)
-  static const BufferOption HeavyGroup = _$heavyGroup;
+  /// Single
+  static const single = BufferOption._('Single');
 
-  const BufferOption._(String name) : super(name);
+  /// DefaultGroup
+  static const defaultGroup = BufferOption._('DefaultGroup');
 
-  /// [values] Returns all values.
-  static BuiltSet<BufferOption> get values => _$values;
-
-  /// [valueOf] Makes [BufferOption] from the value.
-  static BufferOption valueOf(String name) => _$valueOf(name);
+  /// HeavyGroup
+  static const heavyGroup = BufferOption._('HeavyGroup');
 }
