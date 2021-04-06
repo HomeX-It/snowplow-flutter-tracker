@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
       emitter: emitter,
       namespace: 'your-namespace',
       appId: 'your-appId',
-      logLevel: LogLevel.VERBOSE,
+      logLevel: LogLevel.verbose,
     );
     _tracker = SnowplowFlutterTracker();
     _tracker.initialize(tracker);

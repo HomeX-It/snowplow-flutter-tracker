@@ -22,9 +22,9 @@ class Emitter {
   /// Create an [Emitter]
   Emitter({
     @required this.uri,
-    this.httpMethod = HttpMethod.POST,
-    this.bufferOption = BufferOption.DefaultGroup,
-    this.requestSecurity = RequestSecurity.HTTP,
+    this.httpMethod = HttpMethod.post,
+    this.bufferOption = BufferOption.defaultGroup,
+    this.requestSecurity = RequestSecurity.http,
   });
 
   /// Converts the emitter object to JSON.

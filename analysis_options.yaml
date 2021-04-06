@@ -1,11 +1,5 @@
 include: package:pedantic/analysis_options.yaml
 
-analyzer:
-  exclude:
-    - '**/*.g.dart'
-    - 'lib/src/generated/*.dart'
-
 linter:
   rules:
-    - camel_case_types
     - public_member_api_docs
