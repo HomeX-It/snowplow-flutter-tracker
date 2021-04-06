@@ -4,25 +4,25 @@ import 'package:flutter/foundation.dart';
 @immutable
 class EcommerceTransactionItem {
   /// [itemId] ID of the eCommerce transaction.
-  final String itemId;
+  final String? itemId;
 
   /// [sku] Item SKU.
-  final String sku;
+  final String? sku;
 
   /// [price] Item price.
-  final double price;
+  final double? price;
 
   /// [quantity] Item quantity.
-  final int quantity;
+  final int? quantity;
 
   /// [name] Item name.
-  final String name;
+  final String? name;
 
   /// [category] Item category.
-  final String category;
+  final String? category;
 
   /// [currency] Transaction currency.
-  final String currency;
+  final String? currency;
 
   /// Create a [EcommerceTransactionItem]
   EcommerceTransactionItem({
@@ -36,7 +36,7 @@ class EcommerceTransactionItem {
   });
 
   /// Converts the ecommerce transaction item object to JSON.
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'itemId': itemId,
       'sku': sku,

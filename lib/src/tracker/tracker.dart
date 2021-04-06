@@ -64,9 +64,9 @@ class Tracker {
 
   /// Create a [Tracker] with default settings
   Tracker({
-    @required this.emitter,
-    @required this.namespace,
-    @required this.appId,
+    required this.emitter,
+    required this.namespace,
+    required this.appId,
     this.base64 = false,
     this.devicePlatform = DevicePlatforms.mobile,
     this.logLevel = LogLevel.off,
@@ -84,8 +84,8 @@ class Tracker {
   });
 
   /// [toMap] Converts the tracker object to JSON.
-  Map<String, Object> toMap() {
-    return <String, dynamic>{
+  Map<String, Object?> toMap() {
+    return <String, Object?>{
       'emitter': emitter.toMap(),
       'namespace': namespace,
       'appId': appId,

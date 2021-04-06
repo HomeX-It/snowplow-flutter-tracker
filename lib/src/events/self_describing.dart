@@ -9,10 +9,10 @@ class SelfDescribing implements AbstractEvent {
   final SelfDescribingJson eventData;
 
   /// Creates a [SelfDescribing] event
-  SelfDescribing(this.eventData) : assert(eventData != null);
+  SelfDescribing(this.eventData);
 
   @override
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'eventData': eventData.toMap(),
     };

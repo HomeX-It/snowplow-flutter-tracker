@@ -9,18 +9,20 @@ class PageViewEvent implements AbstractEvent {
   final String pageUrl;
 
   /// [pageTitle] The title of the page.
-  final String pageTitle;
+  final String? pageTitle;
 
   /// [referrer] The page view referrer.
-  final String referrer;
+  final String? referrer;
 
   /// Create a [PageViewEvent] event.
-  PageViewEvent({@required this.pageUrl, this.pageTitle, this.referrer})
-      : assert(pageUrl != null && pageUrl.isNotEmpty,
-            'pageUrl cannot be null or empty');
+  PageViewEvent({
+    required this.pageUrl,
+    this.pageTitle,
+    this.referrer,
+  }) : assert(pageUrl.isNotEmpty, 'pageUrl cannot be null or empty');
 
   @override
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'pageUrl': pageUrl,
       'pageTitle': pageTitle,

@@ -4,28 +4,28 @@ import 'package:flutter/foundation.dart';
 @immutable
 class NotificationContent {
   /// [title] Title displayed in notification.
-  final String title;
+  final String? title;
 
   /// [subtitle] Subtitle displayed.
-  final String subtitle;
+  final String? subtitle;
 
   /// [body] Body message.
-  final String body;
+  final String? body;
 
   /// [badge] Badge count of the app.
-  final int badge;
+  final int? badge;
 
   /// [sound] Name of the notification sound.
-  final String sound;
+  final String? sound;
 
   /// [launchImageName] The launchImageName member of a UNNotificationContent object.
-  final String launchImageName;
+  final String? launchImageName;
 
   /// [userInfo] The UserInfo map.
-  final Map<String, Object> userInfo;
+  final Map<String, Object>? userInfo;
 
   /// [attachments] Attachments displayed with notification.
-  final List<Object> attachments;
+  final List<Object>? attachments;
 
   /// Create a [NotificationContent]
   NotificationContent({
@@ -40,7 +40,7 @@ class NotificationContent {
   });
 
   /// Converts the notification content object to JSON.
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'title': title,
       'subtitle': subtitle,

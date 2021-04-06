@@ -13,42 +13,39 @@ class ConsentGranted implements AbstractEvent {
   final String documentVersion;
 
   /// [expiry] The associated consent document expiry.
-  final String expiry;
+  final String? expiry;
 
   /// [documentName] The associated consent document name.
-  final String documentName;
+  final String? documentName;
 
   /// [documentDescription] The associated consent document description.
-  final String documentDescription;
+  final String? documentDescription;
 
   /// [consentDocuments] An array of associated consent documents.
   final List<ConsentDocument> consentDocuments;
 
   /// Create a [ConsentGranted] event
   ConsentGranted({
-    @required this.documentId,
-    @required this.documentVersion,
+    required this.documentId,
+    required this.documentVersion,
     this.expiry,
     this.documentName,
     this.documentDescription,
-    this.consentDocuments,
-  })  : assert(documentId != null && documentId.isNotEmpty,
-            'documentId cannot be null or empty'),
-        assert(documentVersion != null && documentVersion.isNotEmpty,
-            'documentVersion cannot be null or empty');
+    this.consentDocuments = const [],
+  })  : assert(documentId.isNotEmpty, 'documentId cannot be empty'),
+        assert(documentVersion.isNotEmpty, 'documentVersion cannot be empty');
 
   @override
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'expiry': expiry,
       'documentId': documentId,
       'documentVersion': documentVersion,
       'documentName': documentName,
       'documentDescription': documentDescription,
-      'consentDocuments':
-          consentDocuments.map((ConsentDocument consentDocument) {
-        return consentDocument.toMap();
-      }).toList(),
+      'consentDocuments': consentDocuments
+          .map((ConsentDocument consentDocument) => consentDocument.toMap())
+          .toList(),
     };
   }
 }

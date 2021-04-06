@@ -21,7 +21,7 @@ class Emitter {
 
   /// Create an [Emitter]
   Emitter({
-    @required this.uri,
+    required this.uri,
     this.httpMethod = HttpMethod.post,
     this.bufferOption = BufferOption.defaultGroup,
     this.requestSecurity = RequestSecurity.http,

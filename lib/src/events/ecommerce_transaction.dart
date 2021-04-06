@@ -13,7 +13,7 @@ class EcommerceTransaction implements AbstractEvent {
   final double totalValue;
 
   /// [affiliation] Transaction affiliation.
-  final String affiliation;
+  final String? affiliation;
 
   /// [taxValue] Transaction tax value.
   final double taxValue;
@@ -22,42 +22,37 @@ class EcommerceTransaction implements AbstractEvent {
   final double shipping;
 
   /// [city] Delivery address city.
-  final String city;
+  final String? city;
 
   /// [state] Delivery address state.
-  final String state;
+  final String? state;
 
   /// [country] Delivery address country.
-  final String country;
+  final String? country;
 
   /// [currency] Transaction currency.
-  final String currency;
+  final String? currency;
 
   /// [items] An array of items in the transaction.
   final List<EcommerceTransactionItem> items;
 
   /// Create a [EcommerceTransaction] event
   EcommerceTransaction({
-    @required this.orderId,
-    @required this.totalValue,
+    required this.orderId,
+    required this.totalValue,
     this.affiliation,
-    @required this.taxValue,
-    @required this.shipping,
+    required this.taxValue,
+    required this.shipping,
     this.city,
     this.state,
     this.country,
     this.currency,
-    @required this.items,
-  })  : assert(orderId != null && orderId.isNotEmpty,
-            'orderId cannot be null or empty'),
-        assert(totalValue != null, 'totalValue cannot be null'),
-        assert(taxValue != null, 'taxValue cannot be null'),
-        assert(shipping != null, 'shipping cannot be null'),
-        assert(
-            items != null && items.isNotEmpty, 'items cannot be null or empty');
+    required this.items,
+  })   : assert(orderId.isNotEmpty, 'orderId cannot be empty'),
+        assert(items.isNotEmpty, 'items cannot be empty');
 
   @override
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'orderId': orderId,
       'totalValue': totalValue,
@@ -68,9 +63,10 @@ class EcommerceTransaction implements AbstractEvent {
       'state': state,
       'country': country,
       'currency': currency,
-      'items': items.map((EcommerceTransactionItem ecommerceTransactionItem) {
-        return ecommerceTransactionItem.toMap();
-      }).toList(),
+      'items': items
+          .map((EcommerceTransactionItem ecommerceTransactionItem) =>
+              ecommerceTransactionItem.toMap())
+          .toList(),
     };
   }
 }
