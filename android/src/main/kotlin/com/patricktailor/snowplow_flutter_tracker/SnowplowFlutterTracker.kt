@@ -12,7 +12,6 @@ class SnowplowFlutterTracker(private val context: Context) {
 
     fun initialize(json: Map<String, Any>?) {
         emitter = TrackerUtil.getEmitter(json?.get("emitter") as Map<String, Any>?, json?.get("logLevel") as String, context)
-        emitter.waitForEventStore()
         tracker = TrackerUtil.getTracker(emitter, json, context)
     }
 
