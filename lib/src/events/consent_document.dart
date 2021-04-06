@@ -4,16 +4,16 @@ import 'package:flutter/foundation.dart';
 @immutable
 class ConsentDocument {
   /// [documentId] The document ID.
-  final String documentId;
+  final String? documentId;
 
   /// [documentVersion] The version of the document.
-  final String documentVersion;
+  final String? documentVersion;
 
   /// [documentName] Name of the consent document.
-  final String documentName;
+  final String? documentName;
 
   /// [documentDescription] The consent document description.
-  final String documentDescription;
+  final String? documentDescription;
 
   /// Create a [ConsentDocument]
   ConsentDocument({
@@ -24,7 +24,7 @@ class ConsentDocument {
   });
 
   /// Converts the consent document object to JSON.
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'documentId': documentId,
       'documentVersion': documentVersion,

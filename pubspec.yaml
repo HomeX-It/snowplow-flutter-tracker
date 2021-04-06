@@ -4,7 +4,7 @@ homepage: https://github.com/HomeXLabs/snowplow-flutter-tracker
 version: 0.10.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.12.0"
 
 dependencies:

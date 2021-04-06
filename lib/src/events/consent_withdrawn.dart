@@ -7,19 +7,19 @@ import 'consent_document.dart';
 @immutable
 class ConsentWithdrawn implements AbstractEvent {
   /// [all] Whether all consent is to be withdrawn.
-  final bool all;
+  final bool? all;
 
   /// [documentId] The document ID.
-  final String documentId;
+  final String? documentId;
 
   /// [documentVersion] The document's version.
-  final String documentVersion;
+  final String? documentVersion;
 
   /// [documentName] The name of the consent document.
-  final String documentName;
+  final String? documentName;
 
   /// [documentDescription] The consent document description.
-  final String documentDescription;
+  final String? documentDescription;
 
   /// [consentDocuments] An array of associated documents.
   final List<ConsentDocument> consentDocuments;
@@ -31,21 +31,20 @@ class ConsentWithdrawn implements AbstractEvent {
     this.documentVersion,
     this.documentName,
     this.documentDescription,
-    this.consentDocuments,
+    this.consentDocuments = const [],
   });
 
   @override
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'all': all,
       'documentId': documentId,
       'documentVersion': documentVersion,
       'documentName': documentName,
       'documentDescription': documentDescription,
-      'consentDocuments':
-          consentDocuments.map((ConsentDocument consentDocument) {
-        return consentDocument.toMap();
-      }).toList(),
+      'consentDocuments': consentDocuments
+          .map((ConsentDocument consentDocument) => consentDocument.toMap())
+          .toList(),
     };
   }
 }

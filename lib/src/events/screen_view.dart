@@ -9,28 +9,28 @@ class ScreenView implements AbstractEvent {
   final String name;
 
   /// [type] The type for the screen.
-  final String type;
+  final String? type;
 
   /// [transitionType] The type of the screen transition.
-  final String transitionType;
+  final String? transitionType;
 
   /// [previousName] The name of the previous screen.
-  final String previousName;
+  final String? previousName;
 
   /// [previousType] The type of the previous screen.
-  final String previousType;
+  final String? previousType;
 
   /// Creates a [ScreenView] event
   ScreenView({
-    @required this.name,
+    required this.name,
     this.type,
     this.transitionType,
     this.previousName,
     this.previousType,
-  }) : assert(name != null && name.isNotEmpty, 'name cannot be null or empty');
+  }) : assert(name.isNotEmpty, 'name cannot be null or empty');
 
   @override
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'name': name,
       'type': type,

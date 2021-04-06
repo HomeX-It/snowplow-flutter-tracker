@@ -9,7 +9,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  SnowplowFlutterTracker _tracker;
+  late SnowplowFlutterTracker _tracker;
 
   @override
   void initState() {

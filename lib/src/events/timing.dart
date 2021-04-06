@@ -14,22 +14,19 @@ class Timing implements AbstractEvent {
   final int timing;
 
   /// [label] Optional description of this timing.
-  final String label;
+  final String? label;
 
   /// Creates a [Timing] event
   Timing({
-    @required this.category,
-    @required this.variable,
-    @required this.timing,
+    required this.category,
+    required this.variable,
+    required this.timing,
     this.label,
-  })  : assert(category != null && category.isNotEmpty,
-            'category cannot be null or empty'),
-        assert(variable != null && variable.isNotEmpty,
-            'category cannot be null or empty'),
-        assert(timing != null, 'category cannot be null or empty');
+  })  : assert(category.isNotEmpty, 'category cannot be empty'),
+        assert(variable.isNotEmpty, 'category cannot be empty');
 
   @override
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'category': category,
       'variable': variable,

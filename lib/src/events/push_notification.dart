@@ -7,22 +7,22 @@ import 'notification_content.dart';
 @immutable
 class PushNotification implements AbstractEvent {
   /// [action] Action taken by the user.
-  final String action;
+  final String? action;
 
   /// [deliveryDate] The date the notification was delivered.
-  final String deliveryDate;
+  final String? deliveryDate;
 
   /// [trigger] Event trigger (i.e. push or local trigger).
-  final String trigger;
+  final String? trigger;
 
   /// [categoryIdentifier] Category Id of the notification.
-  final String categoryIdentifier;
+  final String? categoryIdentifier;
 
   /// [threadIdentifier] Thread Id of the notification.
-  final String threadIdentifier;
+  final String? threadIdentifier;
 
   /// [notificationContent] Notification content event.
-  final NotificationContent notificationContent;
+  final NotificationContent? notificationContent;
 
   /// Creates a [PushNotification] event
   PushNotification({
@@ -35,14 +35,14 @@ class PushNotification implements AbstractEvent {
   });
 
   @override
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'action': action,
       'deliveryDate': deliveryDate,
       'trigger': trigger,
       'categoryIdentifier': categoryIdentifier,
       'threadIdentifier': threadIdentifier,
-      'notificationContent': notificationContent.toMap(),
+      'notificationContent': notificationContent?.toMap(),
     };
   }
 }
