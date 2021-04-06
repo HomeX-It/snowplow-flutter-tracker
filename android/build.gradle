@@ -43,5 +43,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     implementation "com.squareup.okhttp3:okhttp:3.12.1"
-    implementation 'com.snowplowanalytics:snowplow-android-tracker:1.4.0@aar'
+    implementation 'com.snowplowanalytics:snowplow-android-tracker:1.7.1@aar'
 }

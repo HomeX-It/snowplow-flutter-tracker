@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
           child: Center(
             child: Column(
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final selfDescribingJson = SelfDescribingJsonBuilder()
                         .setSchema('iglu:com.acme/event/jsonschema/1-0-0')
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Self Describing Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final structured = StructuredBuilder()
                         .setCategory('shop')
@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Structured Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final screenView = ScreenViewBuilder()
                         .setName('home')
@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Screen View Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final pageView = PageViewBuilder()
                         .setPageUrl('https://www.google.com/')
@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Page View Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final timing = TimingBuilder()
                         .setCategory('category')
@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Timing Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final item = EcommerceTransactionItemBuilder()
                         .setItemId('item_id_1')
@@ -127,7 +127,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Ecommerce Transaction Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final consentDocuments = [
                       ConsentDocumentBuilder()
@@ -150,7 +150,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Consent Granted Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final consentDocuments = [
                       ConsentDocumentBuilder()
@@ -173,7 +173,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Send Consent Withdrawn Event'),
                 ),
                 SizedBox(height: 24.0),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     final notificationContent = NotificationContentBuilder()
                         .setTitle('You received a new message')

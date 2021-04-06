@@ -51,6 +51,11 @@ class Tracker {
   /// [screenContext] Whether screen contexts are enabled.
   final bool screenContext;
 
+  /// [screenContext] Whether exception events are tracked.
+  /// On [iOS], setting true enables exception tracking.
+  /// On [Android], setting true enables crash tracking.
+  final bool exceptionEvents;
+
   /// [installTracking] Whether to autotrack application installs.
   final bool installTracking;
 
@@ -70,6 +75,7 @@ class Tracker {
         backgroundTimeout = builder._backgroundTimeout,
         lifecycleEvents = builder._lifecycleEvents,
         screenContext = builder._screenContext,
+        exceptionEvents = builder._exceptionEvents,
         installTracking = builder._installTracking;
 
   /// [toMap] Converts the tracker object to JSON.
@@ -91,6 +97,7 @@ class Tracker {
       'lifecycleEvents': lifecycleEvents,
       'screenContext': screenContext,
       'installTracking': installTracking,
+      'exceptionEvents': exceptionEvents
     };
   }
 }
@@ -114,6 +121,7 @@ class TrackerBuilder {
   bool _lifecycleEvents;
   bool _screenContext;
   bool _installTracking;
+  bool _exceptionEvents;
 
   /// Builder constructor with required parameters, [emitter], [namespace] and [appId].
   TrackerBuilder(Emitter emitter, String namespace, String appId) {
@@ -133,6 +141,7 @@ class TrackerBuilder {
     _lifecycleEvents = false;
     _screenContext = false;
     _installTracking = false;
+    _exceptionEvents = false;
   }
 
   /// [setBase64] Tracker builder method to set whether events will be sent Base64 encoded.
@@ -178,6 +187,9 @@ class TrackerBuilder {
   }
 
   /// [setSessionCheckInterval] Tracker builder method to set the interval of session checking.
+  @Deprecated(
+    '\'setCheckInterval\' is deprecated: setCheckInterval is deprecated as no longer has any effect.',
+  )
   TrackerBuilder setSessionCheckInterval(int sessionCheckInterval) {
     _sessionCheckInterval = sessionCheckInterval;
     return this;
@@ -210,6 +222,14 @@ class TrackerBuilder {
   /// [setInstallTracking] Tracker builder method to set whether application install should be autotracked.
   TrackerBuilder setInstallTracking(bool installTracking) {
     _installTracking = installTracking;
+    return this;
+  }
+
+  /// [setExceptionEvents] Tracker builder method to set whether exception events should get tracked automatically.
+  /// On [iOS], enabling this tracks any unhandled exceptions.
+  /// On [Android], this option enables crash tracking.
+  TrackerBuilder setExceptionEvents(bool exceptionEvents) {
+    _exceptionEvents = exceptionEvents;
     return this;
   }
 

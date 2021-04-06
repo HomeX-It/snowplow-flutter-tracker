@@ -5,8 +5,8 @@ PODS:
   - FMDB/standard (2.7.5)
   - snowplow_flutter_tracker (0.0.1):
     - Flutter
-    - SnowplowTracker (= 1.3.0)
-  - SnowplowTracker (1.3.0):
+    - SnowplowTracker (~> 1.6.2)
+  - SnowplowTracker (1.6.2):
     - FMDB (~> 2.6)
 
 DEPENDENCIES:
@@ -27,8 +27,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  snowplow_flutter_tracker: 65f78d772888a270a3918d19d7fb194de1e580d0
-  SnowplowTracker: 91259853f3c0de00dc93aa67492e3d0166659643
+  snowplow_flutter_tracker: 0523a1ae143e4f8c6cc65bea62982b7f798f7c8f
+  SnowplowTracker: 6d37e5411b4bdc4c254ab19cb7df41e81bbd0a13
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 

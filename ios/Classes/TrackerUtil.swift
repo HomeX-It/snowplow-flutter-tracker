@@ -28,6 +28,8 @@ struct TrackerUtil {
             SPTrackerBuilder?.setLifecycleEvents(dictionary?["lifecycleEvents"] as? Bool ?? false)
             SPTrackerBuilder?.setScreenContext(dictionary?["screenContext"] as? Bool ?? false)
             SPTrackerBuilder?.setInstallEvent(dictionary?["installTracking"] as? Bool ?? false)
+            SPTrackerBuilder?.setLogLevel(getLogLevel(rawValue: dictionary?["logLevel"] as? String))
+            SPTrackerBuilder?.setExceptionEvents(dictionary?["exceptionEvents"] as? Bool ?? false)
         }
     }
     
@@ -36,6 +38,21 @@ struct TrackerUtil {
             SPEmitterBuilder?.setUrlEndpoint(dictionary?["uri"] as? String)
             SPEmitterBuilder?.setHttpMethod(getHttpMethod(httpMethodAsString: dictionary?["httpMethod"] as? String))
             SPEmitterBuilder?.setProtocol(getProtocol(protocolAsString: dictionary?["requestSecurity"] as? String))
+        }
+    }
+
+    private static func getLogLevel(rawValue: String?) -> SPLogLevel {
+        switch rawValue {
+        case "OFF":
+            return SPLogLevel.off
+        case "ERROR":
+            return SPLogLevel.error
+        case "DEBUG":
+            return SPLogLevel.debug
+        case "VERBOSE":
+            return SPLogLevel.verbose
+        default:
+            return SPLogLevel.off
         }
     }
     

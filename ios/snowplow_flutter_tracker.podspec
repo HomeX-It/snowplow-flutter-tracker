@@ -15,7 +15,7 @@ Snowplow event tracker for Flutter. Add analytics to your Flutter apps and games
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'SnowplowTracker', '1.3.0'
+  s.dependency 'SnowplowTracker', '~> 1.6.2'
   s.platform = :ios, '8.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
