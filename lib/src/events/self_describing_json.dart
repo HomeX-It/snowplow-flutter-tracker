@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// [SelfDescribingJson] event.
+@immutable
 class SelfDescribingJson {
   /// [schema] The schema URI for this self-describing JSON.
   final String schema;

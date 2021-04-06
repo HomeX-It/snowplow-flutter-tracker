@@ -7,6 +7,7 @@ import '../emitter/emitter.dart';
 
 /// [Tracker] The tracker class.
 /// This class is used for tracking events, and delegates them to other classes responsible for sending, storage, etc.
+@immutable
 class Tracker {
   /// [emitter] The emitter used by the tracker.
   final Emitter emitter;

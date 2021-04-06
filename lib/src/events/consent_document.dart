@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// [ConsentDocument]
+@immutable
 class ConsentDocument {
   /// [documentId] The document ID.
   final String documentId;

@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 
 import 'abstract_event.dart';
 
-/// [ScreenView] event
+/// [ScreenView] event\
+@immutable
 class ScreenView implements AbstractEvent {
   /// [name] The name of the screen.
   final String name;

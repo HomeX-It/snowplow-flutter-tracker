@@ -4,6 +4,7 @@ import 'abstract_event.dart';
 import 'consent_document.dart';
 
 /// [ConsentGranted] event
+@immutable
 class ConsentGranted implements AbstractEvent {
   /// [documentId] The associated consent document ID.
   final String documentId;

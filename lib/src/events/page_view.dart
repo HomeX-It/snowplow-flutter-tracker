@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'abstract_event.dart';
 
 /// [PageViewEvent] event.
+@immutable
 class PageViewEvent implements AbstractEvent {
   /// [pageUrl] The URL of the page.
   final String pageUrl;

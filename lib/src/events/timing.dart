@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'abstract_event.dart';
 
 /// [Timing] event.
+@immutable
 class Timing implements AbstractEvent {
   /// [category] A logical group name for variables.
   final String category;

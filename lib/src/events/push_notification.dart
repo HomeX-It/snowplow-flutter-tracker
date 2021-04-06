@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
+
 import 'abstract_event.dart';
 import 'notification_content.dart';
 
 /// [PushNotification] event.
+@immutable
 class PushNotification implements AbstractEvent {
   /// [action] Action taken by the user.
   final String action;

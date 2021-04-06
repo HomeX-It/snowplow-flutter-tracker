@@ -5,6 +5,7 @@ import 'http_method.dart';
 import 'request_security.dart';
 
 /// [Emitter] This class sends events to the collector.
+@immutable
 class Emitter {
   /// [uri] The collector endpoint.
   final String uri;

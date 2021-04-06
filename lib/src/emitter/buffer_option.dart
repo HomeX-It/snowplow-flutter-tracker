@@ -1,9 +1,11 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
+import 'package:flutter/foundation.dart';
 
 part 'buffer_option.g.dart';
 
 /// [BufferOption] Defines how many events we bundle in a POST.
+@immutable
 class BufferOption extends EnumClass {
   /// [Single] One event of bundle in a POST.
   @BuiltValueEnumConst(wireNumber: 1)

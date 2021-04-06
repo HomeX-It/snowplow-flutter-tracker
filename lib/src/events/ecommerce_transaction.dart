@@ -4,6 +4,7 @@ import 'abstract_event.dart';
 import 'ecommerce_transaction_item.dart';
 
 /// [EcommerceTransaction] event.
+@immutable
 class EcommerceTransaction implements AbstractEvent {
   /// [orderId] ID of the eCommerce transaction.
   final String orderId;

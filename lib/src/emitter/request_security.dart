@@ -1,9 +1,11 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
+import 'package:flutter/foundation.dart';
 
 part 'request_security.g.dart';
 
 /// [RequestSecurity] An enum for HTTP security.
+@immutable
 class RequestSecurity extends EnumClass {
   /// [HTTP] Use HTTP.
   @BuiltValueEnumConst(wireName: 'HTTP')

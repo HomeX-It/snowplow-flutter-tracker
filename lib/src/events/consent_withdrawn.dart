@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
+
 import 'abstract_event.dart';
 import 'consent_document.dart';
 
 /// [ConsentWithdrawn] event.
+@immutable
 class ConsentWithdrawn implements AbstractEvent {
   /// [all] Whether all consent is to be withdrawn.
   final bool all;

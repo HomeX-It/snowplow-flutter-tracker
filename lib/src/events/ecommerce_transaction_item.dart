@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// [EcommerceTransactionItem]
+@immutable
 class EcommerceTransactionItem {
   /// [itemId] ID of the eCommerce transaction.
   final String itemId;

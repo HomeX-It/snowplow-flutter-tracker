@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-
 import 'abstract_event.dart';
 
 /// [Structured] event
+@immutable
 class Structured implements AbstractEvent {
   /// [category] The category of the structured event
   final String category;

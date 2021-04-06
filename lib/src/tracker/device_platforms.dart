@@ -1,9 +1,11 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
+import 'package:flutter/foundation.dart';
 
 part 'device_platforms.g.dart';
 
 /// [DevicePlatforms] An enum for device platform types.
+@immutable
 class DevicePlatforms extends EnumClass {
   /// [Web] Browser application.
   @BuiltValueEnumConst(wireName: 'web')

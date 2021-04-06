@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// [NotificationContent]
+@immutable
 class NotificationContent {
   /// [title] Title displayed in notification.
   final String title;

@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// [Subject] This class is used to access and persist user information, it represents the current user being tracked.
+@immutable
 class Subject {
   /// [userId] The user's ID.
   final String userId;
