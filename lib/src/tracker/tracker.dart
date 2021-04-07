@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import 'gdpr_context.dart';
 import 'device_platforms.dart';
 import 'log_level.dart';
 
@@ -62,6 +63,9 @@ class Tracker {
   /// [installTracking] Whether to autotrack application installs.
   final bool installTracking;
 
+  /// [gdprContext] GDPR basis for processing and the details of a related document.
+  final GDPRContext? gdprContext;
+
   /// Create a [Tracker] with default settings
   Tracker({
     required this.emitter,
@@ -81,6 +85,7 @@ class Tracker {
     this.screenContext = false,
     this.exceptionEvents = false,
     this.installTracking = false,
+    this.gdprContext,
   });
 
   /// [toMap] Converts the tracker object to JSON.
@@ -103,6 +108,7 @@ class Tracker {
       'screenContext': screenContext,
       'exceptionEvents': exceptionEvents,
       'installTracking': installTracking,
+      'gdprContext': gdprContext?.toMap(),
     };
   }
 }

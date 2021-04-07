@@ -1,16 +1,18 @@
 package com.patricktailor.snowplow_flutter_tracker.util
 
 import android.content.Context
-import com.snowplowanalytics.snowplow.tracker.DevicePlatforms
-import com.snowplowanalytics.snowplow.tracker.Emitter
-import com.snowplowanalytics.snowplow.tracker.Subject
-import com.snowplowanalytics.snowplow.tracker.Tracker
+import com.snowplowanalytics.snowplow.tracker.*
 import com.snowplowanalytics.snowplow.tracker.emitter.BufferOption
 import com.snowplowanalytics.snowplow.tracker.emitter.HttpMethod
 import com.snowplowanalytics.snowplow.tracker.emitter.RequestSecurity
 import com.snowplowanalytics.snowplow.tracker.utils.LogLevel
 
 class TrackerUtil {
+    sealed class GdprContextError(message: String?) : Throwable(message) {
+        object MissingLegalBasis: GdprContextError("[GDPR context] GDPR context does not contain legal basis for tracking")
+        object UnknownLegalBasis: GdprContextError("[GDPR context] Unknown legal basis for tracking")
+    }
+
     companion object {
         fun getEmitter(json: Map<String, Any>?, logLevel: String, context: Context): Emitter {
             return Emitter.EmitterBuilder(json?.get("uri") as String, context)
@@ -26,7 +28,7 @@ class TrackerUtil {
             val appId = json["appId"] as String
             val subject = Subject.SubjectBuilder().build()
 
-            return Tracker.init(Tracker.TrackerBuilder(emitter, namespace, appId, context)
+            var builder = Tracker.TrackerBuilder(emitter, namespace, appId, context)
                     .subject(subject)
                     .base64(json["base64"] as Boolean)
                     .platform(DevicePlatforms.valueOf(json["devicePlatform"] as String))
@@ -42,8 +44,36 @@ class TrackerUtil {
                     .screenContext(json["screenContext"] as Boolean)
                     .installTracking(json["installTracking"] as Boolean)
                     .applicationCrash(json["exceptionEvents"] as Boolean)
-                    .build()
-            )
+
+            val gdprContext = json["gdprContext"] as? Map<String, Any>
+            if (gdprContext != null) {
+                val processingBasis = getGdprProcessingBasis(gdprContext)
+                builder = builder.gdprContext(
+                        processingBasis,
+                        gdprContext["documentId"]?.toString(),
+                        gdprContext["documentVersion"]?.toString(),
+                        gdprContext["documentDescription"]?.toString()
+                )
+            }
+
+            return Tracker.init(builder.build())
+        }
+
+        private fun getGdprProcessingBasis(context: Map<String, Any>): Gdpr.Basis {
+            val basis = context["basis"] as? String
+            if (basis != null) {
+                return when(basis) {
+                    "consent" -> Gdpr.Basis.CONSENT
+                    "contract" -> Gdpr.Basis.CONTRACT
+                    "legal_obligation" -> Gdpr.Basis.LEGAL_OBLIGATION
+                    "vital_interests" -> Gdpr.Basis.VITAL_INTERESTS
+                    "public_task" -> Gdpr.Basis.PUBLIC_TASK
+                    "legitimate_interests" -> Gdpr.Basis.LEGITIMATE_INTERESTS
+                    else -> throw GdprContextError.UnknownLegalBasis
+                }
+            } else {
+                throw GdprContextError.MissingLegalBasis
+            }
         }
     }
 }
