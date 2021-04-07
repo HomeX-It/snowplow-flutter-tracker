@@ -30,6 +30,15 @@ struct TrackerUtil {
             SPTrackerBuilder?.setInstallEvent(dictionary?["installTracking"] as? Bool ?? false)
             SPTrackerBuilder?.setLogLevel(getLogLevel(rawValue: dictionary?["logLevel"] as? String))
             SPTrackerBuilder?.setExceptionEvents(dictionary?["exceptionEvents"] as? Bool ?? false)
+
+            if let gdprContext = dictionary?["gdprContext"] as? [String: Any] {
+                SPTrackerBuilder?.setGdprContextWith(
+                    getGdprProcessingBasis(from: gdprContext),
+                    documentId: gdprContext["documentId"] as? String,
+                    documentVersion: gdprContext["documentVersion"] as? String,
+                    documentDescription: gdprContext["documentDescription"] as? String
+                )
+            }
         }
     }
     
@@ -38,6 +47,29 @@ struct TrackerUtil {
             SPEmitterBuilder?.setUrlEndpoint(dictionary?["uri"] as? String)
             SPEmitterBuilder?.setHttpMethod(getHttpMethod(httpMethodAsString: dictionary?["httpMethod"] as? String))
             SPEmitterBuilder?.setProtocol(getProtocol(protocolAsString: dictionary?["requestSecurity"] as? String))
+        }
+    }
+
+    private static func getGdprProcessingBasis(from context: [String: Any]) -> SPGdprProcessingBasis {
+        guard let basis = context["basis"] as? String else {
+            fatalError("[GDPR context] GDPR context does not contain legal basis for tracking")
+        }
+
+        switch basis {
+        case "consent":
+            return SPGdprProcessingBasis.consent
+        case "contract":
+            return SPGdprProcessingBasis.contract
+        case "legal_obligation":
+            return SPGdprProcessingBasis.legalObligation
+        case "vital_interests":
+            return SPGdprProcessingBasis.vitalInterest
+        case "public_task":
+            return SPGdprProcessingBasis.publicTask
+        case "legitimate_interests":
+            return SPGdprProcessingBasis.legitimateInterests
+        default:
+            fatalError("[GDPR context] Unknown legal basis for tracking")
         }
     }
 

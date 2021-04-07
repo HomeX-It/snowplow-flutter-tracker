@@ -19,6 +19,7 @@ export 'src/events/self_describing_json.dart';
 export 'src/events/structured.dart';
 export 'src/events/timing.dart';
 
+export 'src/tracker/gdpr_context.dart';
 export 'src/tracker/device_platforms.dart';
 export 'src/tracker/log_level.dart';
 export 'src/tracker/subject.dart';
