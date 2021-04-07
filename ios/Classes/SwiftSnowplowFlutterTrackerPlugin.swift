@@ -50,36 +50,10 @@ public class SwiftSnowplowFlutterTrackerPlugin: NSObject, FlutterPlugin {
     }
     
     private func onSetSubject(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
-        let arguments = call.arguments as? [String: Any]
-        
-        if (arguments?["userId"] != nil) {
-            tracker?.subject.setUserId(arguments?["userId"] as? String)
+        if let subjectConfiguration = call.arguments as? [String: Any] {
+            tracker?.subject.configure(with: subjectConfiguration)
         }
-        if (arguments?["viewportWidth"] != nil && arguments?["viewportHeight"] != nil) {
-            tracker?.subject.setViewPortWithWidth(arguments?["viewportWidth"] as! Int, andHeight: arguments?["viewportHeight"] as! Int)
-        }
-        if (arguments?["screenResolutionWidth"] != nil && arguments?["screenResolutionHeight"] != nil) {
-            tracker?.subject.setResolutionWithWidth(arguments?["screenResolutionWidth"] as! Int, andHeight: arguments?["screenResolutionHeight"] as! Int)
-        }
-        if (arguments?["colorDepth"] != nil) {
-            tracker?.subject.setColorDepth(arguments?["colorDepth"] as! Int)
-        }
-        if (arguments?["timezone"] != nil) {
-            tracker?.subject.setTimezone(arguments?["timezone"] as? String)
-        }
-        if (arguments?["ipAddress"] != nil) {
-            tracker?.subject.setIpAddress(arguments?["ipAddress"] as? String)
-        }
-        if (arguments?["userAgent"] != nil) {
-            tracker?.subject.setUseragent(arguments?["userAgent"] as? String)
-        }
-        if (arguments?["networkUserId"] != nil) {
-            tracker?.subject.setNetworkUserId(arguments?["networkUserId"] as? String)
-        }
-        if (arguments?["domainUserId"] != nil) {
-            tracker?.subject.setDomainUserId(arguments?["domainUserId"] as? String)
-        }
-        
+
         result(nil)
     }
     

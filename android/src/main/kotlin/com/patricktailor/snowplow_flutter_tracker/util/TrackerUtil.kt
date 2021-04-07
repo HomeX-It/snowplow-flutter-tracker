@@ -1,3 +1,4 @@
+
 package com.patricktailor.snowplow_flutter_tracker.util
 
 import android.content.Context
@@ -28,12 +29,14 @@ class TrackerUtil {
             val appId = json["appId"] as String
             val subject = Subject.SubjectBuilder().build()
 
+            val mobileContext =  json["mobileContext"] as Boolean
+
             var builder = Tracker.TrackerBuilder(emitter, namespace, appId, context)
                     .subject(subject)
                     .base64(json["base64"] as Boolean)
                     .platform(DevicePlatforms.valueOf(json["devicePlatform"] as String))
                     .level(LogLevel.valueOf(json["logLevel"] as String))
-                    .mobileContext(json["mobileContext"] as Boolean)
+                    .mobileContext(mobileContext)
                     .screenviewEvents(json["screenviewEvents"] as Boolean)
                     .applicationContext(json["applicationContext"] as Boolean)
                     .sessionContext(json["sessionContext"] as Boolean)
@@ -44,6 +47,17 @@ class TrackerUtil {
                     .screenContext(json["screenContext"] as Boolean)
                     .installTracking(json["installTracking"] as Boolean)
                     .applicationCrash(json["exceptionEvents"] as Boolean)
+
+            val subjectConfiguration = json["subject"] as? Map<String, Any>
+            if (subjectConfiguration != null) {
+                val enableMobileContext = mobileContext || subjectConfiguration["platformContext"] as Boolean
+
+                builder = builder
+                        .geoLocationContext(subjectConfiguration["geoContext"] as Boolean)
+                        .mobileContext(enableMobileContext)
+
+                SubjectUtil.configure(subject, subjectConfiguration)
+            }
 
             val gdprContext = json["gdprContext"] as? Map<String, Any>
             if (gdprContext != null) {

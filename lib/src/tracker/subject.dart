@@ -3,6 +3,14 @@ import 'package:flutter/foundation.dart';
 /// [Subject] This class is used to access and persist user information, it represents the current user being tracked.
 @immutable
 class Subject {
+  /// [platformContext] Whether to enable the platform context.
+  ///
+  /// Enabling the platform context on Android enables the mobile context.
+  final bool platformContext;
+
+  /// [geoContext] Whether to enabled the geolocation context.
+  final bool geoContext;
+
   /// [userId] The user's ID.
   final String? userId;
 
@@ -41,6 +49,8 @@ class Subject {
 
   /// Creates a [Subject]
   Subject({
+    this.platformContext = false,
+    this.geoContext = false,
     this.userId,
     this.viewportWidth,
     this.viewportHeight,
@@ -58,6 +68,8 @@ class Subject {
   /// [toMap] Converts the subject object to JSON.
   Map<String, Object?> toMap() {
     return {
+      'platformContext': platformContext,
+      'geoContext': geoContext,
       'userId': userId,
       'viewportWidth': viewportWidth,
       'viewportHeight': viewportHeight,

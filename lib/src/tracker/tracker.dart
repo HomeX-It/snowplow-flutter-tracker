@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'gdpr_context.dart';
 import 'device_platforms.dart';
 import 'log_level.dart';
+import 'subject.dart';
 
 import '../emitter/emitter.dart';
 
@@ -10,6 +11,9 @@ import '../emitter/emitter.dart';
 /// This class is used for tracking events, and delegates them to other classes responsible for sending, storage, etc.
 @immutable
 class Tracker {
+  /// [subject]
+  final Subject? subject;
+
   /// [emitter] The emitter used by the tracker.
   final Emitter emitter;
 
@@ -68,6 +72,7 @@ class Tracker {
 
   /// Create a [Tracker] with default settings
   Tracker({
+    this.subject,
     required this.emitter,
     required this.namespace,
     required this.appId,
@@ -91,6 +96,7 @@ class Tracker {
   /// [toMap] Converts the tracker object to JSON.
   Map<String, Object?> toMap() {
     return <String, Object?>{
+      'subject': subject?.toMap(),
       'emitter': emitter.toMap(),
       'namespace': namespace,
       'appId': appId,
