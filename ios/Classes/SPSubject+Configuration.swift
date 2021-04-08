@@ -9,15 +9,6 @@ import SnowplowTracker
 
 extension SPSubject {
     func configure(with configuration: [String: Any]) {
-        if configuration["platformContext"] as? Bool ?? false, getPlatformDict()?.getAsDictionary()?.isEmpty ?? true {
-            setPlatformDict()
-        }
-
-        if configuration["geoContext"] as? Bool ?? false,
-           getGeoLocationDict()?.isEmpty ?? true {
-            setGeoDict()
-        }
-
         if let userId = configuration["userId"] as? String {
             setUserId(userId)
         }

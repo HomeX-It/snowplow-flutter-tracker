@@ -33,7 +33,11 @@ class Tracker {
   final LogLevel logLevel;
 
   /// [mobileContext] Whether mobile context is enabled.
+  /// The mobile context contains information like OS version, device model, carrier and more.
   final bool mobileContext;
+
+  /// [geoContext] Whether to enable the geolocation context.
+  final bool geoContext;
 
   /// [screenViewEvents] Whether to auto-track screen views.
   final bool screenViewEvents;
@@ -80,6 +84,7 @@ class Tracker {
     this.devicePlatform = DevicePlatforms.mobile,
     this.logLevel = LogLevel.off,
     this.mobileContext = false,
+    this.geoContext = false,
     this.screenViewEvents = false,
     this.applicationContext = false,
     this.sessionContext = false,
@@ -104,6 +109,7 @@ class Tracker {
       'devicePlatform': devicePlatform.name,
       'logLevel': logLevel.name,
       'mobileContext': mobileContext,
+      'geoContext': geoContext,
       'screenviewEvents': screenViewEvents,
       'applicationContext': applicationContext,
       'sessionContext': sessionContext,

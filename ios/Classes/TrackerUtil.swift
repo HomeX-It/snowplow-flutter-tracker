@@ -10,7 +10,10 @@ import SnowplowTracker
 
 struct TrackerUtil {
     static func getTracker(emitter: SPEmitter, dictionary: [String: Any]?) -> SPTracker? {
-        let subject = SPSubject()!
+        let subject = SPSubject(
+            platformContext: dictionary?["mobileContext"] as? Bool ?? false,
+            andGeoContext: dictionary?["geoContext"] as? Bool ?? false
+        )!
 
         if let subjectConfiguration = dictionary?["subject"] as? [String: Any] {
             subject.configure(with: subjectConfiguration)

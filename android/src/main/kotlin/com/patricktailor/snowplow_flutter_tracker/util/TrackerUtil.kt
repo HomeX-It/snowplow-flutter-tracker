@@ -29,14 +29,13 @@ class TrackerUtil {
             val appId = json["appId"] as String
             val subject = Subject.SubjectBuilder().build()
 
-            val mobileContext =  json["mobileContext"] as Boolean
-
             var builder = Tracker.TrackerBuilder(emitter, namespace, appId, context)
                     .subject(subject)
                     .base64(json["base64"] as Boolean)
                     .platform(DevicePlatforms.valueOf(json["devicePlatform"] as String))
                     .level(LogLevel.valueOf(json["logLevel"] as String))
-                    .mobileContext(mobileContext)
+                    .mobileContext(json["mobileContext"] as Boolean)
+                    .geoLocationContext(json["geoContext"] as Boolean)
                     .screenviewEvents(json["screenviewEvents"] as Boolean)
                     .applicationContext(json["applicationContext"] as Boolean)
                     .sessionContext(json["sessionContext"] as Boolean)
@@ -50,12 +49,6 @@ class TrackerUtil {
 
             val subjectConfiguration = json["subject"] as? Map<String, Any>
             if (subjectConfiguration != null) {
-                val enableMobileContext = mobileContext || subjectConfiguration["platformContext"] as Boolean
-
-                builder = builder
-                        .geoLocationContext(subjectConfiguration["geoContext"] as Boolean)
-                        .mobileContext(enableMobileContext)
-
                 SubjectUtil.configure(subject, subjectConfiguration)
             }
 
