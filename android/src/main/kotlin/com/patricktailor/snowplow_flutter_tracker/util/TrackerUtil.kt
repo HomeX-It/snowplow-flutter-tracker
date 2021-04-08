@@ -1,4 +1,3 @@
-
 package com.patricktailor.snowplow_flutter_tracker.util
 
 import android.content.Context
