@@ -15,7 +15,7 @@ extension SPSubject {
 
         if let viewportWidth = configuration["viewportWidth"] as? Int,
            let viewportHeight = configuration["viewportHeight"] as? Int {
-            setViewPortWithWidth(viewportWidth,andHeight: viewportHeight)
+            setViewPortWithWidth(viewportWidth, andHeight: viewportHeight)
         }
 
         if let screenResolutionWidth = configuration["screenResolutionWidth"] as? Int,
