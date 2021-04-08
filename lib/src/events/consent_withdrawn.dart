@@ -25,7 +25,7 @@ class ConsentWithdrawn implements AbstractEvent {
   final List<ConsentDocument> consentDocuments;
 
   /// Create a [ConsentWithdrawn] event
-  ConsentWithdrawn({
+  const ConsentWithdrawn({
     this.all,
     this.documentId,
     this.documentVersion,
@@ -47,4 +47,25 @@ class ConsentWithdrawn implements AbstractEvent {
           .toList(),
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ConsentWithdrawn &&
+          runtimeType == other.runtimeType &&
+          all == other.all &&
+          documentId == other.documentId &&
+          documentVersion == other.documentVersion &&
+          documentName == other.documentName &&
+          documentDescription == other.documentDescription &&
+          consentDocuments == other.consentDocuments;
+
+  @override
+  int get hashCode =>
+      all.hashCode ^
+      documentId.hashCode ^
+      documentVersion.hashCode ^
+      documentName.hashCode ^
+      documentDescription.hashCode ^
+      consentDocuments.hashCode;
 }

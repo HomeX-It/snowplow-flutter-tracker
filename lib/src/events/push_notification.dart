@@ -25,7 +25,7 @@ class PushNotification implements AbstractEvent {
   final NotificationContent? notificationContent;
 
   /// Creates a [PushNotification] event
-  PushNotification({
+  const PushNotification({
     this.action,
     this.deliveryDate,
     this.trigger,
@@ -45,4 +45,24 @@ class PushNotification implements AbstractEvent {
       'notificationContent': notificationContent?.toMap(),
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PushNotification &&
+          action == other.action &&
+          deliveryDate == other.deliveryDate &&
+          trigger == other.trigger &&
+          categoryIdentifier == other.categoryIdentifier &&
+          threadIdentifier == other.threadIdentifier &&
+          notificationContent == other.notificationContent;
+
+  @override
+  int get hashCode =>
+      action.hashCode ^
+      deliveryDate.hashCode ^
+      trigger.hashCode ^
+      categoryIdentifier.hashCode ^
+      threadIdentifier.hashCode ^
+      notificationContent.hashCode;
 }

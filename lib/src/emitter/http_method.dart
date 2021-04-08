@@ -13,4 +13,11 @@ class HttpMethod {
 
   /// POST request.
   static const post = HttpMethod._('POST');
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is HttpMethod && name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }

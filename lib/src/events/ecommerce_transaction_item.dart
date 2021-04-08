@@ -25,7 +25,7 @@ class EcommerceTransactionItem {
   final String? currency;
 
   /// Create a [EcommerceTransactionItem]
-  EcommerceTransactionItem({
+  const EcommerceTransactionItem({
     this.itemId,
     this.sku,
     this.price,
@@ -47,4 +47,27 @@ class EcommerceTransactionItem {
       'currency': currency,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EcommerceTransactionItem &&
+          runtimeType == other.runtimeType &&
+          itemId == other.itemId &&
+          sku == other.sku &&
+          price == other.price &&
+          quantity == other.quantity &&
+          name == other.name &&
+          category == other.category &&
+          currency == other.currency;
+
+  @override
+  int get hashCode =>
+      itemId.hashCode ^
+      sku.hashCode ^
+      price.hashCode ^
+      quantity.hashCode ^
+      name.hashCode ^
+      category.hashCode ^
+      currency.hashCode;
 }

@@ -29,4 +29,15 @@ class PageViewEvent implements AbstractEvent {
       'referrer': referrer,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PageViewEvent &&
+          pageUrl == other.pageUrl &&
+          pageTitle == other.pageTitle &&
+          referrer == other.referrer;
+
+  @override
+  int get hashCode => pageUrl.hashCode ^ pageTitle.hashCode ^ referrer.hashCode;
 }

@@ -19,4 +19,11 @@ class LogLevel {
 
   /// Logging turned on, on all events
   static const verbose = LogLevel._('VERBOSE');
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is LogLevel && name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }

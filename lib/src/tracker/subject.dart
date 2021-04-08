@@ -40,7 +40,7 @@ class Subject {
   final String? domainUserId;
 
   /// Creates a [Subject]
-  Subject({
+  const Subject({
     this.userId,
     this.viewportWidth,
     this.viewportHeight,
@@ -72,4 +72,36 @@ class Subject {
       'domainUserId': domainUserId,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Subject &&
+          userId == other.userId &&
+          viewportWidth == other.viewportWidth &&
+          viewportHeight == other.viewportHeight &&
+          screenResolutionWidth == other.screenResolutionWidth &&
+          screenResolutionHeight == other.screenResolutionHeight &&
+          colorDepth == other.colorDepth &&
+          timezone == other.timezone &&
+          language == other.language &&
+          ipAddress == other.ipAddress &&
+          userAgent == other.userAgent &&
+          networkUserId == other.networkUserId &&
+          domainUserId == other.domainUserId;
+
+  @override
+  int get hashCode =>
+      userId.hashCode ^
+      viewportWidth.hashCode ^
+      viewportHeight.hashCode ^
+      screenResolutionWidth.hashCode ^
+      screenResolutionHeight.hashCode ^
+      colorDepth.hashCode ^
+      timezone.hashCode ^
+      language.hashCode ^
+      ipAddress.hashCode ^
+      userAgent.hashCode ^
+      networkUserId.hashCode ^
+      domainUserId.hashCode;
 }

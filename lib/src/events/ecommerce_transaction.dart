@@ -69,4 +69,33 @@ class EcommerceTransaction implements AbstractEvent {
           .toList(),
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EcommerceTransaction &&
+          runtimeType == other.runtimeType &&
+          orderId == other.orderId &&
+          totalValue == other.totalValue &&
+          affiliation == other.affiliation &&
+          taxValue == other.taxValue &&
+          shipping == other.shipping &&
+          city == other.city &&
+          state == other.state &&
+          country == other.country &&
+          currency == other.currency &&
+          items == other.items;
+
+  @override
+  int get hashCode =>
+      orderId.hashCode ^
+      totalValue.hashCode ^
+      affiliation.hashCode ^
+      taxValue.hashCode ^
+      shipping.hashCode ^
+      city.hashCode ^
+      state.hashCode ^
+      country.hashCode ^
+      currency.hashCode ^
+      items.hashCode;
 }

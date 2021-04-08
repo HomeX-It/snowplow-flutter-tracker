@@ -39,4 +39,22 @@ class ScreenView implements AbstractEvent {
       'previousType': previousType,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ScreenView &&
+          name == other.name &&
+          type == other.type &&
+          transitionType == other.transitionType &&
+          previousName == other.previousName &&
+          previousType == other.previousType;
+
+  @override
+  int get hashCode =>
+      name.hashCode ^
+      type.hashCode ^
+      transitionType.hashCode ^
+      previousName.hashCode ^
+      previousType.hashCode;
 }

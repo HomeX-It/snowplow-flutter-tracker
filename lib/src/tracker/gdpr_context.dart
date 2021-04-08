@@ -32,6 +32,13 @@ class GDPRLegalBasis {
   /// **Legitimate interests:** the processing is necessary for your legitimate interests or the legitimate interests of a third party, unless there is a good reason to protect the individual’s personal data which overrides those legitimate interests.
   /// (This cannot apply if you are a public authority processing data to perform your official tasks.)
   static const legitimateInterests = GDPRLegalBasis._('legitimate_interests');
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is GDPRLegalBasis && value == other.value;
+
+  @override
+  int get hashCode => value.hashCode;
 }
 
 /// [DevicePlatforms] An enum for device platform types.
@@ -50,7 +57,7 @@ class GDPRContext {
   final String? documentDescription;
 
   /// Creates a [GDPRContext]
-  GDPRContext({
+  const GDPRContext({
     required this.basis,
     this.documentId,
     this.documentVersion,
@@ -66,4 +73,20 @@ class GDPRContext {
       'documentDescription': documentDescription,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GDPRContext &&
+          basis == other.basis &&
+          documentId == other.documentId &&
+          documentVersion == other.documentVersion &&
+          documentDescription == other.documentDescription;
+
+  @override
+  int get hashCode =>
+      basis.hashCode ^
+      documentId.hashCode ^
+      documentVersion.hashCode ^
+      documentDescription.hashCode;
 }
