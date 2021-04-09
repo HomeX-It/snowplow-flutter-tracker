@@ -13,4 +13,11 @@ class RequestSecurity {
 
   /// HTTPS request.
   static const https = RequestSecurity._('HTTPS');
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is RequestSecurity && name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }

@@ -10,7 +10,7 @@ class SelfDescribingJson {
   final Map<String, dynamic>? payload;
 
   /// Creates a [SelfDescribingJson] event.
-  SelfDescribingJson({this.schema, this.payload});
+  const SelfDescribingJson({this.schema, this.payload});
 
   /// Converts the self-describing JSON object to JSON.
   Map<String, Object?> toMap() {
@@ -19,4 +19,14 @@ class SelfDescribingJson {
       'payload': payload,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SelfDescribingJson &&
+          schema == other.schema &&
+          payload == other.payload;
+
+  @override
+  int get hashCode => schema.hashCode ^ payload.hashCode;
 }

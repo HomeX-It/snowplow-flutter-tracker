@@ -34,4 +34,17 @@ class Timing implements AbstractEvent {
       'label': label,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Timing &&
+          category == other.category &&
+          variable == other.variable &&
+          timing == other.timing &&
+          label == other.label;
+
+  @override
+  int get hashCode =>
+      category.hashCode ^ variable.hashCode ^ timing.hashCode ^ label.hashCode;
 }

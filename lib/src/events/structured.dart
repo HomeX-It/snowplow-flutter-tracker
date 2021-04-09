@@ -28,6 +28,7 @@ class Structured implements AbstractEvent {
     required this.value,
   })   : assert(category.isNotEmpty, 'category cannot be empty'),
         assert(action.isNotEmpty, 'action cannot be empty');
+
   @override
   Map<String, Object?> toMap() {
     return {
@@ -38,4 +39,22 @@ class Structured implements AbstractEvent {
       'value': value,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Structured &&
+          category == other.category &&
+          action == other.action &&
+          label == other.label &&
+          property == other.property &&
+          value == other.value;
+
+  @override
+  int get hashCode =>
+      category.hashCode ^
+      action.hashCode ^
+      label.hashCode ^
+      property.hashCode ^
+      value.hashCode;
 }

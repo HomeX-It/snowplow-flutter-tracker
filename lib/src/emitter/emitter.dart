@@ -36,4 +36,20 @@ class Emitter {
       'requestSecurity': requestSecurity.name,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Emitter &&
+          uri == other.uri &&
+          httpMethod == other.httpMethod &&
+          bufferOption == other.bufferOption &&
+          requestSecurity == other.requestSecurity;
+
+  @override
+  int get hashCode =>
+      uri.hashCode ^
+      httpMethod.hashCode ^
+      bufferOption.hashCode ^
+      requestSecurity.hashCode;
 }

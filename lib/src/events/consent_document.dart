@@ -16,7 +16,7 @@ class ConsentDocument {
   final String? documentDescription;
 
   /// Create a [ConsentDocument]
-  ConsentDocument({
+  const ConsentDocument({
     this.documentId,
     this.documentVersion,
     this.documentName,
@@ -32,4 +32,21 @@ class ConsentDocument {
       'documentDescription': documentDescription,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ConsentDocument &&
+          runtimeType == other.runtimeType &&
+          documentId == other.documentId &&
+          documentVersion == other.documentVersion &&
+          documentName == other.documentName &&
+          documentDescription == other.documentDescription;
+
+  @override
+  int get hashCode =>
+      documentId.hashCode ^
+      documentVersion.hashCode ^
+      documentName.hashCode ^
+      documentDescription.hashCode;
 }

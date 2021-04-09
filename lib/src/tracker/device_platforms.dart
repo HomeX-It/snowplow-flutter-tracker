@@ -31,4 +31,11 @@ class DevicePlatforms {
 
   /// Internet of things application
   static const internetOfThings = DevicePlatforms._('InternetOfThings');
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is DevicePlatforms && name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }

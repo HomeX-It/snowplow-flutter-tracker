@@ -28,7 +28,7 @@ class NotificationContent {
   final List<Object>? attachments;
 
   /// Create a [NotificationContent]
-  NotificationContent({
+  const NotificationContent({
     this.title,
     this.subtitle,
     this.body,
@@ -52,4 +52,28 @@ class NotificationContent {
       'attachments': attachments,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NotificationContent &&
+          title == other.title &&
+          subtitle == other.subtitle &&
+          body == other.body &&
+          badge == other.badge &&
+          sound == other.sound &&
+          launchImageName == other.launchImageName &&
+          userInfo == other.userInfo &&
+          attachments == other.attachments;
+
+  @override
+  int get hashCode =>
+      title.hashCode ^
+      subtitle.hashCode ^
+      body.hashCode ^
+      badge.hashCode ^
+      sound.hashCode ^
+      launchImageName.hashCode ^
+      userInfo.hashCode ^
+      attachments.hashCode;
 }

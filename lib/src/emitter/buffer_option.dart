@@ -16,4 +16,11 @@ class BufferOption {
 
   /// HeavyGroup
   static const heavyGroup = BufferOption._('HeavyGroup');
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is BufferOption && name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }

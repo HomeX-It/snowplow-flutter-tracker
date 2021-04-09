@@ -48,4 +48,25 @@ class ConsentGranted implements AbstractEvent {
           .toList(),
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ConsentGranted &&
+          runtimeType == other.runtimeType &&
+          expiry == other.expiry &&
+          documentId == other.documentId &&
+          documentVersion == other.documentVersion &&
+          documentName == other.documentName &&
+          documentDescription == other.documentDescription &&
+          consentDocuments == other.consentDocuments;
+
+  @override
+  int get hashCode =>
+      documentId.hashCode ^
+      documentVersion.hashCode ^
+      expiry.hashCode ^
+      documentName.hashCode ^
+      documentDescription.hashCode ^
+      consentDocuments.hashCode;
 }

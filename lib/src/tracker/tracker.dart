@@ -75,7 +75,7 @@ class Tracker {
   final GDPRContext? gdprContext;
 
   /// Create a [Tracker] with default settings
-  Tracker({
+  const Tracker({
     this.subject,
     required this.emitter,
     required this.namespace,
@@ -123,4 +123,52 @@ class Tracker {
       'gdprContext': gdprContext?.toMap(),
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Tracker &&
+          emitter == other.emitter &&
+          namespace == other.namespace &&
+          appId == other.appId &&
+          base64 == other.base64 &&
+          devicePlatform == other.devicePlatform &&
+          logLevel == other.logLevel &&
+          mobileContext == other.mobileContext &&
+          screenViewEvents == other.screenViewEvents &&
+          applicationContext == other.applicationContext &&
+          sessionContext == other.sessionContext &&
+          sessionCheckInterval == other.sessionCheckInterval &&
+          foregroundTimeout == other.foregroundTimeout &&
+          backgroundTimeout == other.backgroundTimeout &&
+          lifecycleEvents == other.lifecycleEvents &&
+          screenContext == other.screenContext &&
+          exceptionEvents == other.exceptionEvents &&
+          installTracking == other.installTracking &&
+          gdprContext == other.gdprContext &&
+          subject == other.subject &&
+          geoContext == other.geoContext;
+
+  @override
+  int get hashCode =>
+      emitter.hashCode ^
+      namespace.hashCode ^
+      appId.hashCode ^
+      base64.hashCode ^
+      devicePlatform.hashCode ^
+      logLevel.hashCode ^
+      mobileContext.hashCode ^
+      screenViewEvents.hashCode ^
+      applicationContext.hashCode ^
+      sessionContext.hashCode ^
+      sessionCheckInterval.hashCode ^
+      foregroundTimeout.hashCode ^
+      backgroundTimeout.hashCode ^
+      lifecycleEvents.hashCode ^
+      screenContext.hashCode ^
+      exceptionEvents.hashCode ^
+      installTracking.hashCode ^
+      gdprContext.hashCode ^
+      subject.hashCode ^
+      geoContext.hashCode;
 }

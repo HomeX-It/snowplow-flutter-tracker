@@ -9,7 +9,7 @@ class SelfDescribing implements AbstractEvent {
   final SelfDescribingJson eventData;
 
   /// Creates a [SelfDescribing] event
-  SelfDescribing(this.eventData);
+  const SelfDescribing(this.eventData);
 
   @override
   Map<String, Object?> toMap() {
@@ -17,4 +17,12 @@ class SelfDescribing implements AbstractEvent {
       'eventData': eventData.toMap(),
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SelfDescribing && eventData == other.eventData;
+
+  @override
+  int get hashCode => eventData.hashCode;
 }
