@@ -1,5 +1,5 @@
-name: example_backend
-description: A dummy backend to test the example app
+name: snowplow_dummy_server
+description: A dummy Snowplow server to test the example app
 homepage: https://github.com/HomeXLabs/snowplow-flutter-tracker
 version: 0.0.1
 
