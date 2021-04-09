@@ -8,3 +8,6 @@ environment:
 
 dependencies:
   shelf: ^1.1.0
+
+dev_dependencies:
+  pedantic: ^1.11.0
