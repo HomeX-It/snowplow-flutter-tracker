@@ -13,7 +13,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    final emitter = Emitter(uri: 'your-collector-endpoint-url');
+    // Attempts to use snowplow_dummy_server running on localhost default. This
+    // works well when using the iOS Simulator. When using a physical device or
+    // the Android Emulator, you will need to use a proxy.
+    //
+    // You can also change this to your own hosted Snowplow server if desired.
+    final emitter = Emitter(uri: '127.0.0.1:8080');
     final tracker = Tracker(
       emitter: emitter,
       namespace: 'your-namespace',
