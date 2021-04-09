@@ -34,6 +34,7 @@ class TrackerUtil {
                     .platform(DevicePlatforms.valueOf(json["devicePlatform"] as String))
                     .level(LogLevel.valueOf(json["logLevel"] as String))
                     .mobileContext(json["mobileContext"] as Boolean)
+                    .geoLocationContext(json["geoContext"] as Boolean)
                     .screenviewEvents(json["screenviewEvents"] as Boolean)
                     .applicationContext(json["applicationContext"] as Boolean)
                     .sessionContext(json["sessionContext"] as Boolean)
@@ -44,6 +45,11 @@ class TrackerUtil {
                     .screenContext(json["screenContext"] as Boolean)
                     .installTracking(json["installTracking"] as Boolean)
                     .applicationCrash(json["exceptionEvents"] as Boolean)
+
+            val subjectConfiguration = json["subject"] as? Map<String, Any>
+            if (subjectConfiguration != null) {
+                SubjectUtil.configure(subject, subjectConfiguration)
+            }
 
             val gdprContext = json["gdprContext"] as? Map<String, Any>
             if (gdprContext != null) {
