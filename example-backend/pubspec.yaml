@@ -1,0 +1,10 @@
+name: example_backend
+description: A dummy backend to test the example app
+homepage: https://github.com/HomeXLabs/snowplow-flutter-tracker
+version: 0.0.1
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  shelf: ^1.1.0

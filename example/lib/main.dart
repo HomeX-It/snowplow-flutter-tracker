@@ -13,7 +13,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    final emitter = Emitter(uri: 'your-collector-endpoint-url');
+    final emitter = Emitter(uri: '127.0.0.1:8080');
     final tracker = Tracker(
       emitter: emitter,
       namespace: 'your-namespace',
