@@ -1,4 +1,6 @@
-# Flutter for Snowplow
+# Snowplow Flutter Tracker
+[![pub package](https://img.shields.io/pub/v/snowplow_flutter_tracker.svg?label=snowplow_flutter_tracker&color=blue)](https://pub.dev/packages/snowplow_flutter_tracker)
+
 Thank you to [Patrik Szabó](https://github.com/patricktailor) for his initial work on this library!
 
 ## Overview
