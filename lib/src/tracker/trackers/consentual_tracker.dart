@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 import '../abstract_tracker.dart';
 import '../../events/abstract_event.dart';
 
@@ -6,12 +8,13 @@ import '../../events/abstract_event.dart';
 ///
 /// ConsentualTrackers can be used to block events from tracking
 /// when the user has not consented to tracking.
+@immutable
 class ConsentualTracker extends AbstractTracker {
   final AbstractTracker _wrapped;
   final Future<bool> Function() _condition;
 
   /// default initialiser
-  ConsentualTracker(
+  const ConsentualTracker(
     this._wrapped,
     this._condition,
   );

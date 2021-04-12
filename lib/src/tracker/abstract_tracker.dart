@@ -5,6 +5,9 @@ import '../events/abstract_event.dart';
 /// [AbstractTracker]
 /// An abstract tracker allows to track events
 abstract class AbstractTracker {
+  /// default init
+  const AbstractTracker();
+
   /// [track]
   /// Tracks the given [event] parameter by the platform's tracker instance.
   Future<void> track(AbstractEvent event);
