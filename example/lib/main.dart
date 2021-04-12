@@ -25,8 +25,8 @@ class _MyAppState extends State<MyApp> {
       appId: 'your-appId',
       logLevel: LogLevel.verbose,
     );
-    _tracker = SnowplowFlutterTracker();
-    _tracker.initialize(tracker);
+    _tracker = SnowplowFlutterTracker(tracker);
+    _tracker.initialize();
 
     super.initState();
   }

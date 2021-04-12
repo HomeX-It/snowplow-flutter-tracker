@@ -22,8 +22,8 @@ final tracker = Tracker(
     namespace: 'your-namespace',
     appId: 'your-appId',
 );
-var _tracker = SnowplowFlutterTracker();
-_tracker.initialize(tracker);
+var _tracker = SnowplowFlutterTracker(tracker);
+_tracker.initialize();
 
 // Usage
 final selfDescribingJson = SelfDescribingJson(

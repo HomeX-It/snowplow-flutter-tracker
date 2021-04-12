@@ -8,7 +8,15 @@ abstract class AbstractTracker {
   /// default init
   const AbstractTracker();
 
+  /// [initialize]
+  /// Initializes the tracker.
+  Future<void> initialize();
+
   /// [track]
   /// Tracks the given [event] parameter by the platform's tracker instance.
   Future<void> track(AbstractEvent event);
+
+  /// [destroy]
+  /// Deallocates the underlying tracker instance.
+  Future<void> destroy();
 }

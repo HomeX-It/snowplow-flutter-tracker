@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:meta/meta.dart';
 
 import 'events/abstract_event.dart';
 import 'events/consent_granted.dart';
@@ -17,25 +18,37 @@ import 'tracker/abstract_tracker.dart';
 import 'tracker/subject.dart';
 import 'tracker/tracker.dart';
 
+/// [SnowplowFlutterTrackerInitialisationError]
+///
+class SnowplowFlutterTrackerInitialisationError extends Error {
+  /// Snowplow tracker is already initialised.
+  /// .initialize() should only be called once, on the outermost tracker.
+  SnowplowFlutterTrackerInitialisationError.alreadyInitialized();
+}
+
 /// [SnowplowFlutterTracker]
 /// The class which communicates with the current platform.
+@immutable
 class SnowplowFlutterTracker extends AbstractTracker {
-  static final SnowplowFlutterTracker _singleton =
-      SnowplowFlutterTracker._internal();
   static final MethodChannel _channel =
       MethodChannel('snowplow_flutter_tracker');
+  static var _isInitialized = false;
+
+  final Tracker _tracker;
 
   /// Constructor which always returns the original instance of the class.
-  factory SnowplowFlutterTracker() {
-    return _singleton;
-  }
-
-  SnowplowFlutterTracker._internal();
+  const SnowplowFlutterTracker(this._tracker);
 
   /// [initialize]
   /// The method which initializes the tracker instance of the current platform.
-  Future<void> initialize(Tracker tracker) async {
-    return await _channel.invokeMethod('initialize', tracker.toMap());
+  @override
+  Future<void> initialize() async {
+    if (_isInitialized) {
+      SnowplowFlutterTracker._isInitialized = true;
+      await _channel.invokeMethod('initialize', _tracker.toMap());
+    } else {
+      throw SnowplowFlutterTrackerInitialisationError.alreadyInitialized();
+    }
   }
 
   /// [setSubject]
@@ -72,5 +85,10 @@ class SnowplowFlutterTracker extends AbstractTracker {
     } else {
       throw ArgumentError('$event is not valid');
     }
+  }
+
+  @override
+  Future<void> destroy() async {
+    return _channel.invokeMethod('destroy');
   }
 }

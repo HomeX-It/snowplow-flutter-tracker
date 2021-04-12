@@ -59,4 +59,8 @@ class SnowplowFlutterTracker(private val context: Context) {
         val consentWithdrawn = EventUtil.getConsentWithdrawnEvent(json)
         tracker.track(consentWithdrawn)
     }
+
+    fun close() {
+        Tracker.close()
+    }
 }
