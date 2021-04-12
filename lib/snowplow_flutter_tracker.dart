@@ -5,6 +5,7 @@ export 'src/emitter/emitter.dart';
 export 'src/emitter/http_method.dart';
 export 'src/emitter/request_security.dart';
 
+export 'src/events/abstract_event.dart';
 export 'src/events/consent_document.dart';
 export 'src/events/consent_granted.dart';
 export 'src/events/consent_withdrawn.dart';
@@ -19,10 +20,12 @@ export 'src/events/self_describing_json.dart';
 export 'src/events/structured.dart';
 export 'src/events/timing.dart';
 
+export 'src/tracker/abstract_tracker.dart';
 export 'src/tracker/gdpr_context.dart';
 export 'src/tracker/device_platforms.dart';
 export 'src/tracker/log_level.dart';
 export 'src/tracker/subject.dart';
 export 'src/tracker/tracker.dart';
+export 'src/tracker/trackers/consentual_tracker.dart';
 
 export 'src/snowplow_flutter_tracker.dart';

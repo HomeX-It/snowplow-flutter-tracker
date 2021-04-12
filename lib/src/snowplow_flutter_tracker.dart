@@ -13,12 +13,13 @@ import 'events/screen_view.dart';
 import 'events/self_describing.dart';
 import 'events/structured.dart';
 import 'events/timing.dart';
+import 'tracker/abstract_tracker.dart';
 import 'tracker/subject.dart';
 import 'tracker/tracker.dart';
 
 /// [SnowplowFlutterTracker]
 /// The class which communicates with the current platform.
-class SnowplowFlutterTracker {
+class SnowplowFlutterTracker extends AbstractTracker {
   static final SnowplowFlutterTracker _singleton =
       SnowplowFlutterTracker._internal();
   static final MethodChannel _channel =
@@ -43,8 +44,7 @@ class SnowplowFlutterTracker {
     return await _channel.invokeMethod('setSubject', subject.toMap());
   }
 
-  /// [track]
-  /// Tracks the given [event] parameter by the platform's tracker instance.
+  @override
   Future<void> track(AbstractEvent event) async {
     if (event is SelfDescribing) {
       return await _channel.invokeMethod('trackSelfDescribing', event.toMap());
