@@ -71,7 +71,7 @@ void main() {
   );
 
   test(
-    'If condition changes from true to false, underlying tracker is destroyed',
+    'If condition changes from true to false, underlying tracker is closed',
     () async {
       final mock = MockTracker();
 
