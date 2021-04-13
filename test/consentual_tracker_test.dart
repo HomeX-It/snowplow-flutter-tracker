@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snowplow_flutter_tracker/snowplow_flutter_tracker.dart';
 
@@ -30,16 +31,14 @@ void main() {
     () async {
       final mock = MockTracker();
 
-      final streamController = StreamController<bool>(sync: true);
+      final valueNotifier = ValueNotifier<bool>(true);
 
       final sut = ConsentualTracker(
         () => mock,
-        streamController.stream,
+        valueNotifier,
       );
 
       await sut.initialize();
-
-      streamController.add(true);
 
       expect(mock.initializeInvocationCounter, equals(1));
 
@@ -54,16 +53,14 @@ void main() {
     () async {
       final mock = MockTracker();
 
-      final streamController = StreamController<bool>(sync: true);
+      final valueNotifier = ValueNotifier<bool>(false);
 
       final sut = ConsentualTracker(
         () => mock,
-        streamController.stream,
+        valueNotifier,
       );
 
       await sut.initialize();
-
-      streamController.add(false);
 
       expect(mock.initializeInvocationCounter, equals(0));
 
@@ -78,20 +75,18 @@ void main() {
     () async {
       final mock = MockTracker();
 
-      final streamController = StreamController<bool>(sync: true);
+      final valueNotifier = ValueNotifier<bool>(true);
 
       final sut = ConsentualTracker(
         () => mock,
-        streamController.stream,
+        valueNotifier,
       );
 
       await sut.initialize();
 
-      streamController.add(true);
-
       expect(mock.initializeInvocationCounter, equals(1));
 
-      streamController.add(false);
+      valueNotifier.value = false;
 
       expect(mock.destroyInvocationCounter, equals(1));
     },
@@ -102,20 +97,18 @@ void main() {
     () async {
       final mock = MockTracker();
 
-      final streamController = StreamController<bool>(sync: true);
+      final valueNotifier = ValueNotifier<bool>(false);
 
       final sut = ConsentualTracker(
         () => mock,
-        streamController.stream,
+        valueNotifier,
       );
 
       await sut.initialize();
 
-      streamController.add(false);
-
       expect(mock.initializeInvocationCounter, equals(0));
 
-      streamController.add(true);
+      valueNotifier.value = true;
 
       expect(mock.initializeInvocationCounter, equals(1));
     },
