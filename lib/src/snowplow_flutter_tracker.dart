@@ -88,7 +88,7 @@ class SnowplowFlutterTracker extends AbstractTracker {
   }
 
   @override
-  Future<void> destroy() async {
-    return _channel.invokeMethod('destroy');
+  Future<void> close() async {
+    return _channel.invokeMethod('close');
   }
 }

@@ -37,7 +37,7 @@ class ConsentualTracker extends AbstractTracker {
       _wrapped = _buildWrapped();
       await _wrapped?.initialize();
     } else if (!userConsented) {
-      await _wrapped?.destroy();
+      await _wrapped?.close();
       _wrapped = null;
     }
   }
@@ -46,9 +46,9 @@ class ConsentualTracker extends AbstractTracker {
   Future<void> track(AbstractEvent event) async => await _wrapped?.track(event);
 
   @override
-  Future<void> destroy() async {
+  Future<void> close() async {
     _condition.removeListener(_onConsentChange);
-    await _wrapped?.destroy();
+    await _wrapped?.close();
     _wrapped = null;
     _isInitialised = false;
   }

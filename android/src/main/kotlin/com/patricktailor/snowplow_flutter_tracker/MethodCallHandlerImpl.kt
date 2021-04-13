@@ -48,8 +48,8 @@ class MethodCallHandlerImpl(private val context: Context) : MethodCallHandler {
             "trackConsentWithdrawn" -> {
                 onTrackConsentWithdrawn(call, result)
             }
-            "destroy" -> {
-                onDestroy(call, result)
+            "close" -> {
+                onClose(call, result)
             }
             else -> {
                 result.notImplemented()
@@ -138,7 +138,7 @@ class MethodCallHandlerImpl(private val context: Context) : MethodCallHandler {
         result.success(null)
     }
 
-    private fun onDestroy(call: MethodCall, result: MethodChannel.Result) {
+    private fun onClose(call: MethodCall, result: MethodChannel.Result) {
         tracker?.close()
         tracker = null
         result.success(null)

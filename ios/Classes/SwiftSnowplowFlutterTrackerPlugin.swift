@@ -35,8 +35,8 @@ public class SwiftSnowplowFlutterTrackerPlugin: NSObject, FlutterPlugin {
             onTrackEcommTransaction(call, result)
         case "trackPushNotification":
             onTrackPushNotification(call, result)
-        case "destroy":
-            onDestroy(call, result)
+        case "close":
+            onClose(call, result)
         default:
             result(FlutterMethodNotImplemented)
             return
@@ -122,7 +122,7 @@ public class SwiftSnowplowFlutterTrackerPlugin: NSObject, FlutterPlugin {
         result(nil)
     }
 
-    private func onDestroy(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
+    private func onClose(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         tracker?.pauseEventTracking()
         tracker = nil
         result(nil)

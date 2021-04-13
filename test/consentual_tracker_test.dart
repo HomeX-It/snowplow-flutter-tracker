@@ -16,10 +16,10 @@ class MockTracker extends AbstractTracker {
     trackedEvents.add(event);
   }
 
-  var destroyInvocationCounter = 0;
+  var closeInvocationCounter = 0;
   @override
-  Future<void> destroy() async {
-    destroyInvocationCounter += 1;
+  Future<void> close() async {
+    closeInvocationCounter += 1;
   }
 }
 
@@ -88,7 +88,7 @@ void main() {
 
       valueNotifier.value = false;
 
-      expect(mock.destroyInvocationCounter, equals(1));
+      expect(mock.closeInvocationCounter, equals(1));
     },
   );
 
