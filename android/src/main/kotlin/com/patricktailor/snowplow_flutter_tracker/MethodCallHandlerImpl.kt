@@ -1,5 +1,6 @@
 package com.patricktailor.snowplow_flutter_tracker
 
+import android.content.Context
 import android.util.Log
 import androidx.annotation.Nullable
 import io.flutter.plugin.common.BinaryMessenger
@@ -7,8 +8,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
-class MethodCallHandlerImpl(private val tracker: SnowplowFlutterTracker) : MethodCallHandler {
+class MethodCallHandlerImpl(private val context: Context) : MethodCallHandler {
     @Nullable private var channel: MethodChannel? = null
+    @Nullable private var tracker: SnowplowFlutterTracker? = null
 
     companion object {
         const val TAG = "MethodCallHandlerImpl"
@@ -46,6 +48,9 @@ class MethodCallHandlerImpl(private val tracker: SnowplowFlutterTracker) : Metho
             "trackConsentWithdrawn" -> {
                 onTrackConsentWithdrawn(call, result)
             }
+            "close" -> {
+                onClose(call, result)
+            }
             else -> {
                 result.notImplemented()
             }
@@ -74,61 +79,68 @@ class MethodCallHandlerImpl(private val tracker: SnowplowFlutterTracker) : Metho
 
     private fun onInitialize(call: MethodCall, result: MethodChannel.Result) {
         val trackerJson: Map<String, Any>? = call.arguments as? Map<String, Any>
-        tracker.initialize(trackerJson)
+        tracker = SnowplowFlutterTracker(context);
+        tracker?.initialize(trackerJson)
         result.success(null)
     }
 
     private fun onSetSubject(call: MethodCall, result: MethodChannel.Result) {
         val subjectJson = call.arguments as Map<String, Any>?
-        tracker.setSubject(subjectJson)
+        tracker?.setSubject(subjectJson)
         result.success(null)
     }
 
     private fun onTrackSelfDescribing(call: MethodCall, result: MethodChannel.Result) {
         val selfDescribingJson = call.arguments as Map<String, Any>?
-        tracker.trackSelfDescribingEvent(selfDescribingJson)
+        tracker?.trackSelfDescribingEvent(selfDescribingJson)
         result.success(null)
     }
 
     private fun onTrackStructured(call: MethodCall, result: MethodChannel.Result) {
         val structuredJson = call.arguments as Map<String, Any>?
-        tracker.trackStructuredEvent(structuredJson)
+        tracker?.trackStructuredEvent(structuredJson)
         result.success(null)
     }
 
     private fun onTrackScreenView(call: MethodCall, result: MethodChannel.Result) {
         val screenViewJson = call.arguments as Map<String, Any>?
-        tracker.trackScreenViewEvent(screenViewJson)
+        tracker?.trackScreenViewEvent(screenViewJson)
         result.success(null)
     }
 
     private fun onTrackPageView(call: MethodCall, result: MethodChannel.Result) {
         val pageViewJson = call.arguments as Map<String, Any>?
-        tracker.trackPageViewEvent(pageViewJson)
+        tracker?.trackPageViewEvent(pageViewJson)
         result.success(null)
     }
 
     private fun onTrackTiming(call: MethodCall, result: MethodChannel.Result) {
         val timingJson = call.arguments as Map<String, Any>?
-        tracker.trackTimingEvent(timingJson)
+        tracker?.trackTimingEvent(timingJson)
         result.success(null)
     }
 
     private fun onTrackEcommerceTransaction(call: MethodCall, result: MethodChannel.Result) {
         val ecommerceTransactionJson = call.arguments as Map<String, Any>?
-        tracker.trackEcommerceTransaction(ecommerceTransactionJson)
+        tracker?.trackEcommerceTransaction(ecommerceTransactionJson)
         result.success(null)
     }
 
     private fun onTrackConsentGranted(call: MethodCall, result: MethodChannel.Result) {
         val consentGrantedJson = call.arguments as Map<String, Any>?
-        tracker.trackConsentGranted(consentGrantedJson)
+        tracker?.trackConsentGranted(consentGrantedJson)
         result.success(null)
     }
 
     private fun onTrackConsentWithdrawn(call: MethodCall, result: MethodChannel.Result) {
         val consentWithdrawnJson = call.arguments as Map<String, Any>?
-        tracker.trackConsentWithdrawn(consentWithdrawnJson)
+        tracker?.trackConsentWithdrawn(consentWithdrawnJson)
+        result.success(null)
+    }
+
+    private fun onClose(call: MethodCall, result: MethodChannel.Result) {
+        tracker?.close()
+        tracker = null
         result.success(null)
     }
 }

@@ -8,11 +8,9 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 
 class SnowplowFlutterTrackerPlugin: FlutterPlugin {
   @Nullable private var methodCallHandler: MethodCallHandlerImpl? = null
-  @Nullable private var snowplowFlutterTracker: SnowplowFlutterTracker? = null
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    snowplowFlutterTracker = SnowplowFlutterTracker(flutterPluginBinding.applicationContext)
-    methodCallHandler = MethodCallHandlerImpl(snowplowFlutterTracker!!)
+    methodCallHandler = MethodCallHandlerImpl(flutterPluginBinding.applicationContext)
     methodCallHandler!!.startListening(flutterPluginBinding.binaryMessenger)
   }
 
@@ -21,7 +19,7 @@ class SnowplowFlutterTrackerPlugin: FlutterPlugin {
 
     @JvmStatic
     fun registerWith(registrar: Registrar) {
-      val handler = MethodCallHandlerImpl(SnowplowFlutterTracker(registrar.context()))
+      val handler = MethodCallHandlerImpl(registrar.context())
       handler.startListening(registrar.messenger())
     }
   }
@@ -34,6 +32,5 @@ class SnowplowFlutterTrackerPlugin: FlutterPlugin {
 
     methodCallHandler!!.stopListening()
     methodCallHandler = null
-    snowplowFlutterTracker = null
   }
 }

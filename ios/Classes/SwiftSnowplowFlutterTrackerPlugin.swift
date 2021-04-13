@@ -35,6 +35,8 @@ public class SwiftSnowplowFlutterTrackerPlugin: NSObject, FlutterPlugin {
             onTrackEcommTransaction(call, result)
         case "trackPushNotification":
             onTrackPushNotification(call, result)
+        case "close":
+            onClose(call, result)
         default:
             result(FlutterMethodNotImplemented)
             return
@@ -59,64 +61,70 @@ public class SwiftSnowplowFlutterTrackerPlugin: NSObject, FlutterPlugin {
     
     private func onTrackPageView(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getPageView(dict: call.arguments as? [String: Any])
-        tracker?.trackPageViewEvent(event)
+        tracker?.track(event)
         
         result(nil)
     }
     
     private func onTrackStructured(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getStructured(dict: call.arguments as? [String: Any])
-        tracker?.trackStructuredEvent(event)
+        tracker?.track(event)
         
         result(nil)
     }
     
     private func onTrackUnstructured(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getUnstructured(dict: call.arguments as? [String: Any])
-        tracker?.trackUnstructuredEvent(event)
+        tracker?.track(event)
         
         result(nil)
     }
     
     private func onTrackScreenView(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getScreenView(dict: call.arguments as? [String: Any])
-        tracker?.trackScreenViewEvent(event)
+        tracker?.track(event)
         
         result(nil)
     }
     
     private func onTrackConsentWithdrawn(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getConsentWithdrawn(dict: call.arguments as? [String: Any])
-        tracker?.trackConsentWithdrawnEvent(event)
+        tracker?.track(event)
         
         result(nil)
     }
     
     private func onTrackConsentGranted(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getConsentGranted(dict: call.arguments as? [String: Any])
-        tracker?.trackConsentGrantedEvent(event)
+        tracker?.track(event)
         
         result(nil)
     }
     
     private func onTrackTiming(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getTiming(dict: call.arguments as? [String: Any])
-        tracker?.trackTimingEvent(event)
+        tracker?.track(event)
         
         result(nil)
     }
     
     private func onTrackEcommTransaction(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getEcommTransaction(dict: call.arguments as? [String: Any])
-        tracker?.trackEcommerceEvent(event)
+        tracker?.track(event)
         
         result(nil)
     }
     
     private func onTrackPushNotification(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         let event = EventUtil.getPushNotification(dict: call.arguments as? [String: Any])
-        tracker?.trackPushNotificationEvent(event)
+        tracker?.track(event)
         
+        result(nil)
+    }
+
+    private func onClose(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
+        tracker?.pauseEventTracking()
+        tracker = nil
         result(nil)
     }
 }
