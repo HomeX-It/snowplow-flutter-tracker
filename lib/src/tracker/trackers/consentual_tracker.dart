@@ -14,6 +14,7 @@ class ConsentualTracker extends AbstractTracker {
   final ValueNotifier<bool> _condition;
 
   AbstractTracker? _wrapped;
+  bool _isInitialised = false;
 
   /// default initialiser
   ConsentualTracker(
@@ -23,8 +24,11 @@ class ConsentualTracker extends AbstractTracker {
 
   @override
   Future<void> initialize() async {
-    _condition.addListener(_onConsentChange);
-    _onConsentChange();
+    if (!_isInitialised) {
+      _condition.addListener(_onConsentChange);
+      _onConsentChange();
+      _isInitialised = true;
+    }
   }
 
   void _onConsentChange() async {
@@ -46,5 +50,6 @@ class ConsentualTracker extends AbstractTracker {
     _condition.removeListener(_onConsentChange);
     await _wrapped?.destroy();
     _wrapped = null;
+    _isInitialised = false;
   }
 }
