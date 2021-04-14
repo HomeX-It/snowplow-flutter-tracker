@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import 'abstract_event.dart';
 import 'consent_document.dart';
+import 'self_describing_json.dart';
 
 /// [ConsentWithdrawn] event.
 @immutable
@@ -24,6 +25,9 @@ class ConsentWithdrawn implements AbstractEvent {
   /// [consentDocuments] An array of associated documents.
   final List<ConsentDocument> consentDocuments;
 
+  @override
+  final List<SelfDescribingJson> contexts;
+
   /// Create a [ConsentWithdrawn] event
   const ConsentWithdrawn({
     this.all,
@@ -32,6 +36,7 @@ class ConsentWithdrawn implements AbstractEvent {
     this.documentName,
     this.documentDescription,
     this.consentDocuments = const [],
+    this.contexts = const [],
   });
 
   @override
@@ -45,6 +50,7 @@ class ConsentWithdrawn implements AbstractEvent {
       'consentDocuments': consentDocuments
           .map((ConsentDocument consentDocument) => consentDocument.toMap())
           .toList(),
+      'contexts': contexts.map((context) => context.toMap()).toList()
     };
   }
 
@@ -58,7 +64,8 @@ class ConsentWithdrawn implements AbstractEvent {
           documentVersion == other.documentVersion &&
           documentName == other.documentName &&
           documentDescription == other.documentDescription &&
-          consentDocuments == other.consentDocuments;
+          consentDocuments == other.consentDocuments &&
+          contexts == other.contexts;
 
   @override
   int get hashCode =>
@@ -67,5 +74,20 @@ class ConsentWithdrawn implements AbstractEvent {
       documentVersion.hashCode ^
       documentName.hashCode ^
       documentDescription.hashCode ^
-      consentDocuments.hashCode;
+      consentDocuments.hashCode ^
+      contexts.hashCode;
+
+  @override
+  ConsentWithdrawn attach({
+    required List<SelfDescribingJson> contexts,
+  }) =>
+      ConsentWithdrawn(
+        all: all,
+        documentId: documentId,
+        documentVersion: documentVersion,
+        documentName: documentName,
+        documentDescription: documentDescription,
+        consentDocuments: consentDocuments,
+        contexts: this.contexts + contexts,
+      );
 }

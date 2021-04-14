@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import 'abstract_event.dart';
+import 'self_describing_json.dart';
 
 /// [ScreenView] event\
 @immutable
@@ -20,6 +21,9 @@ class ScreenView implements AbstractEvent {
   /// [previousType] The type of the previous screen.
   final String? previousType;
 
+  @override
+  final List<SelfDescribingJson> contexts;
+
   /// Creates a [ScreenView] event
   ScreenView({
     required this.name,
@@ -27,6 +31,7 @@ class ScreenView implements AbstractEvent {
     this.transitionType,
     this.previousName,
     this.previousType,
+    this.contexts = const [],
   }) : assert(name.isNotEmpty, 'name cannot be null or empty');
 
   @override
@@ -37,6 +42,7 @@ class ScreenView implements AbstractEvent {
       'transitionType': transitionType,
       'previousName': previousName,
       'previousType': previousType,
+      'contexts': contexts.map((context) => context.toMap()).toList()
     };
   }
 
@@ -48,7 +54,8 @@ class ScreenView implements AbstractEvent {
           type == other.type &&
           transitionType == other.transitionType &&
           previousName == other.previousName &&
-          previousType == other.previousType;
+          previousType == other.previousType &&
+          contexts == other.contexts;
 
   @override
   int get hashCode =>
@@ -56,5 +63,19 @@ class ScreenView implements AbstractEvent {
       type.hashCode ^
       transitionType.hashCode ^
       previousName.hashCode ^
-      previousType.hashCode;
+      previousType.hashCode ^
+      contexts.hashCode;
+
+  @override
+  ScreenView attach({
+    required List<SelfDescribingJson> contexts,
+  }) =>
+      ScreenView(
+        name: name,
+        type: type,
+        transitionType: transitionType,
+        previousName: previousName,
+        previousType: previousType,
+        contexts: this.contexts + contexts,
+      );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import 'abstract_event.dart';
 import 'notification_content.dart';
+import 'self_describing_json.dart';
 
 /// [PushNotification] event.
 @immutable
@@ -24,6 +25,9 @@ class PushNotification implements AbstractEvent {
   /// [notificationContent] Notification content event.
   final NotificationContent? notificationContent;
 
+  @override
+  final List<SelfDescribingJson> contexts;
+
   /// Creates a [PushNotification] event
   const PushNotification({
     this.action,
@@ -32,6 +36,7 @@ class PushNotification implements AbstractEvent {
     this.categoryIdentifier,
     this.threadIdentifier,
     this.notificationContent,
+    this.contexts = const [],
   });
 
   @override
@@ -43,6 +48,7 @@ class PushNotification implements AbstractEvent {
       'categoryIdentifier': categoryIdentifier,
       'threadIdentifier': threadIdentifier,
       'notificationContent': notificationContent?.toMap(),
+      'contexts': contexts.map((context) => context.toMap()).toList()
     };
   }
 
@@ -55,7 +61,8 @@ class PushNotification implements AbstractEvent {
           trigger == other.trigger &&
           categoryIdentifier == other.categoryIdentifier &&
           threadIdentifier == other.threadIdentifier &&
-          notificationContent == other.notificationContent;
+          notificationContent == other.notificationContent &&
+          contexts == other.contexts;
 
   @override
   int get hashCode =>
@@ -64,5 +71,20 @@ class PushNotification implements AbstractEvent {
       trigger.hashCode ^
       categoryIdentifier.hashCode ^
       threadIdentifier.hashCode ^
-      notificationContent.hashCode;
+      notificationContent.hashCode ^
+      contexts.hashCode;
+
+  @override
+  PushNotification attach({
+    required List<SelfDescribingJson> contexts,
+  }) =>
+      PushNotification(
+        action: action,
+        deliveryDate: deliveryDate,
+        trigger: trigger,
+        categoryIdentifier: categoryIdentifier,
+        threadIdentifier: threadIdentifier,
+        notificationContent: notificationContent,
+        contexts: this.contexts + contexts,
+      );
 }

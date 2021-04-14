@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import 'abstract_event.dart';
 import 'ecommerce_transaction_item.dart';
+import 'self_describing_json.dart';
 
 /// [EcommerceTransaction] event.
 @immutable
@@ -36,6 +37,9 @@ class EcommerceTransaction implements AbstractEvent {
   /// [items] An array of items in the transaction.
   final List<EcommerceTransactionItem> items;
 
+  @override
+  final List<SelfDescribingJson> contexts;
+
   /// Create a [EcommerceTransaction] event
   EcommerceTransaction({
     required this.orderId,
@@ -48,7 +52,8 @@ class EcommerceTransaction implements AbstractEvent {
     this.country,
     this.currency,
     required this.items,
-  })   : assert(orderId.isNotEmpty, 'orderId cannot be empty'),
+    this.contexts = const [],
+  })  : assert(orderId.isNotEmpty, 'orderId cannot be empty'),
         assert(items.isNotEmpty, 'items cannot be empty');
 
   @override
@@ -67,6 +72,7 @@ class EcommerceTransaction implements AbstractEvent {
           .map((EcommerceTransactionItem ecommerceTransactionItem) =>
               ecommerceTransactionItem.toMap())
           .toList(),
+      'contexts': contexts.map((context) => context.toMap()).toList()
     };
   }
 
@@ -84,7 +90,8 @@ class EcommerceTransaction implements AbstractEvent {
           state == other.state &&
           country == other.country &&
           currency == other.currency &&
-          items == other.items;
+          items == other.items &&
+          contexts == other.contexts;
 
   @override
   int get hashCode =>
@@ -97,5 +104,24 @@ class EcommerceTransaction implements AbstractEvent {
       state.hashCode ^
       country.hashCode ^
       currency.hashCode ^
-      items.hashCode;
+      items.hashCode ^
+      contexts.hashCode;
+
+  @override
+  EcommerceTransaction attach({
+    required List<SelfDescribingJson> contexts,
+  }) =>
+      EcommerceTransaction(
+        orderId: orderId,
+        totalValue: totalValue,
+        affiliation: affiliation,
+        taxValue: taxValue,
+        shipping: shipping,
+        city: city,
+        state: state,
+        country: country,
+        currency: currency,
+        items: items,
+        contexts: this.contexts + contexts,
+      );
 }
