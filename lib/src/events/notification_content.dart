@@ -63,7 +63,7 @@ class NotificationContent {
           badge == other.badge &&
           sound == other.sound &&
           launchImageName == other.launchImageName &&
-          userInfo == other.userInfo &&
+          mapEquals(userInfo, other.userInfo) &&
           listEquals(attachments, other.attachments);
 
   @override

@@ -18,7 +18,7 @@ class Structured implements AbstractEvent {
   final String? property;
 
   /// [value] The value of the structured event
-  final double value;
+  final double? value;
 
   @override
   final Set<SelfDescribingJson> contexts;
@@ -29,7 +29,7 @@ class Structured implements AbstractEvent {
     required this.action,
     this.label,
     this.property,
-    required this.value,
+    this.value,
     this.contexts = const {},
   })  : assert(category.isNotEmpty, 'category cannot be empty'),
         assert(action.isNotEmpty, 'action cannot be empty');

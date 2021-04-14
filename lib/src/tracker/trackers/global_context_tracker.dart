@@ -8,22 +8,33 @@ import '../../events/self_describing_json.dart';
 /// Attaches a global context to all tracked events
 @immutable
 class GlobalContextTracker extends AbstractTracker {
-  final AbstractTracker _wrapped;
+  static bool _attachToAll(AbstractEvent _) => true;
+
+  final AbstractTracker _child;
+  final bool Function(AbstractEvent) _shouldAttachTo;
   final Future<SelfDescribingJson> Function() _buildContext;
 
   /// Default initialiser
-  const GlobalContextTracker(this._wrapped, this._buildContext);
+  const GlobalContextTracker({
+    required child,
+    shouldAttachTo = _attachToAll,
+    required buildContext,
+  })   : _child = child,
+        _shouldAttachTo = shouldAttachTo,
+        _buildContext = buildContext;
 
   @override
-  Future<void> initialize() => _wrapped.initialize();
+  Future<void> initialize() => _child.initialize();
 
   @override
-  Future<void> track(AbstractEvent event) async => _wrapped.track(
-        event.attach(
-          contexts: {await _buildContext()},
-        ),
+  Future<void> track(AbstractEvent event) async => _child.track(
+        _shouldAttachTo(event)
+            ? event.attach(
+                contexts: {await _buildContext()},
+              )
+            : event,
       );
 
   @override
-  Future<void> close() => _wrapped.close();
+  Future<void> close() => _child.close();
 }
