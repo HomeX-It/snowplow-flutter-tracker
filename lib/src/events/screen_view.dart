@@ -22,7 +22,7 @@ class ScreenView implements AbstractEvent {
   final String? previousType;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Creates a [ScreenView] event
   ScreenView({
@@ -31,7 +31,7 @@ class ScreenView implements AbstractEvent {
     this.transitionType,
     this.previousName,
     this.previousType,
-    this.contexts = const [],
+    this.contexts = const {},
   }) : assert(name.isNotEmpty, 'name cannot be null or empty');
 
   @override
@@ -55,7 +55,7 @@ class ScreenView implements AbstractEvent {
           transitionType == other.transitionType &&
           previousName == other.previousName &&
           previousType == other.previousType &&
-          contexts == other.contexts;
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -68,7 +68,7 @@ class ScreenView implements AbstractEvent {
 
   @override
   ScreenView attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       ScreenView(
         name: name,
@@ -76,6 +76,6 @@ class ScreenView implements AbstractEvent {
         transitionType: transitionType,
         previousName: previousName,
         previousType: previousType,
-        contexts: this.contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }

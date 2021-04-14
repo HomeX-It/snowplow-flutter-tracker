@@ -26,7 +26,7 @@ class PushNotification implements AbstractEvent {
   final NotificationContent? notificationContent;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Creates a [PushNotification] event
   const PushNotification({
@@ -36,7 +36,7 @@ class PushNotification implements AbstractEvent {
     this.categoryIdentifier,
     this.threadIdentifier,
     this.notificationContent,
-    this.contexts = const [],
+    this.contexts = const {},
   });
 
   @override
@@ -62,7 +62,7 @@ class PushNotification implements AbstractEvent {
           categoryIdentifier == other.categoryIdentifier &&
           threadIdentifier == other.threadIdentifier &&
           notificationContent == other.notificationContent &&
-          contexts == other.contexts;
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -76,7 +76,7 @@ class PushNotification implements AbstractEvent {
 
   @override
   PushNotification attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       PushNotification(
         action: action,
@@ -85,6 +85,6 @@ class PushNotification implements AbstractEvent {
         categoryIdentifier: categoryIdentifier,
         threadIdentifier: threadIdentifier,
         notificationContent: notificationContent,
-        contexts: this.contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }

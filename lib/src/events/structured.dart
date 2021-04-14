@@ -21,7 +21,7 @@ class Structured implements AbstractEvent {
   final double value;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Creates a [Structured] event
   Structured({
@@ -30,7 +30,7 @@ class Structured implements AbstractEvent {
     this.label,
     this.property,
     required this.value,
-    this.contexts = const [],
+    this.contexts = const {},
   })  : assert(category.isNotEmpty, 'category cannot be empty'),
         assert(action.isNotEmpty, 'action cannot be empty');
 
@@ -55,7 +55,7 @@ class Structured implements AbstractEvent {
           label == other.label &&
           property == other.property &&
           value == other.value &&
-          contexts == other.contexts;
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -68,7 +68,7 @@ class Structured implements AbstractEvent {
 
   @override
   Structured attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       Structured(
         category: category,
@@ -76,6 +76,6 @@ class Structured implements AbstractEvent {
         label: label,
         property: property,
         value: value,
-        contexts: this.contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }

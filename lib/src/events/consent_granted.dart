@@ -26,7 +26,7 @@ class ConsentGranted implements AbstractEvent {
   final List<ConsentDocument> consentDocuments;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Create a [ConsentGranted] event
   ConsentGranted({
@@ -36,7 +36,7 @@ class ConsentGranted implements AbstractEvent {
     this.documentName,
     this.documentDescription,
     this.consentDocuments = const [],
-    this.contexts = const [],
+    this.contexts = const {},
   })  : assert(documentId.isNotEmpty, 'documentId cannot be empty'),
         assert(documentVersion.isNotEmpty, 'documentVersion cannot be empty');
 
@@ -65,8 +65,8 @@ class ConsentGranted implements AbstractEvent {
           documentVersion == other.documentVersion &&
           documentName == other.documentName &&
           documentDescription == other.documentDescription &&
-          consentDocuments == other.consentDocuments &&
-          contexts == other.contexts;
+          listEquals(consentDocuments, other.consentDocuments) &&
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -80,7 +80,7 @@ class ConsentGranted implements AbstractEvent {
 
   @override
   ConsentGranted attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       ConsentGranted(
         expiry: expiry,
@@ -89,6 +89,6 @@ class ConsentGranted implements AbstractEvent {
         documentName: documentName,
         documentDescription: documentDescription,
         consentDocuments: consentDocuments,
-        contexts: this.contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }

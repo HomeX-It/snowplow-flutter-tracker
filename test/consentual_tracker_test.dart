@@ -1,27 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snowplow_flutter_tracker/snowplow_flutter_tracker.dart';
 
-class MockTracker extends AbstractTracker {
-  var initializeInvocationCounter = 0;
-  @override
-  Future<void> initialize() async {
-    initializeInvocationCounter += 1;
-  }
-
-  var trackedEvents = <AbstractEvent>[];
-  @override
-  Future<void> track(AbstractEvent event) async {
-    trackedEvents.add(event);
-  }
-
-  var closeInvocationCounter = 0;
-  @override
-  Future<void> close() async {
-    closeInvocationCounter += 1;
-  }
-}
+import 'utils/mock_tracker.dart';
 
 void main() {
   final event = ScreenView(name: 'name');

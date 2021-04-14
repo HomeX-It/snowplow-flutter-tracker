@@ -3,7 +3,7 @@ import 'package:snowplow_flutter_tracker/snowplow_flutter_tracker.dart';
 /// [AbstractEvent] Base class of all the events.
 abstract class AbstractEvent {
   /// [contexts] Attached custom contexts
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Default initialiser
   AbstractEvent({required this.contexts});
@@ -13,6 +13,6 @@ abstract class AbstractEvent {
 
   /// [attach] Attaches additional contexts to the event
   AbstractEvent attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   });
 }

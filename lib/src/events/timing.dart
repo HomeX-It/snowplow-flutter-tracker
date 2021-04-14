@@ -18,7 +18,7 @@ class Timing implements AbstractEvent {
   final String? label;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Creates a [Timing] event
   Timing({
@@ -26,7 +26,7 @@ class Timing implements AbstractEvent {
     required this.variable,
     required this.timing,
     this.label,
-    this.contexts = const [],
+    this.contexts = const {},
   })  : assert(category.isNotEmpty, 'category cannot be empty'),
         assert(variable.isNotEmpty, 'category cannot be empty');
 
@@ -49,7 +49,7 @@ class Timing implements AbstractEvent {
           variable == other.variable &&
           timing == other.timing &&
           label == other.label &&
-          contexts == other.contexts;
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -61,13 +61,13 @@ class Timing implements AbstractEvent {
 
   @override
   Timing attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       Timing(
         category: category,
         variable: variable,
         timing: timing,
         label: label,
-        contexts: contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }

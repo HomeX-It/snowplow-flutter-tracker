@@ -64,7 +64,7 @@ class NotificationContent {
           sound == other.sound &&
           launchImageName == other.launchImageName &&
           userInfo == other.userInfo &&
-          attachments == other.attachments;
+          listEquals(attachments, other.attachments);
 
   @override
   int get hashCode =>

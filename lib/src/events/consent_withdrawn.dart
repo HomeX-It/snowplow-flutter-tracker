@@ -26,7 +26,7 @@ class ConsentWithdrawn implements AbstractEvent {
   final List<ConsentDocument> consentDocuments;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Create a [ConsentWithdrawn] event
   const ConsentWithdrawn({
@@ -36,7 +36,7 @@ class ConsentWithdrawn implements AbstractEvent {
     this.documentName,
     this.documentDescription,
     this.consentDocuments = const [],
-    this.contexts = const [],
+    this.contexts = const {},
   });
 
   @override
@@ -64,8 +64,8 @@ class ConsentWithdrawn implements AbstractEvent {
           documentVersion == other.documentVersion &&
           documentName == other.documentName &&
           documentDescription == other.documentDescription &&
-          consentDocuments == other.consentDocuments &&
-          contexts == other.contexts;
+          listEquals(consentDocuments, other.consentDocuments) &&
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -79,7 +79,7 @@ class ConsentWithdrawn implements AbstractEvent {
 
   @override
   ConsentWithdrawn attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       ConsentWithdrawn(
         all: all,
@@ -88,6 +88,6 @@ class ConsentWithdrawn implements AbstractEvent {
         documentName: documentName,
         documentDescription: documentDescription,
         consentDocuments: consentDocuments,
-        contexts: this.contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }

@@ -9,10 +9,10 @@ class SelfDescribing implements AbstractEvent {
   final SelfDescribingJson eventData;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Creates a [SelfDescribing] event
-  const SelfDescribing(this.eventData, {this.contexts = const []});
+  const SelfDescribing(this.eventData, {this.contexts = const {}});
 
   @override
   Map<String, Object?> toMap() {
@@ -27,17 +27,17 @@ class SelfDescribing implements AbstractEvent {
       identical(this, other) ||
       other is SelfDescribing &&
           eventData == other.eventData &&
-          contexts == other.contexts;
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode => eventData.hashCode ^ contexts.hashCode;
 
   @override
   SelfDescribing attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       SelfDescribing(
         eventData,
-        contexts: this.contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }

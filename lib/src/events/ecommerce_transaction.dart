@@ -38,7 +38,7 @@ class EcommerceTransaction implements AbstractEvent {
   final List<EcommerceTransactionItem> items;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Create a [EcommerceTransaction] event
   EcommerceTransaction({
@@ -52,7 +52,7 @@ class EcommerceTransaction implements AbstractEvent {
     this.country,
     this.currency,
     required this.items,
-    this.contexts = const [],
+    this.contexts = const {},
   })  : assert(orderId.isNotEmpty, 'orderId cannot be empty'),
         assert(items.isNotEmpty, 'items cannot be empty');
 
@@ -90,8 +90,8 @@ class EcommerceTransaction implements AbstractEvent {
           state == other.state &&
           country == other.country &&
           currency == other.currency &&
-          items == other.items &&
-          contexts == other.contexts;
+          listEquals(items, other.items) &&
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -109,7 +109,7 @@ class EcommerceTransaction implements AbstractEvent {
 
   @override
   EcommerceTransaction attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       EcommerceTransaction(
         orderId: orderId,
@@ -122,6 +122,6 @@ class EcommerceTransaction implements AbstractEvent {
         country: country,
         currency: currency,
         items: items,
-        contexts: this.contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }

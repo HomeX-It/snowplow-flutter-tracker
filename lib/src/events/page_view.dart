@@ -16,14 +16,14 @@ class PageViewEvent implements AbstractEvent {
   final String? referrer;
 
   @override
-  final List<SelfDescribingJson> contexts;
+  final Set<SelfDescribingJson> contexts;
 
   /// Create a [PageViewEvent] event.
   PageViewEvent({
     required this.pageUrl,
     this.pageTitle,
     this.referrer,
-    this.contexts = const [],
+    this.contexts = const {},
   }) : assert(pageUrl.isNotEmpty, 'pageUrl cannot be null or empty');
 
   @override
@@ -43,7 +43,7 @@ class PageViewEvent implements AbstractEvent {
           pageUrl == other.pageUrl &&
           pageTitle == other.pageTitle &&
           referrer == other.referrer &&
-          contexts == other.contexts;
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -54,12 +54,12 @@ class PageViewEvent implements AbstractEvent {
 
   @override
   PageViewEvent attach({
-    required List<SelfDescribingJson> contexts,
+    required Set<SelfDescribingJson> contexts,
   }) =>
       PageViewEvent(
         pageUrl: pageUrl,
         pageTitle: pageTitle,
         referrer: referrer,
-        contexts: this.contexts + contexts,
+        contexts: this.contexts.union(contexts),
       );
 }
