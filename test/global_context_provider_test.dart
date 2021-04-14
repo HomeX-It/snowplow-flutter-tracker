@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snowplow_flutter_tracker/snowplow_flutter_tracker.dart';
-import 'package:snowplow_flutter_tracker/src/tracker/trackers/global_context_tracker.dart';
 
 import 'utils/mock_tracker.dart';
 
@@ -22,7 +21,7 @@ void main() {
       () async {
     final mock = MockTracker();
 
-    final sut = GlobalContextTracker(
+    final sut = GlobalContextProvider(
       child: mock,
       buildContext: () async => context,
     );
@@ -40,7 +39,7 @@ void main() {
       () async {
     final mock = MockTracker();
 
-    final sut = GlobalContextTracker(
+    final sut = GlobalContextProvider(
       child: mock,
       shouldAttachTo: (_) => true,
       buildContext: () async => context,
@@ -64,7 +63,7 @@ void main() {
       schema: 'schema',
     );
 
-    final sut = GlobalContextTracker(
+    final sut = GlobalContextProvider(
       child: mock,
       shouldAttachTo: (_) => false,
       buildContext: () async => context,
