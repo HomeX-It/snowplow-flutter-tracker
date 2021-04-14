@@ -6,8 +6,13 @@ import com.snowplowanalytics.snowplow.tracker.payload.SelfDescribingJson
 class EventUtil {
     companion object {
         fun getSelfDescribingEvent(json: Map<String, Any>?): SelfDescribing {
-            val selfDescribingJson = getSelfDescribingJson(json)
-            return SelfDescribing.builder().eventData(selfDescribingJson).build()
+            val builder = SelfDescribing.builder()
+
+            builder.eventData(getSelfDescribingJson(json))
+
+            getContexts(json).let { builder.contexts(it) }
+
+            return builder.build()
         }
 
         fun getStructuredEvent(json: Map<String, Any>?): Structured {
@@ -28,6 +33,8 @@ class EventUtil {
             if (json?.get("value") != null) {
                 builder.value(json["value"] as Double)
             }
+
+            getContexts(json).let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -51,6 +58,8 @@ class EventUtil {
                 builder.previousType(json["previousType"] as String)
             }
 
+            getContexts(json).let { builder.contexts(it) }
+
             return builder.build()
         }
 
@@ -66,6 +75,8 @@ class EventUtil {
             if (json?.get("referrer") != null) {
                 builder.referrer(json["referrer"] as String)
             }
+
+            getContexts(json).let { builder.contexts(it) }
             
             return builder.build()
         }
@@ -85,6 +96,8 @@ class EventUtil {
             if (json?.get("label") != null) {
                 builder.label(json["label"] as String)
             }
+
+            getContexts(json).let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -124,6 +137,8 @@ class EventUtil {
                 builder.items(items)
             }
 
+            getContexts(json).let { builder.contexts(it) }
+
             return builder.build()
         }
 
@@ -150,6 +165,8 @@ class EventUtil {
                 builder.consentDocuments(consentDocuments)
             }
 
+            getContexts(json).let { builder.contexts(it) }
+
             return builder.build()
         }
 
@@ -175,7 +192,9 @@ class EventUtil {
                 val consentDocuments = (json["consentDocuments"] as List<Map<String, Any>>).map(::getConsentDocuments)
                 builder.consentDocuments(consentDocuments)
             }
-            
+
+            getContexts(json).let { builder.contexts(it) }
+
             return builder.build()
         }
 
@@ -209,6 +228,8 @@ class EventUtil {
                 builder.currency(json["currency"] as String)
             }
 
+            getContexts(json).let { builder.contexts(it) }
+
             return builder.build()
         }
 
@@ -229,6 +250,16 @@ class EventUtil {
             }
 
             return builder.build()
+        }
+
+        private fun getContexts(json: Map<String, Any>?): List<SelfDescribingJson>? {
+            val contexts = (json?.get("contexts") as? List<Map<String, Any>>)?.map(::getSelfDescribingJson)
+
+            if (contexts.isNullOrEmpty()) {
+                return null
+            }
+
+            return contexts
         }
     }
 }

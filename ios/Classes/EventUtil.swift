@@ -14,9 +14,7 @@ struct EventUtil {
             SPPageViewBuilder.setPageUrl(dict?["pageUrl"] as! String)
             SPPageViewBuilder.setPageTitle(dict?["pageTitle"] as? String)
             SPPageViewBuilder.setReferrer(dict?["referrer"] as? String)
-            SPPageViewBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+            SPPageViewBuilder.setContexts(getContexts(dict))
         }
     }
     
@@ -29,9 +27,7 @@ struct EventUtil {
             SPStructuredBuilder.setProperty(dict?["property"] as? String)
             (dict?["value"] as? Double).map(SPStructuredBuilder.setValue)
 
-            SPStructuredBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+            SPStructuredBuilder.setContexts(getContexts(dict))
         }
     }
     
@@ -40,9 +36,7 @@ struct EventUtil {
         
         return SPUnstructured.build { (SPUnstructuredBuilder) in
             SPUnstructuredBuilder.setEventData(eventData)
-            SPUnstructuredBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+            SPUnstructuredBuilder.setContexts(getContexts(dict))
         }
     }
     
@@ -53,9 +47,8 @@ struct EventUtil {
             SPScreenViewBuilder.setTransitionType(dict?["transitionType"] as? String)
             SPScreenViewBuilder.setPreviousScreenName(dict?["previousName"] as? String)
             SPScreenViewBuilder.setPreviousScreenType(dict?["previousType"] as? String)
-            SPScreenViewBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+
+            getContexts(dict).map(SPScreenViewBuilder.setContexts)
         }
     }
     
@@ -70,9 +63,8 @@ struct EventUtil {
             (dict?["documentDescription"] as? String).map(SPConsentWithdrawnBuilder.setDescription)
 
             SPConsentWithdrawnBuilder.setDocuments(documents)
-            SPConsentWithdrawnBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+
+            getContexts(dict).map(SPConsentWithdrawnBuilder.setContexts)
         }
     }
     
@@ -88,9 +80,7 @@ struct EventUtil {
             SPConsentGrantedBuilder.setDescription(dict?["documentDescription"] as? String)
 
             SPConsentGrantedBuilder.setDocuments(documents)
-            SPConsentGrantedBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+            getContexts(dict).map(SPConsentGrantedBuilder.setContexts)
         }
     }
     
@@ -102,9 +92,7 @@ struct EventUtil {
 
             SPTimingBuilder.setLabel(dict?["label"] as? String)
 
-            SPTimingBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+            getContexts(dict).map(SPTimingBuilder.setContexts)
         }
     }
     
@@ -122,9 +110,8 @@ struct EventUtil {
             SPEcommTransactionBuilder.setCountry(dict?["country"] as? String)
             SPEcommTransactionBuilder.setCurrency(dict?["currency"] as? String)
             SPEcommTransactionBuilder.setItems(items)
-            SPEcommTransactionBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+
+            getContexts(dict).map(SPEcommTransactionBuilder.setContexts)
         }
     }
     
@@ -138,9 +125,8 @@ struct EventUtil {
             SPPushNotificationBuilder.setCategoryIdentifier((dict?["categoryIdentifier"] as? String)!)
             SPPushNotificationBuilder.setThreadIdentifier((dict?["threadIdentifier"] as? String)!)
             SPPushNotificationBuilder.setNotification(notification)
-            SPPushNotificationBuilder.setContexts(
-                getContexts(dict?["contexts"] as? [[String: Any]])
-            )
+
+            getContexts(dict).map(SPPushNotificationBuilder.setContexts)
         }
     }
     
@@ -168,9 +154,7 @@ struct EventUtil {
                 SPEcommTransactionItemBuilder.setCategory(ecommerceItem["category"] as? String)
                 SPEcommTransactionItemBuilder.setCurrency(ecommerceItem["currency"] as? String)
 
-                SPEcommTransactionItemBuilder.setContexts(
-                    getContexts(ecommerceItem["contexts"] as? [[String: Any]])
-                )
+                getContexts(ecommerceItem).map(SPEcommTransactionItemBuilder.setContexts)
             }
         }
     }
@@ -190,7 +174,10 @@ struct EventUtil {
         }
     }
 
-    static private func getContexts(_ contexts: [[String: Any]]?) -> NSMutableArray {
-        return NSMutableArray(array: contexts?.map(getSelfDescribingJson) ?? [])
+    static private func getContexts(_ dict: [String: Any]?) -> NSMutableArray? {
+        (dict?["contexts"] as? [[String: Any]])
+            .map { $0.map(getSelfDescribingJson) }
+            .flatMap { $0.isEmpty ? nil: $0 }
+            .map(NSMutableArray.init(array:))
     }
 }

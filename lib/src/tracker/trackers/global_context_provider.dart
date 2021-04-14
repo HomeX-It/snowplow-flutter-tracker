@@ -4,20 +4,20 @@ import '../abstract_tracker.dart';
 import '../../events/abstract_event.dart';
 import '../../events/self_describing_json.dart';
 
-/// [GlobalContextTracker]
-/// Attaches a global context to all tracked events
+/// [GlobalContextProvider]
+/// Attaches global context to all tracked events
 @immutable
-class GlobalContextTracker extends AbstractTracker {
-  static bool _attachToAll(AbstractEvent _) => true;
+class GlobalContextProvider extends AbstractTracker {
+  static bool _attachToAllEvents(AbstractEvent _) => true;
 
   final AbstractTracker _child;
   final bool Function(AbstractEvent) _shouldAttachTo;
   final Future<SelfDescribingJson> Function() _buildContext;
 
   /// Default initialiser
-  const GlobalContextTracker({
+  const GlobalContextProvider({
     required child,
-    shouldAttachTo = _attachToAll,
+    shouldAttachTo = _attachToAllEvents,
     required buildContext,
   })   : _child = child,
         _shouldAttachTo = shouldAttachTo,
