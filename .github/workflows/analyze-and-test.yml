@@ -1,5 +1,11 @@
-name: Run analyze and tests
-on: pull_request
+name: Lint and test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  
 jobs:
   analyze-and-test:
     runs-on: ubuntu-latest
