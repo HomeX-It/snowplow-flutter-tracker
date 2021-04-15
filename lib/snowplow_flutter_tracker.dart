@@ -28,5 +28,6 @@ export 'src/tracker/subject.dart';
 export 'src/tracker/tracker.dart';
 export 'src/tracker/trackers/consentual_tracker.dart';
 export 'src/tracker/trackers/global_context_provider.dart';
+export 'src/tracker/trackers/tracking_guard.dart';
 
 export 'src/snowplow_flutter_tracker.dart';
