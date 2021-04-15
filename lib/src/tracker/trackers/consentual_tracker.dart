@@ -10,7 +10,7 @@ import '../../events/abstract_event.dart';
 /// ConsentualTrackers can be used to block events from tracking
 /// when the user has not consented to tracking.
 class ConsentualTracker extends AbstractTracker {
-  final AbstractTracker Function() _buildWrapped;
+  final AbstractTracker Function() _buildChild;
   final ValueNotifier<bool> _condition;
 
   AbstractTracker? _wrapped;
@@ -18,7 +18,7 @@ class ConsentualTracker extends AbstractTracker {
 
   /// default initialiser
   ConsentualTracker(
-    this._buildWrapped,
+    this._buildChild,
     this._condition,
   );
 
@@ -34,7 +34,7 @@ class ConsentualTracker extends AbstractTracker {
   void _onConsentChange() async {
     final userConsented = _condition.value;
     if (userConsented && _wrapped == null) {
-      _wrapped = _buildWrapped();
+      _wrapped = _buildChild();
       await _wrapped?.initialize();
     } else if (!userConsented) {
       await _wrapped?.close();

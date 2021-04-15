@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'abstract_event.dart';
+import 'self_describing_json.dart';
 
 /// [Timing] event.
 @immutable
@@ -16,12 +17,16 @@ class Timing implements AbstractEvent {
   /// [label] Optional description of this timing.
   final String? label;
 
+  @override
+  final Set<SelfDescribingJson> contexts;
+
   /// Creates a [Timing] event
   Timing({
     required this.category,
     required this.variable,
     required this.timing,
     this.label,
+    this.contexts = const {},
   })  : assert(category.isNotEmpty, 'category cannot be empty'),
         assert(variable.isNotEmpty, 'category cannot be empty');
 
@@ -32,6 +37,7 @@ class Timing implements AbstractEvent {
       'variable': variable,
       'timing': timing,
       'label': label,
+      'contexts': contexts.map((context) => context.toMap()).toList()
     };
   }
 
@@ -42,9 +48,26 @@ class Timing implements AbstractEvent {
           category == other.category &&
           variable == other.variable &&
           timing == other.timing &&
-          label == other.label;
+          label == other.label &&
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
-      category.hashCode ^ variable.hashCode ^ timing.hashCode ^ label.hashCode;
+      category.hashCode ^
+      variable.hashCode ^
+      timing.hashCode ^
+      label.hashCode ^
+      contexts.hashCode;
+
+  @override
+  Timing attach({
+    required Set<SelfDescribingJson> contexts,
+  }) =>
+      Timing(
+        category: category,
+        variable: variable,
+        timing: timing,
+        label: label,
+        contexts: this.contexts.union(contexts),
+      );
 }

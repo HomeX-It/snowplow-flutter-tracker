@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:snowplow_flutter_tracker/snowplow_flutter_tracker.dart';
 
 /// [EcommerceTransactionItem]
 @immutable
@@ -24,6 +25,9 @@ class EcommerceTransactionItem {
   /// [currency] Transaction currency.
   final String? currency;
 
+  /// [contexts] Attached contexts.
+  final Set<SelfDescribingJson> contexts;
+
   /// Create a [EcommerceTransactionItem]
   const EcommerceTransactionItem({
     this.itemId,
@@ -33,6 +37,7 @@ class EcommerceTransactionItem {
     this.name,
     this.category,
     this.currency,
+    this.contexts = const {},
   });
 
   /// Converts the ecommerce transaction item object to JSON.
@@ -45,6 +50,7 @@ class EcommerceTransactionItem {
       'name': name,
       'category': category,
       'currency': currency,
+      'contexts': contexts.map((context) => context.toMap()).toList()
     };
   }
 
@@ -59,7 +65,8 @@ class EcommerceTransactionItem {
           quantity == other.quantity &&
           name == other.name &&
           category == other.category &&
-          currency == other.currency;
+          currency == other.currency &&
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -69,5 +76,6 @@ class EcommerceTransactionItem {
       quantity.hashCode ^
       name.hashCode ^
       category.hashCode ^
-      currency.hashCode;
+      currency.hashCode ^
+      contexts.hashCode;
 }

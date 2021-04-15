@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import 'abstract_event.dart';
 import 'consent_document.dart';
+import 'self_describing_json.dart';
 
 /// [ConsentGranted] event
 @immutable
@@ -24,6 +25,9 @@ class ConsentGranted implements AbstractEvent {
   /// [consentDocuments] An array of associated consent documents.
   final List<ConsentDocument> consentDocuments;
 
+  @override
+  final Set<SelfDescribingJson> contexts;
+
   /// Create a [ConsentGranted] event
   ConsentGranted({
     required this.documentId,
@@ -32,6 +36,7 @@ class ConsentGranted implements AbstractEvent {
     this.documentName,
     this.documentDescription,
     this.consentDocuments = const [],
+    this.contexts = const {},
   })  : assert(documentId.isNotEmpty, 'documentId cannot be empty'),
         assert(documentVersion.isNotEmpty, 'documentVersion cannot be empty');
 
@@ -46,6 +51,7 @@ class ConsentGranted implements AbstractEvent {
       'consentDocuments': consentDocuments
           .map((ConsentDocument consentDocument) => consentDocument.toMap())
           .toList(),
+      'contexts': contexts.map((context) => context.toMap()).toList(),
     };
   }
 
@@ -59,7 +65,8 @@ class ConsentGranted implements AbstractEvent {
           documentVersion == other.documentVersion &&
           documentName == other.documentName &&
           documentDescription == other.documentDescription &&
-          consentDocuments == other.consentDocuments;
+          listEquals(consentDocuments, other.consentDocuments) &&
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -68,5 +75,20 @@ class ConsentGranted implements AbstractEvent {
       expiry.hashCode ^
       documentName.hashCode ^
       documentDescription.hashCode ^
-      consentDocuments.hashCode;
+      consentDocuments.hashCode ^
+      contexts.hashCode;
+
+  @override
+  ConsentGranted attach({
+    required Set<SelfDescribingJson> contexts,
+  }) =>
+      ConsentGranted(
+        expiry: expiry,
+        documentId: documentId,
+        documentVersion: documentVersion,
+        documentName: documentName,
+        documentDescription: documentDescription,
+        consentDocuments: consentDocuments,
+        contexts: this.contexts.union(contexts),
+      );
 }

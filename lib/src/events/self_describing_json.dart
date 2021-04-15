@@ -25,7 +25,7 @@ class SelfDescribingJson {
       identical(this, other) ||
       other is SelfDescribingJson &&
           schema == other.schema &&
-          payload == other.payload;
+          mapEquals(payload, other.payload);
 
   @override
   int get hashCode => schema.hashCode ^ payload.hashCode;

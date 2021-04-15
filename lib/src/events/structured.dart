@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'abstract_event.dart';
+import 'self_describing_json.dart';
 
 /// [Structured] event
 @immutable
@@ -17,7 +18,10 @@ class Structured implements AbstractEvent {
   final String? property;
 
   /// [value] The value of the structured event
-  final double value;
+  final double? value;
+
+  @override
+  final Set<SelfDescribingJson> contexts;
 
   /// Creates a [Structured] event
   Structured({
@@ -25,8 +29,9 @@ class Structured implements AbstractEvent {
     required this.action,
     this.label,
     this.property,
-    required this.value,
-  })   : assert(category.isNotEmpty, 'category cannot be empty'),
+    this.value,
+    this.contexts = const {},
+  })  : assert(category.isNotEmpty, 'category cannot be empty'),
         assert(action.isNotEmpty, 'action cannot be empty');
 
   @override
@@ -37,6 +42,7 @@ class Structured implements AbstractEvent {
       'label': label,
       'property': property,
       'value': value,
+      'contexts': contexts.map((context) => context.toMap()).toList()
     };
   }
 
@@ -48,7 +54,8 @@ class Structured implements AbstractEvent {
           action == other.action &&
           label == other.label &&
           property == other.property &&
-          value == other.value;
+          value == other.value &&
+          setEquals(contexts, other.contexts);
 
   @override
   int get hashCode =>
@@ -56,5 +63,19 @@ class Structured implements AbstractEvent {
       action.hashCode ^
       label.hashCode ^
       property.hashCode ^
-      value.hashCode;
+      value.hashCode ^
+      contexts.hashCode;
+
+  @override
+  Structured attach({
+    required Set<SelfDescribingJson> contexts,
+  }) =>
+      Structured(
+        category: category,
+        action: action,
+        label: label,
+        property: property,
+        value: value,
+        contexts: this.contexts.union(contexts),
+      );
 }
