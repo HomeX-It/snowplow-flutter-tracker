@@ -36,9 +36,7 @@ class SnowplowFlutterTracker extends AbstractTracker {
   final Tracker _tracker;
 
   /// Constructor which always returns the original instance of the class.
-  SnowplowFlutterTracker(
-    this._tracker,
-  );
+  const SnowplowFlutterTracker(this._tracker);
 
   /// [initialize]
   /// The method which initializes the tracker instance of the current platform.
