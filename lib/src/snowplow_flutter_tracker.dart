@@ -33,6 +33,9 @@ class SnowplowFlutterTracker extends AbstractTracker {
   static const _channel = MethodChannel('snowplow_flutter_tracker');
   static var _isInitialized = false;
 
+  /// A flag indicating, if a SnowplowTracker was already initialised
+  static bool get isInitialized => _isInitialized;
+
   final Tracker _tracker;
 
   /// Constructor which always returns the original instance of the class.
@@ -91,6 +94,11 @@ class SnowplowFlutterTracker extends AbstractTracker {
 
   @override
   Future<void> close() async {
-    return _channel.invokeMethod('close');
+    if (!isInitialized) {
+      return;
+    }
+
+    await _channel.invokeMethod('close');
+    _isInitialized = false;
   }
 }
