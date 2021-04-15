@@ -30,25 +30,29 @@ class SnowplowFlutterTrackerInitialisationError extends Error {
 /// The class which communicates with the current platform.
 @immutable
 class SnowplowFlutterTracker extends AbstractTracker {
-  static final MethodChannel _channel =
-      MethodChannel('snowplow_flutter_tracker');
+  static const _channel = MethodChannel('snowplow_flutter_tracker');
   static var _isInitialized = false;
 
   final Tracker _tracker;
 
   /// Constructor which always returns the original instance of the class.
-  const SnowplowFlutterTracker(this._tracker);
+  SnowplowFlutterTracker(
+    this._tracker,
+  );
 
   /// [initialize]
   /// The method which initializes the tracker instance of the current platform.
   @override
   Future<void> initialize() async {
     if (_isInitialized) {
-      SnowplowFlutterTracker._isInitialized = true;
-      await _channel.invokeMethod('initialize', _tracker.toMap());
-    } else {
       throw SnowplowFlutterTrackerInitialisationError.alreadyInitialized();
     }
+
+    _isInitialized = true;
+    await _channel.invokeMethod(
+      'initialize',
+      _tracker.toMap(),
+    );
   }
 
   /// [setSubject]
