@@ -9,6 +9,47 @@ import Foundation
 import SnowplowTracker
 
 struct TrackerUtil {
+    struct GDPRContext {
+        let processingBasis: SPGdprProcessingBasis
+        let documentId: String?
+        let documentVersion: String?
+        let documentDescription: String?
+
+        init?(from dict: [String: Any]) {
+            guard let processingBasis = Self.getGdprProcessingBasis(from: dict) else {
+                return nil
+            }
+
+            self.processingBasis = processingBasis
+            self.documentId = dict["documentId"] as? String
+            self.documentVersion = dict["documentVersion"] as? String
+            self.documentDescription = dict["documentDescription"] as? String
+        }
+
+        private static func getGdprProcessingBasis(from context: [String: Any]) -> SPGdprProcessingBasis? {
+            guard let basis = context["basis"] as? String else {
+                fatalError("[GDPR context] GDPR context does not contain legal basis for tracking")
+            }
+
+            switch basis {
+            case "consent":
+                return SPGdprProcessingBasis.consent
+            case "contract":
+                return SPGdprProcessingBasis.contract
+            case "legal_obligation":
+                return SPGdprProcessingBasis.legalObligation
+            case "vital_interests":
+                return SPGdprProcessingBasis.vitalInterest
+            case "public_task":
+                return SPGdprProcessingBasis.publicTask
+            case "legitimate_interests":
+                return SPGdprProcessingBasis.legitimateInterests
+            default:
+                return nil
+            }
+        }
+    }
+
     static func getTracker(emitter: SPEmitter, dictionary: [String: Any]?) -> SPTracker? {
         let subject = SPSubject(
             platformContext: dictionary?["mobileContext"] as? Bool ?? false,
@@ -38,12 +79,13 @@ struct TrackerUtil {
             SPTrackerBuilder?.setLogLevel(getLogLevel(rawValue: dictionary?["logLevel"] as? String))
             SPTrackerBuilder?.setExceptionEvents(dictionary?["exceptionEvents"] as? Bool ?? false)
 
-            if let gdprContext = dictionary?["gdprContext"] as? [String: Any] {
+            if let rawGdprContext = dictionary?["gdprContext"] as? [String: Any],
+               let gdprContext = GDPRContext(from: rawGdprContext) {
                 SPTrackerBuilder?.setGdprContextWith(
-                    getGdprProcessingBasis(from: gdprContext),
-                    documentId: gdprContext["documentId"] as? String,
-                    documentVersion: gdprContext["documentVersion"] as? String,
-                    documentDescription: gdprContext["documentDescription"] as? String
+                    gdprContext.processingBasis,
+                    documentId: gdprContext.documentId,
+                    documentVersion: gdprContext.documentVersion,
+                    documentDescription: gdprContext.documentDescription
                 )
             }
         }
@@ -54,29 +96,6 @@ struct TrackerUtil {
             SPEmitterBuilder?.setUrlEndpoint(dictionary?["uri"] as? String)
             SPEmitterBuilder?.setHttpMethod(getHttpMethod(httpMethodAsString: dictionary?["httpMethod"] as? String))
             SPEmitterBuilder?.setProtocol(getProtocol(protocolAsString: dictionary?["requestSecurity"] as? String))
-        }
-    }
-
-    private static func getGdprProcessingBasis(from context: [String: Any]) -> SPGdprProcessingBasis {
-        guard let basis = context["basis"] as? String else {
-            fatalError("[GDPR context] GDPR context does not contain legal basis for tracking")
-        }
-
-        switch basis {
-        case "consent":
-            return SPGdprProcessingBasis.consent
-        case "contract":
-            return SPGdprProcessingBasis.contract
-        case "legal_obligation":
-            return SPGdprProcessingBasis.legalObligation
-        case "vital_interests":
-            return SPGdprProcessingBasis.vitalInterest
-        case "public_task":
-            return SPGdprProcessingBasis.publicTask
-        case "legitimate_interests":
-            return SPGdprProcessingBasis.legitimateInterests
-        default:
-            fatalError("[GDPR context] Unknown legal basis for tracking")
         }
     }
 
