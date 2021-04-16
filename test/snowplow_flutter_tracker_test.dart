@@ -30,7 +30,6 @@ void main() {
 
           expect(methodCall.method, equals('initialize'));
           expect(methodCall.arguments, equals(tracker.toMap()));
-          return;
         });
 
         await sut.initialize();
@@ -49,7 +48,6 @@ void main() {
 
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
           initialiseWasCalled = true;
-          return;
         });
 
         try {
@@ -78,7 +76,6 @@ void main() {
           closeWasCalled = true;
 
           expect(methodCall.method, equals('close'));
-          return;
         });
 
         await sut.close();
@@ -98,7 +95,6 @@ void main() {
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
           closeWasCalled = true;
           expect(methodCall.method, equals('close'));
-          return;
         });
 
         await sut.close();
@@ -108,6 +104,67 @@ void main() {
       },
     );
   });
+
+  test(
+    '[setSubject] Calls setSubject on platform channel',
+    () async {
+      var setSubjectCalled = false;
+      var subject = Subject(domainUserId: 'domainUserID');
+
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        setSubjectCalled = true;
+
+        expect(methodCall.method, equals('setSubject'));
+        expect(methodCall.arguments, equals(subject.toMap()));
+      });
+
+      final sut = SnowplowFlutterTracker(tracker);
+
+      await sut.setSubject(subject);
+
+      expect(setSubjectCalled, equals(true));
+    },
+  );
+
+  test(
+    '[enableGDPRContext] Calls enableGDPRContext on platform channel',
+    () async {
+      var enableGDPRContextCalled = false;
+      var gdprContext = GDPRContext(basis: GDPRLegalBasis.consent);
+
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        enableGDPRContextCalled = true;
+
+        expect(methodCall.method, equals('enableGdprContext'));
+        expect(methodCall.arguments, equals(gdprContext.toMap()));
+      });
+
+      final sut = SnowplowFlutterTracker(tracker);
+
+      await sut.enableGdprContext(gdprContext);
+
+      expect(enableGDPRContextCalled, equals(true));
+    },
+  );
+
+  test(
+    '[disableGdprContext] Calls enableGDPRContext on platform channel',
+    () async {
+      var disableGdprContextCalled = false;
+
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        disableGdprContextCalled = true;
+
+        expect(methodCall.method, equals('disableGdprContext'));
+      });
+
+      final sut = SnowplowFlutterTracker(tracker);
+
+      await sut.disableGdprContext();
+
+      expect(disableGdprContextCalled, equals(true));
+    },
+  );
 
   tearDown(() {
     channel.setMockMethodCallHandler(null);

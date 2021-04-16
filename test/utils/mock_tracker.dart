@@ -7,6 +7,24 @@ class MockTracker extends AbstractTracker {
     initializeInvocationCounter += 1;
   }
 
+  var setSubjectInvocations = <Subject>[];
+  @override
+  Future<void> setSubject(Subject subject) async {
+    setSubjectInvocations.add(subject);
+  }
+
+  var enableGdprContextInvocations = <GDPRContext>[];
+  @override
+  Future<void> enableGdprContext(GDPRContext context) async {
+    enableGdprContextInvocations.add(context);
+  }
+
+  var disableGdprContextInvocationCount = 0;
+  @override
+  Future<void> disableGdprContext() async {
+    disableGdprContextInvocationCount += 1;
+  }
+
   var trackedEvents = <AbstractEvent>[];
   @override
   Future<void> track(AbstractEvent event) async {

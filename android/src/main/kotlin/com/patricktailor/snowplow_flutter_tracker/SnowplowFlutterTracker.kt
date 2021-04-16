@@ -18,7 +18,24 @@ class SnowplowFlutterTracker(private val context: Context) {
 
     fun setSubject(json: Map<String, Any>?) {
         json?.let { SubjectUtil.configure(tracker.subject, it) }
-}
+    }
+
+    fun enableGdprContext(json: Map<String, Any>?) {
+        json?.let {
+            val basis = TrackerUtil.getGdprProcessingBasis(it);
+
+            tracker.enableGdprContext(
+                    basis,
+                    it["documentId"]?.toString(),
+                    it["documentVersion"]?.toString(),
+                    it["documentDescription"]?.toString()
+            )
+        }
+    }
+
+    fun disableGdprContext() {
+        tracker.disableGdprContext()
+    }
 
     fun trackSelfDescribingEvent(json: Map<String, Any>?) {
         val selfDescribing = EventUtil.getSelfDescribingEvent(json)

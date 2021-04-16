@@ -17,6 +17,10 @@ public class SwiftSnowplowFlutterTrackerPlugin: NSObject, FlutterPlugin {
             onInitialize(call, result)
         case "setSubject":
             onSetSubject(call, result)
+        case "enableGdprContext":
+            onEnableGdprContext(call, result)
+        case "disableGdprContext":
+            onDisableGdprContext(call, result)
         case "trackPageView":
             onTrackPageView(call, result)
         case "trackStructured":
@@ -56,6 +60,25 @@ public class SwiftSnowplowFlutterTrackerPlugin: NSObject, FlutterPlugin {
             tracker?.subject.configure(with: subjectConfiguration)
         }
 
+        result(nil)
+    }
+
+    private func onEnableGdprContext(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
+        if let rawGdprContext = call.arguments as? [String: Any],
+           let gdprContext = TrackerUtil.GDPRContext(from: rawGdprContext){
+            tracker?.enableGdprContext(
+                with: gdprContext.processingBasis,
+                documentId: gdprContext.documentId,
+                documentVersion: gdprContext.documentVersion,
+                documentDescription: gdprContext.documentDescription
+            )
+        }
+
+        result(nil)
+    }
+
+    private func onDisableGdprContext(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
+        tracker?.disableGdprContext()
         result(nil)
     }
     
