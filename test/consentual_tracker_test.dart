@@ -7,10 +7,57 @@ import 'utils/mock_tracker.dart';
 void main() {
   final event = ScreenView(name: 'name');
 
+  group('[initialize]', () {
+    test(
+      'If consent is granted, underlying tracker is initialised',
+      () async {
+        final mock = MockTracker();
+
+        final valueNotifier = ValueNotifier<bool>(false);
+
+        final sut = ConsentualTracker(
+          () => mock,
+          valueNotifier,
+        );
+
+        await sut.initialize();
+
+        expect(mock.initializeInvocationCounter, equals(0));
+
+        valueNotifier.value = true;
+
+        expect(mock.initializeInvocationCounter, equals(1));
+      },
+    );
+
+    test(
+      'If consent is revoked, underlying tracker is closed',
+      () async {
+        final mock = MockTracker();
+
+        final valueNotifier = ValueNotifier<bool>(true);
+
+        final sut = ConsentualTracker(
+          () => mock,
+          valueNotifier,
+        );
+
+        await sut.initialize();
+
+        expect(mock.initializeInvocationCounter, equals(1));
+
+        valueNotifier.value = false;
+
+        expect(mock.closeInvocationCounter, equals(1));
+      },
+    );
+  });
+
   test(
-    'If condition is true, ConsentualTracker forwards events',
+    '[setSubject] If consent is granted, ConsentualTracker sets subject on child tracker',
     () async {
       final mock = MockTracker();
+      final subject = Subject();
 
       final valueNotifier = ValueNotifier<bool>(true);
 
@@ -20,41 +67,17 @@ void main() {
       );
 
       await sut.initialize();
+      await sut.setSubject(subject);
 
-      expect(mock.initializeInvocationCounter, equals(1));
-
-      await sut.track(event);
-
-      expect(mock.trackedEvents, equals([event]));
+      expect(mock.setSubjectInvocations, equals([subject]));
     },
   );
 
   test(
-    'If condition is false, ConsentualTracker does not forward events',
+    '[enableGdprContext] If consent is granted, ConsentualTracker enables GPDR context on child tracker',
     () async {
       final mock = MockTracker();
-
-      final valueNotifier = ValueNotifier<bool>(false);
-
-      final sut = ConsentualTracker(
-        () => mock,
-        valueNotifier,
-      );
-
-      await sut.initialize();
-
-      expect(mock.initializeInvocationCounter, equals(0));
-
-      await sut.track(event);
-
-      expect(mock.trackedEvents, equals([]));
-    },
-  );
-
-  test(
-    'If condition changes from true to false, underlying tracker is closed',
-    () async {
-      final mock = MockTracker();
+      final context = GDPRContext(basis: GDPRLegalBasis.consent);
 
       final valueNotifier = ValueNotifier<bool>(true);
 
@@ -64,21 +87,17 @@ void main() {
       );
 
       await sut.initialize();
+      await sut.enableGdprContext(context);
 
-      expect(mock.initializeInvocationCounter, equals(1));
-
-      valueNotifier.value = false;
-
-      expect(mock.closeInvocationCounter, equals(1));
+      expect(mock.enableGdprContextInvocations, equals([context]));
     },
   );
 
   test(
-    'If condition changes from false to true, underlying tracker is initialised',
+    '[disableGdprContext] If consent is granted, ConsentualTracker disables GPDR context',
     () async {
       final mock = MockTracker();
-
-      final valueNotifier = ValueNotifier<bool>(false);
+      final valueNotifier = ValueNotifier<bool>(true);
 
       final sut = ConsentualTracker(
         () => mock,
@@ -87,11 +106,55 @@ void main() {
 
       await sut.initialize();
 
-      expect(mock.initializeInvocationCounter, equals(0));
+      await sut.disableGdprContext();
 
-      valueNotifier.value = true;
-
-      expect(mock.initializeInvocationCounter, equals(1));
+      expect(mock.disableGdprContextInvocationCount, equals(1));
     },
   );
+
+  group('[track]', () {
+    test(
+      'If consent is granted, ConsentualTracker forwards events',
+      () async {
+        final mock = MockTracker();
+
+        final valueNotifier = ValueNotifier<bool>(true);
+
+        final sut = ConsentualTracker(
+          () => mock,
+          valueNotifier,
+        );
+
+        await sut.initialize();
+
+        expect(mock.initializeInvocationCounter, equals(1));
+
+        await sut.track(event);
+
+        expect(mock.trackedEvents, equals([event]));
+      },
+    );
+
+    test(
+      'If consent is denied, ConsentualTracker does not forward events',
+      () async {
+        final mock = MockTracker();
+
+        final valueNotifier = ValueNotifier<bool>(false);
+
+        final sut = ConsentualTracker(
+          () => mock,
+          valueNotifier,
+        );
+
+        await sut.initialize();
+
+        expect(mock.initializeInvocationCounter, equals(0));
+
+        await sut.track(event);
+
+        expect(mock.trackedEvents, equals([]));
+      },
+    );
+  });
 }

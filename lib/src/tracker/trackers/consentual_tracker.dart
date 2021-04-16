@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../abstract_tracker.dart';
+import '../gdpr_context.dart';
+import '../subject.dart';
 import '../../events/abstract_event.dart';
 
 /// [ConsentualTracker]
@@ -13,7 +15,7 @@ class ConsentualTracker extends AbstractTracker {
   final AbstractTracker Function() _buildChild;
   final ValueNotifier<bool> _condition;
 
-  AbstractTracker? _wrapped;
+  AbstractTracker? _child;
   bool _isInitialised = false;
 
   /// default initialiser
@@ -31,25 +33,36 @@ class ConsentualTracker extends AbstractTracker {
     }
   }
 
+  @override
+  Future<void> setSubject(Subject subject) async =>
+      await _child?.setSubject(subject);
+
   void _onConsentChange() async {
     final userConsented = _condition.value;
-    if (userConsented && _wrapped == null) {
-      _wrapped = _buildChild();
-      await _wrapped?.initialize();
+    if (userConsented && _child == null) {
+      _child = _buildChild();
+      await _child?.initialize();
     } else if (!userConsented) {
-      await _wrapped?.close();
-      _wrapped = null;
+      await _child?.close();
+      _child = null;
     }
   }
 
   @override
-  Future<void> track(AbstractEvent event) async => await _wrapped?.track(event);
+  Future<void> enableGdprContext(GDPRContext context) async =>
+      await _child?.enableGdprContext(context);
+
+  @override
+  Future<void> disableGdprContext() async => await _child?.disableGdprContext();
+
+  @override
+  Future<void> track(AbstractEvent event) async => await _child?.track(event);
 
   @override
   Future<void> close() async {
     _condition.removeListener(_onConsentChange);
-    await _wrapped?.close();
-    _wrapped = null;
+    await _child?.close();
+    _child = null;
     _isInitialised = false;
   }
 }

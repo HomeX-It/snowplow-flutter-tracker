@@ -17,6 +17,7 @@ import 'events/timing.dart';
 import 'tracker/abstract_tracker.dart';
 import 'tracker/subject.dart';
 import 'tracker/tracker.dart';
+import 'tracker/gdpr_context.dart';
 
 /// [SnowplowFlutterTrackerInitialisationError]
 ///
@@ -38,11 +39,9 @@ class SnowplowFlutterTracker extends AbstractTracker {
 
   final Tracker _tracker;
 
-  /// Constructor which always returns the original instance of the class.
+  /// Constructs a SnowplowFlutterTracker instance.
   const SnowplowFlutterTracker(this._tracker);
 
-  /// [initialize]
-  /// The method which initializes the tracker instance of the current platform.
   @override
   Future<void> initialize() async {
     if (_isInitialized) {
@@ -56,10 +55,19 @@ class SnowplowFlutterTracker extends AbstractTracker {
     );
   }
 
-  /// [setSubject]
-  /// Sets the subject on the platform's tracker instance.
+  @override
   Future<void> setSubject(Subject subject) async {
-    return await _channel.invokeMethod('setSubject', subject.toMap());
+    await _channel.invokeMethod('setSubject', subject.toMap());
+  }
+
+  @override
+  Future<void> enableGdprContext(GDPRContext context) async {
+    await _channel.invokeMethod('enableGdprContext', context.toMap());
+  }
+
+  @override
+  Future<void> disableGdprContext() async {
+    await _channel.invokeMethod('disableGdprContext');
   }
 
   @override
