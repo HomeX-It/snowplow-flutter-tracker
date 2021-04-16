@@ -65,7 +65,7 @@ class TrackerUtil {
             return Tracker.init(builder.build())
         }
 
-        private fun getGdprProcessingBasis(context: Map<String, Any>): Gdpr.Basis {
+        fun getGdprProcessingBasis(context: Map<String, Any>): Gdpr.Basis {
             val basis = context["basis"] as? String
             if (basis != null) {
                 return when(basis) {

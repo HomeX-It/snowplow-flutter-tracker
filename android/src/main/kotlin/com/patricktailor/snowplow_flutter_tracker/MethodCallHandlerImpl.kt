@@ -24,6 +24,12 @@ class MethodCallHandlerImpl(private val context: Context) : MethodCallHandler {
             "setSubject" -> {
                 onSetSubject(call, result)
             }
+            "enableGdprContext" -> {
+                onEnableGdprContext(call, result)
+            }
+            "disableGdprContext" -> {
+                onDisableGdprContext(result)
+            }
             "trackSelfDescribing" -> {
                 onTrackSelfDescribing(call, result)
             }
@@ -49,7 +55,7 @@ class MethodCallHandlerImpl(private val context: Context) : MethodCallHandler {
                 onTrackConsentWithdrawn(call, result)
             }
             "close" -> {
-                onClose(call, result)
+                onClose(result)
             }
             else -> {
                 result.notImplemented()
@@ -87,6 +93,17 @@ class MethodCallHandlerImpl(private val context: Context) : MethodCallHandler {
     private fun onSetSubject(call: MethodCall, result: MethodChannel.Result) {
         val subjectJson = call.arguments as Map<String, Any>?
         tracker?.setSubject(subjectJson)
+        result.success(null)
+    }
+
+    private fun onEnableGdprContext(call: MethodCall, result: MethodChannel.Result) {
+        val rawGdprContext = call.arguments as Map<String, Any>?
+        tracker?.enableGdprContext(rawGdprContext)
+        result.success(null)
+    }
+
+    private fun onDisableGdprContext(result: MethodChannel.Result) {
+        tracker?.disableGdprContext()
         result.success(null)
     }
 
@@ -138,7 +155,7 @@ class MethodCallHandlerImpl(private val context: Context) : MethodCallHandler {
         result.success(null)
     }
 
-    private fun onClose(call: MethodCall, result: MethodChannel.Result) {
+    private fun onClose(result: MethodChannel.Result) {
         tracker?.close()
         tracker = null
         result.success(null)
