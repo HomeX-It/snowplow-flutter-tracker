@@ -14,7 +14,7 @@ struct EventUtil {
             SPPageViewBuilder.setPageUrl(dict?["pageUrl"] as! String)
             SPPageViewBuilder.setPageTitle(dict?["pageTitle"] as? String)
             SPPageViewBuilder.setReferrer(dict?["referrer"] as? String)
-            SPPageViewBuilder.setContexts(getContexts(dict))
+            getContexts(dict).map(SPPageViewBuilder.setContexts)
         }
     }
     
