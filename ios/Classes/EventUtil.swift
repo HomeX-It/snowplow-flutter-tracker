@@ -14,7 +14,7 @@ struct EventUtil {
             SPPageViewBuilder.setPageUrl(dict?["pageUrl"] as! String)
             SPPageViewBuilder.setPageTitle(dict?["pageTitle"] as? String)
             SPPageViewBuilder.setReferrer(dict?["referrer"] as? String)
-            SPPageViewBuilder.setContexts(getContexts(dict))
+            getContexts(dict).map(SPPageViewBuilder.setContexts)
         }
     }
     
@@ -27,7 +27,7 @@ struct EventUtil {
             SPStructuredBuilder.setProperty(dict?["property"] as? String)
             (dict?["value"] as? Double).map(SPStructuredBuilder.setValue)
 
-            SPStructuredBuilder.setContexts(getContexts(dict))
+            getContexts(dict).map(SPStructuredBuilder.setContexts)
         }
     }
     
@@ -36,7 +36,7 @@ struct EventUtil {
         
         return SPUnstructured.build { (SPUnstructuredBuilder) in
             SPUnstructuredBuilder.setEventData(eventData)
-            SPUnstructuredBuilder.setContexts(getContexts(dict))
+            getContexts(dict).map(SPUnstructuredBuilder.setContexts)
         }
     }
     
