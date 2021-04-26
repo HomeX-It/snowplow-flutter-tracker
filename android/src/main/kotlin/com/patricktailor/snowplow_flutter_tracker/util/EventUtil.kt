@@ -10,7 +10,7 @@ class EventUtil {
 
             builder.eventData(getSelfDescribingJson(json))
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -34,7 +34,7 @@ class EventUtil {
                 builder.value(json["value"] as Double)
             }
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -58,7 +58,7 @@ class EventUtil {
                 builder.previousType(json["previousType"] as String)
             }
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -76,7 +76,7 @@ class EventUtil {
                 builder.referrer(json["referrer"] as String)
             }
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
             
             return builder.build()
         }
@@ -97,7 +97,7 @@ class EventUtil {
                 builder.label(json["label"] as String)
             }
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -137,7 +137,7 @@ class EventUtil {
                 builder.items(items)
             }
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -165,7 +165,7 @@ class EventUtil {
                 builder.consentDocuments(consentDocuments)
             }
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -193,7 +193,7 @@ class EventUtil {
                 builder.consentDocuments(consentDocuments)
             }
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
 
             return builder.build()
         }
@@ -228,7 +228,7 @@ class EventUtil {
                 builder.currency(json["currency"] as String)
             }
 
-            getContexts(json).let { builder.contexts(it) }
+            getContexts(json)?.let { builder.contexts(it) }
 
             return builder.build()
         }
