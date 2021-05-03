@@ -14,7 +14,7 @@ class ConsentGranted implements AbstractEvent {
   final String documentVersion;
 
   /// [expiry] The associated consent document expiry.
-  final String? expiry;
+  final String expiry;
 
   /// [documentName] The associated consent document name.
   final String? documentName;
@@ -32,13 +32,14 @@ class ConsentGranted implements AbstractEvent {
   ConsentGranted({
     required this.documentId,
     required this.documentVersion,
-    this.expiry,
+    required this.expiry,
     this.documentName,
     this.documentDescription,
     this.consentDocuments = const [],
     this.contexts = const {},
   })  : assert(documentId.isNotEmpty, 'documentId cannot be empty'),
-        assert(documentVersion.isNotEmpty, 'documentVersion cannot be empty');
+        assert(documentVersion.isNotEmpty, 'documentVersion cannot be empty'),
+        assert(expiry.isNotEmpty, 'expiry cannot be empty');
 
   @override
   Map<String, Object?> toMap() {
