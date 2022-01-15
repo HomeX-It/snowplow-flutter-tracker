@@ -1,7 +1,7 @@
 name: snowplow_flutter_tracker
 description: Snowplow event tracker for Flutter. Add analytics to your Flutter apps and games
 homepage: https://github.com/HomeXLabs/snowplow-flutter-tracker
-version: 0.11.0
+version: 0.11.1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
