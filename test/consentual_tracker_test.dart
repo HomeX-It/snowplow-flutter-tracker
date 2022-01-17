@@ -57,7 +57,7 @@ void main() {
     '[setSubject] If consent is granted, ConsentualTracker sets subject on child tracker',
     () async {
       final mock = MockTracker();
-      final subject = Subject();
+      const subject = Subject();
 
       final valueNotifier = ValueNotifier<bool>(true);
 
@@ -77,7 +77,7 @@ void main() {
     '[enableGdprContext] If consent is granted, ConsentualTracker enables GPDR context on child tracker',
     () async {
       final mock = MockTracker();
-      final context = GDPRContext(basis: GDPRLegalBasis.consent);
+      const context = GDPRContext(basis: GDPRLegalBasis.consent);
 
       final valueNotifier = ValueNotifier<bool>(true);
 

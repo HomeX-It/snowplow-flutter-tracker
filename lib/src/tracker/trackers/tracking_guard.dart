@@ -16,7 +16,7 @@ class TrackingGuard extends AbstractTracker {
   const TrackingGuard({
     required AbstractTracker child,
     required Future<bool> Function(AbstractEvent) shouldTrack,
-  })   : _child = child,
+  })  : _child = child,
         _shouldTrack = shouldTrack;
 
   @override
