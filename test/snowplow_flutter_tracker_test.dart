@@ -9,7 +9,7 @@ import 'package:snowplow_flutter_tracker/snowplow_flutter_tracker.dart';
 /// or else this test suite will break!
 void main() {
   const channel = MethodChannel('snowplow_flutter_tracker');
-  final tracker = Tracker(
+  const tracker = Tracker(
     emitter: Emitter(uri: 'uri'),
     appId: 'appID',
     namespace: 'namespace',
@@ -23,7 +23,7 @@ void main() {
       () async {
         var initialiseWasCalled = false;
 
-        final sut = SnowplowFlutterTracker(tracker);
+        const sut = SnowplowFlutterTracker(tracker);
 
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
           initialiseWasCalled = true;
@@ -44,7 +44,7 @@ void main() {
       () async {
         var initialiseWasCalled = false;
 
-        final sut = SnowplowFlutterTracker(tracker);
+        const sut = SnowplowFlutterTracker(tracker);
 
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
           initialiseWasCalled = true;
@@ -70,7 +70,7 @@ void main() {
       () async {
         var closeWasCalled = false;
 
-        final sut = SnowplowFlutterTracker(tracker);
+        const sut = SnowplowFlutterTracker(tracker);
 
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
           closeWasCalled = true;
@@ -90,7 +90,7 @@ void main() {
       () async {
         var closeWasCalled = false;
 
-        final sut = SnowplowFlutterTracker(tracker);
+        const sut = SnowplowFlutterTracker(tracker);
 
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
           closeWasCalled = true;
@@ -109,7 +109,7 @@ void main() {
     '[setSubject] Calls setSubject on platform channel',
     () async {
       var setSubjectCalled = false;
-      var subject = Subject(domainUserId: 'domainUserID');
+      const subject = Subject(domainUserId: 'domainUserID');
 
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
         setSubjectCalled = true;
@@ -118,7 +118,7 @@ void main() {
         expect(methodCall.arguments, equals(subject.toMap()));
       });
 
-      final sut = SnowplowFlutterTracker(tracker);
+      const sut = SnowplowFlutterTracker(tracker);
 
       await sut.setSubject(subject);
 
@@ -130,7 +130,7 @@ void main() {
     '[enableGDPRContext] Calls enableGDPRContext on platform channel',
     () async {
       var enableGDPRContextCalled = false;
-      var gdprContext = GDPRContext(basis: GDPRLegalBasis.consent);
+      const gdprContext = GDPRContext(basis: GDPRLegalBasis.consent);
 
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
         enableGDPRContextCalled = true;
@@ -139,7 +139,7 @@ void main() {
         expect(methodCall.arguments, equals(gdprContext.toMap()));
       });
 
-      final sut = SnowplowFlutterTracker(tracker);
+      const sut = SnowplowFlutterTracker(tracker);
 
       await sut.enableGdprContext(gdprContext);
 
@@ -158,7 +158,7 @@ void main() {
         expect(methodCall.method, equals('disableGdprContext'));
       });
 
-      final sut = SnowplowFlutterTracker(tracker);
+      const sut = SnowplowFlutterTracker(tracker);
 
       await sut.disableGdprContext();
 

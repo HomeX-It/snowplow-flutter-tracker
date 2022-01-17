@@ -20,7 +20,7 @@ class Emitter {
   final RequestSecurity requestSecurity;
 
   /// Create an [Emitter]
-  Emitter({
+  const Emitter({
     required this.uri,
     this.httpMethod = HttpMethod.post,
     this.bufferOption = BufferOption.defaultGroup,

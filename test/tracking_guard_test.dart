@@ -21,7 +21,7 @@ void main() {
 
   test('[setSubject] Calls setSubject on child tracker', () async {
     final mock = MockTracker();
-    final subject = Subject();
+    const subject = Subject();
 
     final sut = TrackingGuard(
       child: mock,
@@ -37,7 +37,7 @@ void main() {
     '[enableGdprContext] Calls enableGdprContext on child tracker',
     () async {
       final mock = MockTracker();
-      final context = GDPRContext(basis: GDPRLegalBasis.consent);
+      const context = GDPRContext(basis: GDPRLegalBasis.consent);
 
       final sut = TrackingGuard(
         child: mock,

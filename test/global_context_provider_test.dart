@@ -4,9 +4,9 @@ import 'package:snowplow_flutter_tracker/snowplow_flutter_tracker.dart';
 import 'utils/mock_tracker.dart';
 
 void main() {
-  final event = ScreenView(name: 'name', contexts: {});
+  final event = ScreenView(name: 'name', contexts: const {});
 
-  final context = SelfDescribingJson(
+  const context = SelfDescribingJson(
     payload: {},
     schema: 'schema',
   );
@@ -33,7 +33,7 @@ void main() {
     '[setSubject] Calls setSubject on child tracker',
     () async {
       final mock = MockTracker();
-      final subject = Subject();
+      const subject = Subject();
 
       final sut = TrackingGuard(
         child: mock,
@@ -50,7 +50,7 @@ void main() {
     '[enableGdprContext] Calls enableGdprContext on child tracker',
     () async {
       final mock = MockTracker();
-      final context = GDPRContext(basis: GDPRLegalBasis.consent);
+      const context = GDPRContext(basis: GDPRLegalBasis.consent);
 
       final sut = TrackingGuard(
         child: mock,
@@ -122,7 +122,7 @@ void main() {
         () async {
       final mock = MockTracker();
 
-      final context = SelfDescribingJson(
+      const context = SelfDescribingJson(
         payload: {},
         schema: 'schema',
       );

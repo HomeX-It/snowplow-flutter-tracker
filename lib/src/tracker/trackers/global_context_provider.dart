@@ -21,7 +21,7 @@ class GlobalContextProvider extends AbstractTracker {
     required child,
     shouldAttachTo = _attachToAllEvents,
     required buildContext,
-  })   : _child = child,
+  })  : _child = child,
         _shouldAttachTo = shouldAttachTo,
         _buildContext = buildContext;
 
