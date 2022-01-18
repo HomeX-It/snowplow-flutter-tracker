@@ -1,9 +1,13 @@
 # Changelog
-## [0.11.1] Jan 17, 2022
+## [0.12.0] Jan 18, 2022
 - **Android:** Migrated from jcenter to mavenCentral
-- **Android:** Updated Kotlin to 1.6.10
-- **Android:** Updated Gradle to 7.0.2
-- **Android:** Updated Gradle Build Tools to 7.0.4
+- **Android:** Updated Kotlin and Gradle
+- Added dummy server
+
+Thanks to **ohitsdaniel** for the following contributions
+- Allow adding GDPR context
+- Allow `platformContext` and `geoContext` tracking
+- Code improvements, fixes, and tests
 
 ## [0.11.0] Apr 6, 2021
 - Null safety migration
