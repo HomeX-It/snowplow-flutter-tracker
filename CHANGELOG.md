@@ -1,4 +1,8 @@
 # Changelog
+## [0.13.0] Feb 9, 2022
+- Support Flutter 2.10.0 
+  Now its default Android Target is Android 12 (sdk 31).
+
 ## [0.12.0] Jan 18, 2022
 - **Android:** Migrated from jcenter to mavenCentral
 - **Android:** Updated Kotlin and Gradle
